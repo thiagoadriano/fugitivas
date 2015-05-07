@@ -1,0 +1,54 @@
+[
+	{"componente" : "Agitador", "sigla" : "AGI", "status" : "ativo", "subtipo": [
+		{"nome":"Alívio", "sigla" : "ALV"},
+		{"nome":"Controle", "sigla" : "CON"},
+		{"nome":"Esfera", "sigla" : "ESF"}
+	]},
+	
+	
+	{"componente" : "Bomba", "sigla" : "BMB", "status" : "ativo", "subtipo": [
+		{"nome":"Alívio", "sigla" : "ALV"},
+		{"nome":"Controle", "sigla" : "CON"},
+		{"nome":"Esfera", "sigla" : "ESF"}
+	]},
+	
+	{"componente" : "Castelo", "sigla" : "CAS", "status" : "ativo", "subtipo": [
+		{"nome":"Alívio", "sigla" : "ALV"},
+		{"nome":"Controle", "sigla" : "CON"},
+		{"nome":"Esfera", "sigla" : "ESF"}
+	]},
+	
+	{"componente" : "Compressor", "sigla" : "COM", "status" : "ativo", "subtipo": []},
+	
+	{"componente" : "Filtro", "sigla" : "FLT", "status" : "ativo", "subtipo": [
+		{"nome":"Alívio", "sigla" : "ALV"},
+		{"nome":"Controle", "sigla" : "CON"},
+		{"nome":"Esfera", "sigla" : "ESF"}
+	]},
+	
+	{"componente" : "Flange", "sigla" : "FLG", "status" : "ativo", "subtipo": [
+		{"nome":"Alívio", "sigla" : "ALV"},
+		{"nome":"Controle", "sigla" : "CON"},
+		{"nome":"Esfera", "sigla" : "ESF"}
+	]},
+	
+	{"componente" : "Juntas (Conectores)", "sigla" : "JUN", "status" : "ativo", "subtipo": []},
+	
+	{"componente" : "Linha", "sigla" : "LHA", "status" : "ativo", "subtipo": [
+		{"nome":"Alívio", "sigla" : "ALV"},
+		{"nome":"Controle", "sigla" : "CON"},
+		{"nome":"Esfera", "sigla" : "ESF"}
+	]},
+	
+	{"componente" : "Outros", "sigla" : "OUT", "status" : "ativo", "subtipo": [
+		{"nome":"Alívio", "sigla" : "ALV"},
+		{"nome":"Controle", "sigla" : "CON"},
+		{"nome":"Esfera", "sigla" : "ESF"}
+	]},
+	
+	{"componente" : "PIG", "sigla" : "PIG", "status" : "ativo", "subtipo": [
+		{"nome":"Alívio", "sigla" : "ALV"},
+		{"nome":"Controle", "sigla" : "CON"},
+		{"nome":"Esfera", "sigla" : "ESF"}
+	]}
+]

@@ -1,0 +1,6 @@
+[
+	{"nome_fantasia" : "Beruf", "razao_social" : "BERUF LTDA", "status" : "ativo"},
+	{"nome_fantasia" : "Tuper", "razao_social" : "TUPER LTDA", "status" : "ativo"},
+	{"nome_fantasia" : "Essentra", "razao_social" : "ESSENTRA LTDA", "status" : "ativo"},
+	{"nome_fantasia" : "Ben Metal", "razao_social" : "BEM METAL LTDA", "status" : "inativo"}
+]

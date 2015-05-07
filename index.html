@@ -21,106 +21,23 @@
     <img src="imagem/petroleo.jpg" alt="" id="MainContentIMG">
   </div>
   <div id="content-btn">
-    <button type="button" class="btn btn-edit" id="toggleEdit">Editar</button>
+    <button type="button" class="btn btn-edit" id="toggleEdit" data-bind="click: troggleEdit">Editar</button>
     <button type="button" class="btn btn-export" id="btn-exportar">Exportar</button>
   </div>
 </div>
 
-<form id="fromDados" class="form-inline">
-  <div class="form-group">
-    <label for="">Unidade de processo: </label>
-    <select id="" name="" class="form-control">
-      <option value="">Selecione</option>
-    </select>
-  </div>
-
-
-  <fieldset>
-    <legend>Componente</legend>
-
-    <div class="form-group">
-      <label for="">Tipo: </label>
-      <select id="" name="" class="form-control">
-        <option value="">Selecione</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="">Categoria: </label>
-      <select id="" name="" class="form-control">
-        <option value="">Selecione</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="">Fabricante: </label>
-      <select id="" name="" class="form-control">
-        <option value="">Selecione</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="">Dimensão: </label>
-      <input type="text" name="" value="" class="form-control">
-      <label for=""> in</label>
-    </div>
-
-  </fieldset>
-
-  <fieldset>
-    <legend>Componente</legend>
-    <div class="form-group">
-      <label for="">Ponto de Medição: </label>
-      <input type="text" name="" value="" class="form-control">
-    </div>
-    <div class="form-group">
-      <label for="">Fluxograma: </label>
-      <input type="text" name="" value="" class="form-control">
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <legend>Detalhes</legend>
-    <div class="form-group">
-      <label for="">Localização do Ponto: </label>
-      <input type="text" name="" value="" class="form-control">
-    </div>
-    <div class="form-group">
-      <label for="">Posição do Ponto: </label>
-      <select id="" name="" class="form-control">
-        <option value="">Selecione</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="">Especialidade: </label>
-      <select id="" name="" class="form-control">
-        <option value="">Selecione</option>
-      </select>
-    </div>
-  </fieldset>
-  <div class="form-group">
-    <label for="">Observações: </label>
-    <textarea class="form-control" rows="3"></textarea>
-  </div>
-  <div class="checkbox">
-    <label>
-      <input type="checkbox" value="">
-      Ativo
-    </label>
-  </div>
-  <button type="button" class="btn btn-save">Salvar</button>
-  <button type="button" class="btn btn-default">Cancelar</button>
-</form>
-
 <!-- Controle de Scripts -->
   <script src="assets/js/lib/jquery-1.11.3.js"></script>
   <script src="assets/js/lib/jquery-ui.js"></script>
+  <script src="assets/js/lib/bootstrap.js"></script>
   <script src="assets/js/lib/jquery.fs.zoetrope.js"></script>
   <script src="assets/js/lib/toe.js"></script>
   <script src="assets/js/lib/jquery.mousewheel.js"></script>
   <script src="assets/js/lib/imgViewer.js"></script>
   <script src="assets/js/lib/knockout-3.1.0.js"></script>
+  <script src="assets/js/lib/jquery.tmpl.min.js"></script>
   <script src="assets/js/imgNotes.js"></script>
+  <script src="assets/js/model.js"></script>
   <script src="assets/js/main.js"></script>
   </body>
 </html>
