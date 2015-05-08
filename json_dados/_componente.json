@@ -1,54 +1,54 @@
 [
-	{"componente" : "Agitador", "sigla" : "AGI", "status" : "ativo", "subtipo": [
-		{"nome":"Alívio", "sigla" : "ALV"},
-		{"nome":"Controle", "sigla" : "CON"},
-		{"nome":"Esfera", "sigla" : "ESF"}
+	{"COMPONENTE" : "Agitador", "SIGLA" : "AGI", "STATUS" : "ativo", "SUBTIPO": [
+		{"NOME":"Alívio", "SIGLA" : "ALV"},
+		{"NOME":"Controle", "SIGLA" : "CON"},
+		{"NOME":"Esfera", "SIGLA" : "ESF"}
 	]},
 	
 	
-	{"componente" : "Bomba", "sigla" : "BMB", "status" : "ativo", "subtipo": [
-		{"nome":"Alívio", "sigla" : "ALV"},
-		{"nome":"Controle", "sigla" : "CON"},
-		{"nome":"Esfera", "sigla" : "ESF"}
+	{"COMPONENTE" : "Bomba", "SIGLA" : "BMB", "STATUS" : "ativo", "SUBTIPO": [
+		{"NOME":"Alívio", "SIGLA" : "ALV"},
+		{"NOME":"Controle", "SIGLA" : "CON"},
+		{"NOME":"Esfera", "SIGLA" : "ESF"}
 	]},
 	
-	{"componente" : "Castelo", "sigla" : "CAS", "status" : "ativo", "subtipo": [
-		{"nome":"Alívio", "sigla" : "ALV"},
-		{"nome":"Controle", "sigla" : "CON"},
-		{"nome":"Esfera", "sigla" : "ESF"}
+	{"COMPONENTE" : "Castelo", "SIGLA" : "CAS", "STATUS" : "ativo", "SUBTIPO": [
+		{"NOME":"Alívio", "SIGLA" : "ALV"},
+		{"NOME":"Controle", "SIGLA" : "CON"},
+		{"NOME":"Esfera", "SIGLA" : "ESF"}
 	]},
 	
-	{"componente" : "Compressor", "sigla" : "COM", "status" : "ativo", "subtipo": []},
+	{"COMPONENTE" : "Compressor", "SIGLA" : "COM", "STATUS" : "ativo", "SUBTIPO": []},
 	
-	{"componente" : "Filtro", "sigla" : "FLT", "status" : "ativo", "subtipo": [
-		{"nome":"Alívio", "sigla" : "ALV"},
-		{"nome":"Controle", "sigla" : "CON"},
-		{"nome":"Esfera", "sigla" : "ESF"}
+	{"COMPONENTE" : "Filtro", "SIGLA" : "FLT", "STATUS" : "ativo", "SUBTIPO": [
+		{"NOME":"Alívio", "SIGLA" : "ALV"},
+		{"NOME":"Controle", "SIGLA" : "CON"},
+		{"NOME":"Esfera", "SIGLA" : "ESF"}
 	]},
 	
-	{"componente" : "Flange", "sigla" : "FLG", "status" : "ativo", "subtipo": [
-		{"nome":"Alívio", "sigla" : "ALV"},
-		{"nome":"Controle", "sigla" : "CON"},
-		{"nome":"Esfera", "sigla" : "ESF"}
+	{"COMPONENTE" : "Flange", "SIGLA" : "FLG", "STATUS" : "ativo", "SUBTIPO": [
+		{"NOME":"Alívio", "SIGLA" : "ALV"},
+		{"NOME":"Controle", "SIGLA" : "CON"},
+		{"NOME":"Esfera", "SIGLA" : "ESF"}
 	]},
 	
-	{"componente" : "Juntas (Conectores)", "sigla" : "JUN", "status" : "ativo", "subtipo": []},
+	{"COMPONENTE" : "Juntas (Conectores)", "SIGLA" : "JUN", "STATUS" : "ativo", "SUBTIPO": []},
 	
-	{"componente" : "Linha", "sigla" : "LHA", "status" : "ativo", "subtipo": [
-		{"nome":"Alívio", "sigla" : "ALV"},
-		{"nome":"Controle", "sigla" : "CON"},
-		{"nome":"Esfera", "sigla" : "ESF"}
+	{"COMPONENTE" : "Linha", "SIGLA" : "LHA", "STATUS" : "ativo", "SUBTIPO": [
+		{"NOME":"Alívio", "SIGLA" : "ALV"},
+		{"NOME":"Controle", "SIGLA" : "CON"},
+		{"NOME":"Esfera", "SIGLA" : "ESF"}
 	]},
 	
-	{"componente" : "Outros", "sigla" : "OUT", "status" : "ativo", "subtipo": [
-		{"nome":"Alívio", "sigla" : "ALV"},
-		{"nome":"Controle", "sigla" : "CON"},
-		{"nome":"Esfera", "sigla" : "ESF"}
+	{"COMPONENTE" : "Outros", "SIGLA" : "OUT", "STATUS" : "ativo", "SUBTIPO": [
+		{"NOME":"Alívio", "SIGLA" : "ALV"},
+		{"NOME":"Controle", "SIGLA" : "CON"},
+		{"NOME":"Esfera", "SIGLA" : "ESF"}
 	]},
 	
-	{"componente" : "PIG", "sigla" : "PIG", "status" : "ativo", "subtipo": [
-		{"nome":"Alívio", "sigla" : "ALV"},
-		{"nome":"Controle", "sigla" : "CON"},
-		{"nome":"Esfera", "sigla" : "ESF"}
+	{"COMPONENTE" : "PIG", "SIGLA" : "PIG", "STATUS" : "ativo", "SUBTIPO": [
+		{"NOME":"Alívio", "SIGLA" : "ALV"},
+		{"NOME":"Controle", "SIGLA" : "CON"},
+		{"NOME":"Esfera", "SIGLA" : "ESF"}
 	]}
 ]

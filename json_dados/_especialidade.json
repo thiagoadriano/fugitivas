@@ -1,5 +1,5 @@
 [
-	{"especialidade" : "Calderaria", "sigla" : "CALD", "status" : "ativo"},
-	{"especialidade" : "Instrumentação", "sigla" : "INST", "status" : "ativo"},
-	{"especialidade" : "Mecânica", "sigla" : "MEC", "status" : "ativo"}
+	{"ESPECIALIDADE" : "Calderaria", "SIGLA" : "CALD", "STATUS" : "ativo"},
+	{"ESPECIALIDADE" : "Instrumentação", "SIGLA" : "INST", "STATUS" : "ativo"},
+	{"ESPECIALIDADE" : "Mecânica", "SIGLA" : "MEC", "STATUS" : "ativo"}
 ]

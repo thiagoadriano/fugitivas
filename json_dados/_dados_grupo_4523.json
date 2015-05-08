@@ -1,0 +1,37 @@
+﻿{
+	"ID": "4523", 
+	"IMG_NAME": "", 
+	"EMPRESA": "",
+	"NIVEL1": "", 
+	"NIVEL2": "", 
+	"NIVEL3": "", 
+	"UNIDADE_PROCESSO": "", 
+	"LINHA_PROCESSO": "", 
+	"TAG_EQUIPAMENTO": "",
+	"POSICAO_GRUPO": "", 
+	"FLUXOGRAMA": "", 
+	"NOTA": "", 
+	"MARCACAO_PONTO": 
+	[
+		{"x": "", "y": "",  "DADOS_PONTO": { 
+			"TIPO_COMPONENTE": "",
+			"SUBTIPO_COMPONENTE": "",
+			"FABRICANTE": "",
+			"DIMENSAO": "",
+			"MEDIDA_DIMENSAO": "",
+			"POSICAO_PONTO": "",
+			"ESPECIALIDADE_PONTO": ""}
+		},
+
+		{"x": "", "y": "",  "DADOS_PONTO": { 
+			"TIPO_COMPONENTE": "",
+			"SUBTIPO_COMPONENTE": "",
+			"FABRICANTE": "",
+			"DIMENSAO": "",
+			"MEDIDA_DIMENSAO": "",
+			"POSICAO_PONTO": "",
+			"ESPECIALIDADE_PONTO": ""}
+		}
+
+	]
+}

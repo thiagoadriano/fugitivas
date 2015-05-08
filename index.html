@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
@@ -7,24 +7,82 @@
     <link rel="stylesheet" href="assets/css/lib/jquery-ui.css">
     <link rel="stylesheet" href="assets/css/lib/jquery-ui.structure.css">
     <link rel="stylesheet" href="assets/css/lib/jquery-ui.theme.css">
-    <link rel="stylesheet" href="assets/css/marker.css">
-    <link rel="stylesheet" href="assets/css/normalize.css">
+    <link rel="stylesheet" href="assets/css/lib/marker.css">
+    <link rel="stylesheet" href="assets/css/lib/bootstrap.css">
     <link rel="stylesheet" href="assets/css/main.css">
   </head>
 
   <body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
 
-
-
-<div id="content">
-  <div id="content-img">
-    <img src="imagem/petroleo.jpg" alt="" id="MainContentIMG">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="hide">id</th>
+              <th>Grupo de Pontos</th>
+              <th>Unidade de Processo</th>
+              <th>Linha de Processo</th>
+              <th>Tag do Equipamento</th>
+              <th>Ação</th>
+            </tr>
+          </thead>
+            <tbody data-bind="foreach: ModelFugitivas.listModel">
+                <tr>
+                    <th scope="row" class="hide" data-bind="text: ID"></th>
+                    <td data-bind="text: GRUPO_PONTOS">Nome do Grupo de Pontos</td>
+                    <td data-bind="text: UNIDADE_PROCESSO">Unidade de Processo 1</td>
+                    <td data-bind="text: LINHA_PROCESSO">Linha de Processo 1</td>
+                    <td data-bind="text: TAG_EQUIPAMENTO">Tag 1 Equipamento</td>
+                    <td>
+                        <button type="button" 
+                                class="btn btn-primary btn-sm" 
+                                data-bind="click: $parent.openModal">Pontos de Medição</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+      </div>
+    </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modalPontos" role="dialog" aria-labelledby="ModalEditPoint" aria-hidden="false">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Grupo de Ponto:</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              
+              <div class="col-md-4"></div>
+             
+              <div class="col-md-8">
+                <div id="content">
+                  <div id="content-img">
+                    <img src="imagem/petroleo.jpg" alt="" id="MainContentIMG">
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-edit" id="toggleEdit">Editar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div id="content-btn">
-    <button type="button" class="btn btn-edit" id="toggleEdit" data-bind="click: troggleEdit">Editar</button>
-    <button type="button" class="btn btn-export" id="btn-exportar">Exportar</button>
-  </div>
-</div>
+  
+
+
+
+
 
 <!-- Controle de Scripts -->
   <script src="assets/js/lib/jquery-1.11.3.js"></script>
@@ -35,8 +93,9 @@
   <script src="assets/js/lib/jquery.mousewheel.js"></script>
   <script src="assets/js/lib/imgViewer.js"></script>
   <script src="assets/js/lib/knockout-3.1.0.js"></script>
-  <script src="assets/js/lib/jquery.tmpl.min.js"></script>
-  <script src="assets/js/imgNotes.js"></script>
+  <script src="assets/js/lib/knockout.mapping.js"></script>
+  <!--<script src="assets/js/lib/jquery.tmpl.min.js"></script>-->
+  <script src="assets/js/lib/imgNotes.js"></script>
   <script src="assets/js/model.js"></script>
   <script src="assets/js/main.js"></script>
   </body>
