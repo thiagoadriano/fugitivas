@@ -28,17 +28,19 @@
               <th>Ação</th>
             </tr>
           </thead>
-            <tbody data-bind="foreach: ModelFugitivas.listModel">
+            <tbody data-bind="foreach: ModelFugitivas.listaGrupoPontos">
                 <tr>
                     <th scope="row" class="hide" data-bind="text: ID"></th>
-                    <td data-bind="text: GRUPO_PONTOS">Nome do Grupo de Pontos</td>
-                    <td data-bind="text: UNIDADE_PROCESSO">Unidade de Processo 1</td>
-                    <td data-bind="text: LINHA_PROCESSO">Linha de Processo 1</td>
-                    <td data-bind="text: TAG_EQUIPAMENTO">Tag 1 Equipamento</td>
+                    <td data-bind="text: NOME_GRUPO_PONTOS"></td>
+                    <td data-bind="text: UNIDADE_PROCESSO"></td>
+                    <td data-bind="text: LINHA_PROCESSO"></td>
+                    <td data-bind="text: TAG_EQUIPAMENTO"></td>
                     <td>
-                        <button type="button" 
-                                class="btn btn-primary btn-sm" 
-                                data-bind="click: $parent.openModal">Pontos de Medição</button>
+                        <button type="button"
+                                class="btn btn-primary btn-md"
+                                data-bind="enable: ID_GRUPO_PONTO() != '', click: $parent.openModal">
+                            Pontos de Medição
+                        </button>
                     </td>
                 </tr>
             </tbody>
@@ -52,18 +54,100 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Grupo de Ponto:</h4>
+              <button type="button" class="close" data-bind="click: closeModal"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" data-bind="text: titleModal"></h4>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" data-bind="foreach: ModelFugitivas.dadosModal">
             <div class="row">
               
-              <div class="col-md-4"></div>
+              <div class="col-md-3">
+                  <form class="form-horizontal">
+                      <fieldset>
+                          <legend>Unidade Organizacional</legend>
+
+                              <div class="form-group">
+                                  <label for="" class="col-md-4 control-label">Empresa</label>
+                                  <div class="col-md-8">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: EMPRESA">
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="" class="col-md-4 control-label">Nível 1</label>
+                                  <div class="col-md-8">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: NIVEL1">
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="" class="col-md-4 control-label">Nível 2</label>
+                                  <div class="col-md-8">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: NIVEL2">
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="" class="col-md-4 control-label">Nível 3</label>
+                                  <div class="col-md-8">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: NIVEL3">
+                                  </div>
+                              </div>
+
+                      </fieldset>
+
+                      <fieldset>
+                          <legend>Processo</legend>
+
+                              <div class="form-group">
+                                  <label for="" class="col-md-4 control-label">Unidade de Processo</label>
+                                  <div class="col-md-8">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: UNIDADE_PROCESSO">
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="" class="col-md-4 control-label">Linha de Processo</label>
+                                  <div class="col-md-8">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: LINHA_PROCESSO">
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="" class="col-md-4 control-label">Tag do Equipamento</label>
+                                  <div class="col-md-8">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: TAG_EQUIPAMENTO">
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="" class="col-md-4 control-label">Posição do Grupo</label>
+                                  <div class="col-md-8">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: POSICAO_GRUPO">
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="" class="col-md-4 control-label">Fluxograma</label>
+                                  <div class="col-md-8">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: FLUXOGRAMA">
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="" class="col-md-4 control-label">Nota</label>
+                                  <div class="col-md-8">
+                                      <textarea class="form-control" rows="3" data-bind="value: NOTA" readonly="readonly"></textarea>
+                                  </div>
+                              </div>
+
+                      </fieldset>
+                  </form>
+              </div>
              
-              <div class="col-md-8">
+              <div class="col-md-9">
                 <div id="content">
                   <div id="content-img">
-                    <img src="imagem/petroleo.jpg" alt="" id="MainContentIMG">
+                      <img id="MainContentIMG" data-bind="attr: {src: 'imagem/' + IMG_NAME}">
                   </div>
                 </div>
               </div>
@@ -71,8 +155,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-edit" id="toggleEdit">Editar</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            <button type="button" class="btn btn-primary" id="toggleEdit">Editar</button>
+              <button type="button" class="btn btn-default" data-bind="click: closeModal">Fechar</button>
           </div>
         </div>
       </div>

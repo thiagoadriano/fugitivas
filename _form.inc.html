@@ -1,50 +1,70 @@
-<form id="fromDados" class="form-inline">
-  <fieldset>
-    <legend>Componente:</legend>
-
-    <div class="form-group">
-      <label for="tipo">Tipo: </label>
-      <select id="tipo" name="" class="form-control">
-        <option value="">Selecione</option>
-      </select>
+<form id="fromDados" class="form-horizontal">
+    <div role="tabpanel">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#componente" aria-controls="componente" role="tab" data-toggle="tab">Componente</a></li>
+            <li role="presentation"><a href="#caracteristicas" aria-controls="caracteristicas" role="tab" data-toggle="tab">Características</a></li>
+        </ul>
     </div>
 
-    <div class="form-group">
-      <label for="subtipo">Subtipo: </label>
-      <select id="subtipo" name="" class="form-control">
-        <option value="">Selecione</option>
-      </select>
-    </div>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="componente">
 
-    <div class="form-group">
-      <label for="fabricante">Fabricante: </label>
-      <select id="fabricante" name="" class="form-control">
-        <option value="">Selecione</option>
-      </select>
-    </div>
-  </fieldset>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="tipo">Tipo: </label>
+                <div class="col-md-8">
+                    <select id="tipo" name="" class="form-control input-sm">
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+            </div>
 
-  <fieldset>
-    <legend>Características:</legend>
-    <div class="form-group">
-      <label for="dimensao">Dimensão do componente: </label>
-      <input type="text" id="dimensao" value="" class="form-control">
-      <select id="dimensao_medida" name="" class="form-control">
-        <option value="polegadas">Polegadas</option>
-        <option value="milimetros">Milímetros</option>
-      </select>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="subtipo">Subtipo: </label>
+                <div class="col-md-8">
+                    <select id="subtipo" name="" class="form-control input-sm">
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="fabricante">Fabricante: </label>
+                <div class="col-md-8">
+                    <select id="fabricante" name="" class="form-control input-sm">
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="caracteristicas">
+            <div class="form-group">
+                <label class="col-md-5 control-label" for="dimensao">Dimensão do componente: </label>
+                <div class="col-md-3">
+                    <input type="text" id="dimensao" value="" class="form-control input-sm">
+                </div>
+                <div class="col-md-4">
+                    <select id="dimensao_medida" name="" class="form-control input-sm">
+                        <option value="polegadas">Polegadas</option>
+                        <option value="milimetros">Milímetros</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-5 control-label" for="posicao">Posição do ponto: </label>
+                <div class="col-md-7">
+                    <input type="text" id="posicao" value="" class="form-control input-sm">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-5 control-label" for="especialidade">Especialidade do ponto: </label>
+                <div class="col-md-7">
+                    <select id="especialidade" class="form-control input-sm">
+                        <option value="">Selecione</option>
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-      <label for="posicao">Posição do ponto: </label>
-      <input type="text" id="posicao" value="" class="form-control">
-    </div>
-    <div class="form-group">
-      <label for="especialidade">Especialidade do ponto: </label>
-      <select id="especialidade" class="form-control">
-        <option value="">Selecione</option>
-      </select>
-    </div>
-  </fieldset>
-  <button type="button" class="btn btn-save">Salvar</button>
-  <button type="button" class="btn btn-default">Cancelar</button>
 </form>

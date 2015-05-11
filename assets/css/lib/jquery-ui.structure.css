@@ -488,7 +488,7 @@ button.ui-button::-moz-focus-inner {
 	outline: 0;
 }
 .ui-dialog .ui-dialog-titlebar {
-	padding: .4em 1em;
+	padding: 0.2em 1em;
 	position: relative;
 }
 .ui-dialog .ui-dialog-title {
@@ -520,7 +520,7 @@ button.ui-button::-moz-focus-inner {
 	border-width: 1px 0 0 0;
 	background-image: none;
 	margin-top: .5em;
-	padding: .3em 1em .5em .4em;
+	padding: 0.3em 1em 0.3em 0.4em;
 }
 .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
 	float: right;
