@@ -55,88 +55,88 @@
         <div class="modal-content">
           <div class="modal-header">
               <button type="button" class="close" data-bind="click: closeModal"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" data-bind="text: titleModal"></h4>
+            <h4 class="modal-title">Grupo de Ponto:  <strong data-bind="text: titleModal"></strong></h4>
           </div>
           <div class="modal-body" data-bind="foreach: ModelFugitivas.dadosModal">
             <div class="row">
               
-              <div class="col-md-3">
+              <div class="col-md-4">
                   <form class="form-horizontal">
                       <fieldset>
                           <legend>Unidade Organizacional</legend>
 
                               <div class="form-group">
-                                  <label for="" class="col-md-4 control-label">Empresa</label>
+                                  <label for="" class="col-md-4 control-label label-control-one">Empresa</label>
                                   <div class="col-md-8">
-                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: EMPRESA">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: EMPRESA">
                                   </div>
                               </div>
 
                               <div class="form-group">
-                                  <label for="" class="col-md-4 control-label">Nível 1</label>
+                                  <label for="" class="col-md-4 control-label label-control-one">Nível 1</label>
                                   <div class="col-md-8">
-                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: NIVEL1">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: NIVEL1">
                                   </div>
                               </div>
 
                               <div class="form-group">
-                                  <label for="" class="col-md-4 control-label">Nível 2</label>
+                                  <label for="" class="col-md-4 control-label label-control-one">Nível 2</label>
                                   <div class="col-md-8">
-                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: NIVEL2">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: NIVEL2">
                                   </div>
                               </div>
 
                               <div class="form-group">
-                                  <label for="" class="col-md-4 control-label">Nível 3</label>
+                                  <label for="" class="col-md-4 control-label label-control-one">Nível 3</label>
                                   <div class="col-md-8">
-                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: NIVEL3">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: NIVEL3">
                                   </div>
                               </div>
 
                       </fieldset>
 
                       <fieldset>
-                          <legend>Processo</legend>
+                          <!--<legend>Processo</legend>-->
 
                               <div class="form-group">
                                   <label for="" class="col-md-4 control-label">Unidade de Processo</label>
                                   <div class="col-md-8">
-                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: UNIDADE_PROCESSO">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: UNIDADE_PROCESSO">
                                   </div>
                               </div>
 
                               <div class="form-group">
                                   <label for="" class="col-md-4 control-label">Linha de Processo</label>
                                   <div class="col-md-8">
-                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: LINHA_PROCESSO">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: LINHA_PROCESSO">
                                   </div>
                               </div>
 
                               <div class="form-group">
                                   <label for="" class="col-md-4 control-label">Tag do Equipamento</label>
                                   <div class="col-md-8">
-                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: TAG_EQUIPAMENTO">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: TAG_EQUIPAMENTO">
                                   </div>
                               </div>
 
                               <div class="form-group">
                                   <label for="" class="col-md-4 control-label">Posição do Grupo</label>
                                   <div class="col-md-8">
-                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: POSICAO_GRUPO">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: POSICAO_GRUPO">
                                   </div>
                               </div>
 
                               <div class="form-group">
-                                  <label for="" class="col-md-4 control-label">Fluxograma</label>
+                                  <label for="" class="col-md-4 control-label label-control-one">Fluxograma</label>
                                   <div class="col-md-8">
-                                      <input type="text" class="form-control input-sm" readonly="readonly" data-bind="value: FLUXOGRAMA">
+                                      <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: FLUXOGRAMA">
                                   </div>
                               </div>
 
                               <div class="form-group">
                                   <label for="" class="col-md-4 control-label">Nota</label>
                                   <div class="col-md-8">
-                                      <textarea class="form-control" rows="3" data-bind="value: NOTA" readonly="readonly"></textarea>
+                                      <textarea class="form-control" rows="3" data-bind="value: NOTA" readonly="readonly" disabled="disabled"></textarea>
                                   </div>
                               </div>
 
@@ -144,7 +144,7 @@
                   </form>
               </div>
              
-              <div class="col-md-9">
+              <div class="col-md-8">
                 <div id="content">
                   <div id="content-img">
                       <img id="MainContentIMG" data-bind="attr: {src: 'imagem/' + IMG_NAME}">
@@ -155,32 +155,97 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="toggleEdit">Editar</button>
-              <button type="button" class="btn btn-default" data-bind="click: closeModal">Fechar</button>
+              <button type="button" class="btn btn-modal btn-warning" data-bind="text: btnEditar, click: editClick"></button>
+              <button type="button" class="btn btn-modal btn-primary" data-bind="click: closeModal">Fechar</button>
           </div>
         </div>
       </div>
     </div>
   </div>
   
+<!-- Template para o formulário de cada ponto -->
+<div id="templateForm" style="visibility:hidden" >
+    <form id="fromDados" class="form-horizontal">
+        <div role="tabpanel">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#componente" aria-controls="componente" role="tab" data-toggle="tab">Componente</a></li>
+                <li role="presentation"><a href="#caracteristicas" aria-controls="caracteristicas" role="tab" data-toggle="tab">Características</a></li>
+            </ul>
+        </div>
 
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="componente">
 
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="tipo">Tipo: </label>
+                    <div class="col-md-8">
+                        <select class="form-control input-sm" data-bind="options: listagemComponente, optionsText: 'COMPONENTE', optionsValue: 'ID', optionsCaption: 'Selecione', value: tipoSelecionado"></select>
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="subtipo">Subtipo: </label>
+                    <div class="col-md-8">
+                        <select class="form-control input-sm" data-bind="options: listagemSubtipo, enable: subtipoSelecionado() != '' && subtipoSelecionado() != undefined , optionsText: 'NOME', optionsValue: 'ID', value: subtipoSelecionado"></select>
+                    </div>
+                </div>
 
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="fabricante">Fabricante: </label>
+                    <div class="col-md-8">
+                        <select class="form-control input-sm" data-bind="options: listagemFabricante, optionsText: 'RAZAO_SOCIAL', optionsValue: 'ID', optionsCaption: 'Selecione'"></select>
+                    </div>
+                </div>
 
-<!-- Controle de Scripts -->
-  <script src="assets/js/lib/jquery-1.11.3.js"></script>
-  <script src="assets/js/lib/jquery-ui.js"></script>
-  <script src="assets/js/lib/bootstrap.js"></script>
-  <script src="assets/js/lib/jquery.fs.zoetrope.js"></script>
-  <script src="assets/js/lib/toe.js"></script>
-  <script src="assets/js/lib/jquery.mousewheel.js"></script>
-  <script src="assets/js/lib/imgViewer.js"></script>
-  <script src="assets/js/lib/knockout-3.1.0.js"></script>
-  <script src="assets/js/lib/knockout.mapping.js"></script>
-  <!--<script src="assets/js/lib/jquery.tmpl.min.js"></script>-->
-  <script src="assets/js/lib/imgNotes.js"></script>
-  <script src="assets/js/model.js"></script>
-  <script src="assets/js/main.js"></script>
-  </body>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade" id="caracteristicas">
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="dimensao">Dimensão do componente: </label>
+                    <div class="col-md-3">
+                        <input type="text" id="dimensao" value="" class="form-control input-sm">
+                    </div>
+                    <div class="col-md-4">
+                        <select id="dimensao_medida" class="form-control input-sm">
+                            <option value="polegadas">Polegadas</option>
+                            <option value="milimetros">Milímetros</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="posicao">Posição do ponto: </label>
+                    <div class="col-md-7">
+                        <input type="text" id="posicao" value="" class="form-control input-sm">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-5 control-label" for="especialidade">Especialidade do ponto: </label>
+                    <div class="col-md-7">
+                        <select class="form-control input-sm" data-bind="options: listagemEspecialidade, optionsText: 'ESPECIALIDADE', optionsValue: 'ID', optionsCaption: 'Selecione'"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 pull-right">
+                    <button type="submit" class="btn btn-success btn-block">Salvar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+ </div>
+          <!-- Controle de Scripts -->
+          <script src="assets/js/lib/jquery-1.11.3.js"></script>
+          <script src="assets/js/lib/jquery-ui.js"></script>
+          <script src="assets/js/lib/bootstrap.js"></script>
+          <script src="assets/js/lib/jquery.fs.zoetrope.js"></script>
+          <script src="assets/js/lib/toe.js"></script>
+          <script src="assets/js/lib/jquery.mousewheel.js"></script>
+          <script src="assets/js/lib/imgViewer.js"></script>
+          <script src="assets/js/lib/knockout-3.3.0.debug.js"></script>
+          <script src="assets/js/lib/knockout.mapping.js"></script>
+          <script src="assets/js/lib/imgNotes.js"></script>
+          <script src="assets/js/controller.js"></script>
+          <script src="assets/js/model.js"></script>
+
+</body>
 </html>

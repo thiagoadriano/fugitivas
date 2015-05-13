@@ -1,5 +1,5 @@
 [
-	{"ESPECIALIDADE" : "Calderaria", "SIGLA" : "CALD", "STATUS" : "ativo"},
-	{"ESPECIALIDADE" : "Instrumentação", "SIGLA" : "INST", "STATUS" : "ativo"},
-	{"ESPECIALIDADE" : "Mecânica", "SIGLA" : "MEC", "STATUS" : "ativo"}
+	{"ID": "0", "ESPECIALIDADE" : "Calderaria", "SIGLA" : "CALD", "STATUS" : "ativo"},
+	{"ID": "1", "ESPECIALIDADE" : "Instrumentação", "SIGLA" : "INST", "STATUS" : "ativo"},
+	{"ID": "2", "ESPECIALIDADE" : "Mecânica", "SIGLA" : "MEC", "STATUS" : "ativo"}
 ]

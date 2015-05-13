@@ -1,6 +1,6 @@
 [
-	{"NOME_FANTASIA" : "Beruf", "RAZAO_SOCIAL" : "BERUF LTDA", "STATUS" : "ativo"},
-	{"NOME_FANTASIA" : "Tuper", "RAZAO_SOCIAL" : "TUPER LTDA", "STATUS" : "ativo"},
-	{"NOME_FANTASIA" : "Essentra", "RAZAO_SOCIAL" : "ESSENTRA LTDA", "STATUS" : "ativo"},
-	{"NOME_FANTASIA" : "Ben Metal", "RAZAO_SOCIAL" : "BEM METAL LTDA", "STATUS" : "inativo"}
+	{"ID": "0", "NOME_FANTASIA" : "Beruf", "RAZAO_SOCIAL" : "BERUF LTDA", "STATUS" : "ativo"},
+	{"ID": "1", "NOME_FANTASIA" : "Tuper", "RAZAO_SOCIAL" : "TUPER LTDA", "STATUS" : "ativo"},
+	{"ID": "2", "NOME_FANTASIA" : "Essentra", "RAZAO_SOCIAL" : "ESSENTRA LTDA", "STATUS" : "ativo"},
+	{"ID": "3", "NOME_FANTASIA" : "Ben Metal", "RAZAO_SOCIAL" : "BEM METAL LTDA", "STATUS" : "inativo"}
 ]

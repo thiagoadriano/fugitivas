@@ -1,3 +1,13 @@
+var CONTAINER_IMAGEM = "#MainContentIMG";
+var URLS = {};
+URLS.Base = "/json_dados/";
+URLS.Especialidade = URLS.Base + "_especialidade.json";
+URLS.Componente    = URLS.Base + "_componente.json";
+URLS.ListaGrupo    = URLS.Base + "_lista_de_grupo.json";
+URLS.Fabricante    = URLS.Base + "_fabricantes.json";
+URLS.IncludeForm = "_form.inc.html";
+
+
 var getData = function (urlLink, callback) {
     $.ajax({
         url: urlLink,
@@ -18,23 +28,17 @@ var getData = function (urlLink, callback) {
 
 
 };
+
+var template = "";
+
 var defaultImgNotes = {
     onAdd: function () {
         this.options.vAll = "bottom";
         this.options.hAll = "middle";
         var elem = $(document.createElement('div')).addClass("marker-point");
-        var btn = $(".ui-dialog-buttonset").find("button");
-        $.each(btn, function () {
-            if ($(this).text() === "Salvar") {
-                $(this).addClass("btn btn-success");
-            } else if ($(this).text() === "Deletar") {
-                $(this).addClass("btn btn-danger");
-            } else {
-                $(this).addClass("btn btn-default");
-            }
-        });
         return elem;
     },
+
     onEdit: function(ev, elem) {
         var $elem = $(elem);
         $('#NoteDialog').remove();
@@ -46,111 +50,176 @@ var defaultImgNotes = {
             height: "295",
             width: "400",
             position: { my: "left top", at: "right bottom", of: elem},
-            buttons: {
-                "Salvar": function (event) {
-                    $(event.currentTarget).addClass("btn")
-                    $(this).dialog("close");
-                },
-                "Deletar": function() {
-                    $elem.trigger("remove");
-                    $(this).dialog("close");
-
-                }
-            },
             open: function(event, ui) {
                 $(this).css("overflow", "hidden");
-                
-                $(this).load("_form.inc.html");
-                
+                template.appendTo($(this));
+
+                $('#myTab a').click(function (e) {
+                    e.preventDefault()
+                    $(this).tab('show')
+                });
+                (function () {
+                    ModelFugitivas.tipoSelecionado.subscribe(
+                        function (data) {
+                            ModelFugitivas.listagemSubtipo([]);
+                            var objetoComponente = ModelFugitivas.listagemComponente()[data];
+
+                            console.log(data)
+
+                            if (objetoComponente !== undefined && objetoComponente.SUBTIPO().length) {
+                                for (var i in objetoComponente.SUBTIPO()) {
+                                    ModelFugitivas.listagemSubtipo.push(objetoComponente.SUBTIPO()[i]);
+                                };
+                            }
+                            else {
+                                ModelFugitivas.listagemSubtipo.push({ NOME: "Selecione um Tipo com Subtipo", ID: "" });
+                            }
+
+                        }
+                    );
+                })()
+               
             },
             close: function(event, ui) {
-                //$elem.trigger("remove");
+                $elem.trigger("remove");
                 $(this).dialog("close");
             }
         });
-    },
-    canEdit: true 
+    }
 };
 
 var ModelFugitivas =
  {
-     /*
-      * Variáveis de controle
-      */
-    self:this,
+
+    self: this,
     titleModal : ko.observable(),
-    pathIMg : "imagem/",
     listaGrupoPontos: ko.observableArray(),
     editModelFugitivas: ko.observable(),
+    pathIMg: "imagem/",
     dadosModal: ko.observable(),
     listaPontos: ko.observableArray(),
+    btnEditar: ko.observable("Editar"),
+    listagemComponente: ko.observableArray(),
+    listagemEspecialidade: ko.observableArray(),
+    listagemFabricante: ko.observableArray(),
+    listagemSubtipo: ko.observableArray([{ NOME: "Selecione um Tipo com Subtipo", ID: "" }]),
+    tipoSelecionado: ko.observable(),
+    subtipoSelecionado: ko.observable(),
 
-     /*
-     * Método que abre o ponto e puxa os dados inserindo no determinado ponto
-     */
     openModal: function (grupo)
     {
         if (grupo.ID_GRUPO_PONTO() != "") {
-            getData("/json_dados/" + grupo.ID_GRUPO_PONTO() + ".json", function (result) {
+            getData(URLS.Base + grupo.ID_GRUPO_PONTO() + ".json", function (result) {
                 ModelFugitivas.dadosModal(result);
                 for (var i in result.MARCACAO_PONTO) {
                     ModelFugitivas.listaPontos.push( ko.mapping.fromJS(result.MARCACAO_PONTO[i]) );
                 }
 
                 $(function () {
-
                     $('#modalPontos')
                         .on('shown.bs.modal', function () {
-                            $("#MainContentIMG").imgNotes(defaultImgNotes);
+                            $(CONTAINER_IMAGEM).imgNotes(defaultImgNotes);
                         })
-                        .modal({show:true});
-
-                    
+                        .modal({ show: true });
                 });
                
             });
 
-            ModelFugitivas.titleModal("Grupo de Ponto: " + grupo.NOME_GRUPO_PONTOS());
+            ModelFugitivas.titleModal(grupo.NOME_GRUPO_PONTOS());
            
         }
         
     },
 
-    editClick: function (data)
+    editClick: function ()
     {
-        this.editModel(data);
+        if ($(CONTAINER_IMAGEM).imgNotes("option", "canEdit")) {
+            $(CONTAINER_IMAGEM).imgNotes("option", "canEdit", false)
+            ModelFugitivas.btnEditar("Editar");
+        } else {
+            $(CONTAINER_IMAGEM).imgNotes("option", "canEdit", true);
+            ModelFugitivas.btnEditar("Concluir");
+        }
     },
 
     closeModal: function(){
         this.dadosModal([]);
-        $(function () {
-            $('#modalPontos').modal("hide");
-            $(".viewport").html("").remove();
-        })
+        $('#modalPontos').modal("hide");
+        $(".viewport").html("").remove();
+        
     },
 
-
-    saveEdit: function (data)
-    {
-
-    },
-
-     
-
-     /*
-      * Método que chama a listagem dos grupos cadastrados.
-     */
     init: function ()
     {
-        getData("/json_dados/_lista_de_grupo.json", function(result){
+
+       /* getData(URLS.ListaGrupo, function(result){
             for (var i in result) {
                 ModelFugitivas.listaGrupoPontos.push(ko.mapping.fromJS(result[i]));
             }
         
         });
+        getData(URLS.Componente, function (resultComponente) {
+            for (var i in resultComponente) {
+                if (resultComponente[i].STATUS === "ativo") {
+                    ModelFugitivas.listagemComponente.push(ko.mapping.fromJS(resultComponente[i]));
+                }
+                
+            }
+        });
+        getData(URLS.Fabricante, function (resultFabricante) {
+            for (var i in resultFabricante) {
+                if (resultFabricante[i].STATUS === "ativo") {
+                    ModelFugitivas.listagemFabricante.push(ko.mapping.fromJS(resultFabricante[i]));
+                }
+                
+            }
+        });
+        getData(URLS.Especialidade, function (resultEspecialidade) {
+            for (var i in resultEspecialidade) {
+                if (resultEspecialidade[i].STATUS === "ativo") {
+                    ModelFugitivas.listagemEspecialidade.push(ko.mapping.fromJS(resultEspecialidade[i]));
+                }
+
+            }
+            
+        });*/
+
+
+        $.when($.ajax(URLS.ListaGrupo), $.ajax(URLS.Componente), $.ajax(URLS.Fabricante), $.ajax(URLS.Especialidade)).done(
+            function (result, resultComponente, resultFabricante, resultEspecialidade) {
+                for (var i in result) {
+                    ModelFugitivas.listaGrupoPontos.push(ko.mapping.fromJS(result[i]));
+                };
+                for (var i in resultComponente) {
+                    if (resultComponente[i].STATUS === "ativo") {
+                        ModelFugitivas.listagemComponente.push(ko.mapping.fromJS(resultComponente[i]));
+                    }
+
+                };
+                for (var i in resultFabricante) {
+                    if (resultFabricante[i].STATUS === "ativo") {
+                        ModelFugitivas.listagemFabricante.push(ko.mapping.fromJS(resultFabricante[i]));
+                    }
+
+                };
+                for (var i in resultEspecialidade) {
+                    if (resultEspecialidade[i].STATUS === "ativo") {
+                        ModelFugitivas.listagemEspecialidade.push(ko.mapping.fromJS(resultEspecialidade[i]));
+                    }
+
+                }
+            }// end when
+       )
+        
     }
 
 };
 
+
 ko.applyBindings(ModelFugitivas);
 ModelFugitivas.init();
+
+
+$(function () {
+    template = $("#fromDados").detach();
+});
