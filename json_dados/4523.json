@@ -13,7 +13,9 @@
 	"NOTA": "Teste de inserção de dados", 
 	"MARCACAO_PONTO": 
 	[
-		{"x": "", "y": "",  "DADOS_PONTO": { 
+		{"ID": "0", 
+		"COORDS": { "X": "", "Y": ""}, 
+		 "DADOS_PONTO": { 
 			"TIPO_COMPONENTE": "",
 			"SUBTIPO_COMPONENTE": "",
 			"FABRICANTE": "",
@@ -23,7 +25,9 @@
 			"ESPECIALIDADE_PONTO": ""}
 		},
 
-		{"x": "", "y": "",  "DADOS_PONTO": { 
+		{"ID": "1", 
+		"COORDS": { "X": "", "Y": ""}, 
+		 "DADOS_PONTO": { 
 			"TIPO_COMPONENTE": "",
 			"SUBTIPO_COMPONENTE": "",
 			"FABRICANTE": "",

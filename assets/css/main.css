@@ -102,3 +102,15 @@ textarea.form-control { resize: none; height:80px; }
 .form-horizontal .control-label.label-control-one{
     padding-top: 6px;
 }
+#fromDados .input-sm{
+    padding: 5px 3px 6px;
+    height: auto;
+}
+#fromDados input.input-sm{
+    padding: 7px 3px;
+}
+.validation{
+      border: #C50C0C solid 1px;
+      border-left: #C50C0C solid 3px;
+      background: #FFF9F9;
+}
