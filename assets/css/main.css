@@ -75,12 +75,38 @@
     font-weight:400;
     line-height: normal;
 }
-.marker-point{
+.pointInitial{
     background: rgba(255, 0, 0, 0.75);
     height: 15px;
     width: 15px;
     border-radius: 50%;
     border: rgba(255,0,0,1) solid 1.5px;
+}
+.basePoint{
+    width:auto;
+    height:auto;
+    position:relative;
+
+}
+.basePoint .fixPOint{
+    background: rgba(255, 0, 0, 0.75);
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    border: rgba(255,0,0,1) solid 1.5px;
+}
+
+.basePoint .namePoint {
+    padding: 5px;
+    background: #fff;
+    border-radius: 3px;
+    border: #A8A8A8 solid 1px;
+}
+
+.basePoint .namePoint span{
+    color:#000;
+    font-weight:700;
+    font-size:14px;
 }
 .tab-content{
     background:#fff;
