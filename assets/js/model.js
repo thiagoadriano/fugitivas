@@ -1,4 +1,6 @@
-﻿var ModelFugitivas =
+﻿var Fugitivas = Fugitivas || {};
+
+Fugitivas.ModelFugitivas =
  {
     self: this,
     titleModal : ko.observable(),
@@ -11,61 +13,47 @@
     listagemComponente: ko.observableArray(),
     listagemEspecialidade: ko.observableArray(),
     listagemFabricante: ko.observableArray(),
-    flagNovoPonto : ko.observable(),
+    flagNovoPonto: ko.observable(),
 
     openModal: function (grupo)
     {
         if (grupo.ID_GRUPO_PONTO() != "") {
-            getData( URLS.Base + grupo.ID_GRUPO_PONTO() + ".json", function ( result )
+            Fugitivas.Methods.getData( Fugitivas.URLS.Base + grupo.ID_GRUPO_PONTO() + ".json", function ( result )
             {
-
-                ModelFugitivas.dadosModal(result);
+                Fugitivas.ModelFugitivas.dadosModal(result);
                 for (var i in result.MARCACAO_PONTO) {
-                    ModelFugitivas.listaPontos.push( ko.mapping.fromJS(result.MARCACAO_PONTO[i]) );
+                    Fugitivas.ModelFugitivas.listaPontos.push( ko.mapping.fromJS(result.MARCACAO_PONTO[i]) );
                 }
 
-                $( function ()
-                    {
-                        var $modal = $( '#modalPontos' );
-                        $modal.modal( { show: true } ).queue("fx", function ()
-                        {
+                Fugitivas.ModelFugitivas.titleModal( grupo.NOME_GRUPO_PONTOS() );
 
-                            $modal.on( 'shown.bs.modal', function ()
-                            {
-                                $( CONTAINER_IMAGEM ).imgNotes( defaultImgNotes )
-                            }
-                        );
+                var $modal = $( '#modalPontos' );
+                $modal.modal( { modal: true } );
+                $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( Fugitivas.defaultImgNotes );
+                $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "zoomable", false );
 
-                        } );
-                        
-                       
-                    }
-                );
-               
-            });
 
-            ModelFugitivas.titleModal(grupo.NOME_GRUPO_PONTOS());
-           
+            } );
         }
         
     },
 
     editClick: function ()
     {
-        if ($(CONTAINER_IMAGEM).imgNotes("option", "canEdit")) {
-            $(CONTAINER_IMAGEM).imgNotes("option", "canEdit", false)
-            ModelFugitivas.btnEditar("Editar");
+        if ($(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "canEdit")) {
+            $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "canEdit", false)
+            Fugitivas.ModelFugitivas.btnEditar("Editar");
         } else {
-            $(CONTAINER_IMAGEM).imgNotes("option", "canEdit", true);
-            ModelFugitivas.btnEditar("Concluir");
+            $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "canEdit", true);
+            Fugitivas.ModelFugitivas.btnEditar( "Concluir" );
         }
     },
 
     closeModal: function(){
         this.dadosModal([]);
-        if (ModelFugitivas.btnEditar() !== "Editar") {
-            $(CONTAINER_IMAGEM).imgNotes("option", "canEdit", false);
-            ModelFugitivas.btnEditar("Editar");
+        if (Fugitivas.ModelFugitivas.btnEditar() !== "Editar") {
+            $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "canEdit", false);
+            Fugitivas.ModelFugitivas.btnEditar( "Editar" );
         }
 
         $('#modalPontos').modal("hide");
@@ -76,32 +64,36 @@
     init: function ()
     {
 
-        getData(URLS.ListaGrupo, function(result){
+        Fugitivas.Methods.getData( Fugitivas.URLS.ListaGrupo, function ( result )
+        {
             for (var i in result) {
-                ModelFugitivas.listaGrupoPontos.push(ko.mapping.fromJS(result[i]));
+                Fugitivas.ModelFugitivas.listaGrupoPontos.push( ko.mapping.fromJS( result[i] ) );
             }
         
         });
-        getData(URLS.Componente, function (resultComponente) {
+        Fugitivas.Methods.getData( Fugitivas.URLS.Componente, function ( resultComponente )
+        {
             for (var i in resultComponente) {
                 if (resultComponente[i].STATUS === "ativo") {
-                    ModelFugitivas.listagemComponente.push(ko.mapping.fromJS(resultComponente[i]));
+                    Fugitivas.ModelFugitivas.listagemComponente.push(ko.mapping.fromJS(resultComponente[i]));
                 }
                 
             }
         });
-        getData(URLS.Fabricante, function (resultFabricante) {
+        Fugitivas.Methods.getData( Fugitivas.URLS.Fabricante, function ( resultFabricante )
+        {
             for (var i in resultFabricante) {
                 if (resultFabricante[i].STATUS === "ativo") {
-                    ModelFugitivas.listagemFabricante.push(ko.mapping.fromJS(resultFabricante[i]));
+                    Fugitivas.ModelFugitivas.listagemFabricante.push(ko.mapping.fromJS(resultFabricante[i]));
                 }
                 
             }
         });
-        getData(URLS.Especialidade, function (resultEspecialidade) {
+        Fugitivas.Methods.getData( Fugitivas.URLS.Especialidade, function ( resultEspecialidade )
+        {
             for (var i in resultEspecialidade) {
                 if (resultEspecialidade[i].STATUS === "ativo") {
-                    ModelFugitivas.listagemEspecialidade.push(ko.mapping.fromJS(resultEspecialidade[i]));
+                    Fugitivas.ModelFugitivas.listagemEspecialidade.push(ko.mapping.fromJS(resultEspecialidade[i]));
                 }
 
             }
@@ -111,6 +103,5 @@
     }
 };
 
-ko.applyBindings(ModelFugitivas);
-ModelFugitivas.init();
-
+ko.applyBindings(Fugitivas.ModelFugitivas);
+Fugitivas.ModelFugitivas.init();

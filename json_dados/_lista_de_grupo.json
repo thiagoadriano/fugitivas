@@ -1,0 +1,6 @@
+﻿[
+	{"ID": 0, "NOME_GRUPO_PONTOS":"Grupo 1", "UNIDADE_PROCESSO": "Processo 1", "LINHA_PROCESSO": "Linha 1", "TAG_EQUIPAMENTO": "Equipamento 1", "EXISTE_IMAGEM": true, "ID_GRUPO_PONTO": "4523" },
+	{"ID": 1, "NOME_GRUPO_PONTOS":"Grupo 2", "UNIDADE_PROCESSO": "Processo 2", "LINHA_PROCESSO": "Linha 2", "TAG_EQUIPAMENTO": "Equipamento 2", "EXISTE_IMAGEM": true, "ID_GRUPO_PONTO": "123"},
+	{"ID": 2, "NOME_GRUPO_PONTOS":"Grupo 3", "UNIDADE_PROCESSO": "Processo 3", "LINHA_PROCESSO": "Linha 3", "TAG_EQUIPAMENTO": "Equipamento 3", "EXISTE_IMAGEM": false, "ID_GRUPO_PONTO": "5648"},
+	{"ID": 3, "NOME_GRUPO_PONTOS":"Grupo 4", "UNIDADE_PROCESSO": "Processo 4", "LINHA_PROCESSO": "Linha 4", "TAG_EQUIPAMENTO": "Equipamento 4", "EXISTE_IMAGEM": false, "ID_GRUPO_PONTO": "3654"}
+]

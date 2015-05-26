@@ -80,7 +80,7 @@
  *		a copy of the original image to be positioned over it and manipulated to
  *		provide zoom and pan
  */
-			self.zimg = $("<img/>", {"src": self.img.src}).appendTo("body").wrap("<div class='viewport'/>");
+			self.zimg = $( "<img/>", { "src": self.img.src } ).appendTo( "body" ).wrap( "<div class='viewport' id='viewport'/>" );
 			var $zimg = $(self.zimg);
 //		the container or viewport for the image view
 			self.view = $(self.zimg).parent();

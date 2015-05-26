@@ -1,63 +1,32 @@
-﻿var CONTAINER_IMAGEM = "#MainContentIMG";
-var URLS = {};
-URLS.Base = "/json_dados/";
-URLS.Especialidade = URLS.Base + "_especialidade.json";
-URLS.Componente = URLS.Base + "_componente.json";
-URLS.ListaGrupo = URLS.Base + "_lista_de_grupo.json";
-URLS.Fabricante = URLS.Base + "_fabricantes.json";
-URLS.IncludeForm = "_form.inc.html";
+﻿var Fugitivas = Fugitivas || {};
 
-function getData( urlLink, callback )
-{
-    $.ajax( {
-        url: urlLink,
-        type: "GET",
-        dataType: "json",
-        cache: false,
-        sync: true,
-        success: function ( result )
-        {
-            if ( callback && typeof callback === "function" )
-            {
-                callback( result );
-            }
+Fugitivas.CONTAINER_IMAGEM = "#MainContentIMG";
 
-        },
-        error: function ( e )
-        {
-            console.error( e );
-        }
-    } );
+Fugitivas.URLS = {};
+Fugitivas.URLS.Base          = "/json_dados/";
+Fugitivas.URLS.Especialidade = Fugitivas.URLS.Base + "_especialidade.json";
+Fugitivas.URLS.Componente    = Fugitivas.URLS.Base + "_componente.json";
+Fugitivas.URLS.ListaGrupo    = Fugitivas.URLS.Base + "_lista_de_grupo.json";
+Fugitivas.URLS.Fabricante    = Fugitivas.URLS.Base + "_fabricantes.json";
 
 
-};
 
-function getLastID()
-{
-    var dados = ModelFugitivas.dadosModal(),
-                pontos = dados.MARCACAO_PONTO;
-    var lastId = ( pontos.length ? parseInt( pontos[pontos.length - 1].ID ) + 1: 0 );
-    return lastId;
-
-}
-
-var defaultImgNotes = {
+Fugitivas.defaultImgNotes = {
     onAdd: function ()
     {
         this.options.vAll = "bottom";
         this.options.hAll = "middle";
-        var elem = $( document.createElement( 'div' ) ).addClass( "markerPoint pointInitial" ).attr( "data-id", getLastID() );
+        var elem = $( document.createElement( 'div' ) ).addClass( "markerPoint pointInitial" ).attr( "data-id", Fugitivas.Methods.getLastID() );
         return elem;
     },
     onEdit: function ( ev, elem )
     {
         var $elem = $( elem );
-        $( CONTAINER_IMAGEM ).imgNotes()
-        $elem.attr( "data-bind", "" )
         $( '#NoteDialog' ).remove();
-        ModelFugitivas.flagNovoPonto( true );
+        Fugitivas.ModelFugitivas.flagNovoPonto( true );
+
         return $( '<div id="NoteDialog"></div>' ).dialog( {
-            title: ( ModelFugitivas.flagNovoPonto() === true ) ? "Adicionar Ponto" : "Editar Ponto",
+            title: ( Fugitivas.ModelFugitivas.flagNovoPonto() === true ) ? "Adicionar Ponto" : "Editar Ponto",
             resizable: false,
             draggable: true,
             modal: true,
@@ -70,10 +39,14 @@ var defaultImgNotes = {
             {
                 $( this ).css( "overflow", "hidden" );
                 $( '.ui-dialog-titlebar-close' ).remove();
-                $( this ).attr( "data-bind", "component: {name: 'form-content', params:{tipos: listagemComponente, fabricantes: listagemFabricante, especialidade: listagemEspecialidade, flag: flagNovoPonto}}" );
-                ko.applyBindings( ModelFugitivas, $( "#NoteDialog" )[0] );
+                $( this ).attr( "data-bind", "component: {name: 'form-content', params:{tipos: listagemComponente, fabricantes: listagemFabricante, especialidade: listagemEspecialidade} }" );
+               ko.applyBindings( Fugitivas.ModelFugitivas, $( "#NoteDialog" )[0] );
             }
         } );
+    },
+    onShow: function ()
+    {
+
     }
 
 };

@@ -970,44 +970,50 @@ if (typeof jQuery === 'undefined') {
     this.$element.on('click.dismiss.bs.modal', '[data-dismiss="modal"]', $.proxy(this.hide, this))
 
     this.$dialog.on('mousedown.dismiss.bs.modal', function () {
-      that.$element.one('mouseup.dismiss.bs.modal', function (e) {
-        if ($(e.target).is(that.$element)) that.ignoreBackdropClick = true
-      })
+        that.$element.one( 'mouseup.dismiss.bs.modal', function ( e )
+        {
+            if ( $( e.target ).is( that.$element ) ) that.ignoreBackdropClick = true
+        } );
     })
 
-    this.backdrop(function () {
-      var transition = $.support.transition && that.$element.hasClass('fade')
+    this.backdrop( function ()
+    {
+        var transition = $.support.transition && that.$element.hasClass( 'fade' )
 
-      if (!that.$element.parent().length) {
-        that.$element.appendTo(that.$body) // don't move modals dom position
-      }
+        if ( !that.$element.parent().length )
+        {
+            that.$element.appendTo( that.$body ) // don't move modals dom position
+        }
 
-      that.$element
-        .show()
-        .scrollTop(0)
+        that.$element
+          .show()
+          .scrollTop( 0 )
 
-      that.adjustDialog()
+        that.adjustDialog()
 
-      if (transition) {
-        that.$element[0].offsetWidth // force reflow
-      }
+        if ( transition )
+        {
+            that.$element[0].offsetWidth // force reflow
+        }
 
-      that.$element
-        .addClass('in')
-        .attr('aria-hidden', false)
+        that.$element
+          .addClass( 'in' )
+          .attr( 'aria-hidden', false )
 
-      that.enforceFocus()
+        that.enforceFocus()
 
-      var e = $.Event('shown.bs.modal', { relatedTarget: _relatedTarget })
+        var e = $.Event( 'shown.bs.modal', { relatedTarget: _relatedTarget } )
 
-      transition ?
-        that.$dialog // wait for modal to slide in
-          .one('bsTransitionEnd', function () {
-            that.$element.trigger('focus').trigger(e)
-          })
-          .emulateTransitionEnd(Modal.TRANSITION_DURATION) :
-        that.$element.trigger('focus').trigger(e)
-    })
+        transition ?
+          that.$dialog // wait for modal to slide in
+            .one( 'bsTransitionEnd', function ()
+            {
+                that.$element.trigger( 'focus' ).trigger( e )
+            } )
+            .emulateTransitionEnd( Modal.TRANSITION_DURATION ) :
+          that.$element.trigger( 'focus' ).trigger( e )
+    } );
+
   }
 
   Modal.prototype.hide = function (e) {
