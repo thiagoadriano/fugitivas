@@ -87,7 +87,6 @@ Fugitivas.Methods = {
                 .addClass( 'fixPoint' );
         Fugitivas.Methods.createLine( {} )
 
-        
     },
     getItemId: function ( list, id )
     {

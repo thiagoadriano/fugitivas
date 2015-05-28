@@ -21,6 +21,7 @@ ko.components.register( 'form-content', {
         self.dimmerComboSelect = ko.observable();
         self.positionSelect = ko.observable();
         self.specialtySelect = ko.observable();
+        self.flagDeletar = ko.observable( false );
 
         ko.bindingHandlers.numeric = {
             init: function ( element, valueAcessor )
@@ -88,7 +89,7 @@ ko.components.register( 'form-content', {
 
                 var dados = Fugitivas.ModelFugitivas.dadosModal(),
                     pontos = dados.MARCACAO_PONTO;
-                var novaId = ( pontos.length ? parseInt( pontos[pontos.length - 1].ID ) + 1 : 0 );
+                var novaId = Fugitivas.Methods.getLastID();
                 var dadosPontoImagem = $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "export" );
                 var ultimoPonto = dadosPontoImagem[dadosPontoImagem.length - 1];
                 var ultimoPontoTag = $( ".markerPoint" ).last();
@@ -132,14 +133,40 @@ ko.components.register( 'form-content', {
             }
         };
 
-        self.deleted = function ( data, element )
+        self.deleted = function ( )
         {
-            console.log( data );
-            console.log( "\n" );
-            console.log( element );
-            console.log(objeto)
+            self.flagDeletar( true );
         };
 
+        self.noDeletar = function ()
+        {
+            self.flagDeletar( false );
+        };
+
+        self.yesDeletar = function ()
+        {
+            console.log( Fugitivas.ModelFugitivas.idPonto() );
+            console.log( Fugitivas.ModelFugitivas.flagSatatusPonto() );
+            console.info( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO )
+            console.table( objeto );
+
+            if ( Fugitivas.ModelFugitivas.idPonto() !== "" || Fugitivas.ModelFugitivas.idPonto() !== undefined )
+            {
+                if ( Fugitivas.ModelFugitivas.flagSatatusPonto() !== "new" )
+                {
+                    Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove( objeto );
+                    $( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
+                    $( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
+                } else
+                {
+                    $( '.pointInitial[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
+                }
+                $( "#NoteDialog" ).dialog( "close" );
+            }
+            console.info( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO )
+
+        }
+        
     },
     template: '<form id="fromDados" class="form-horizontal">'+
                 '<div role="tabpanel">'+
@@ -157,19 +184,19 @@ ko.components.register( 'form-content', {
                         '<div class="form-group">'+
                             '<label class="col-md-4 control-label" for="tipo">* Tipo: </label>'+
                             '<div class="col-md-8">'+
-                                '<select id="tipo" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', options: listType, optionsText: \'COMPONENTE\', optionsValue: \'ID\', optionsCaption: \'Selecione\', value: typeSelect"></select>' +
+                                '<select id="tipo" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\' && flagDeletar() == false, options: listType, optionsText: \'COMPONENTE\', optionsValue: \'ID\', optionsCaption: \'Selecione\', value: typeSelect"></select>' +
                             '</div>'+
                         '</div>'+
                         '<div class="form-group">'+
                             '<label class="col-md-4 control-label" for="subtipo">* Subtipo: </label>'+
                             '<div class="col-md-8">'+
-                                '<select id="subtipo" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\' && subTypeSelect() != \'\' && subTypeSelect() != undefined, options: listSubtype, optionsText: \'NOME\', optionsValue: \'ID\', value: subTypeSelect"></select>' +
+                                '<select id="subtipo" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\' && subTypeSelect() != \'\' && subTypeSelect() != undefined && flagDeletar() == false, options: listSubtype, optionsText: \'NOME\', optionsValue: \'ID\', value: subTypeSelect"></select>' +
                             '</div>'+
                         '</div>'+
                         '<div class="form-group">'+
                             '<label class="col-md-4 control-label" for="fabricante">* Fabricante: </label>'+
                             '<div class="col-md-8">'+
-                                '<select id="fabricante" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', options: listManufacturers, optionsText: \'RAZAO_SOCIAL\', optionsValue: \'ID\', optionsCaption: \'Selecione\', value: manufactSelect"></select>' +
+                                '<select id="fabricante" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\' && flagDeletar() == false, options: listManufacturers, optionsText: \'RAZAO_SOCIAL\', optionsValue: \'ID\', optionsCaption: \'Selecione\', value: manufactSelect"></select>' +
                             '</div>'+
                          '</div>'+
                    '</div>'+
@@ -177,10 +204,10 @@ ko.components.register( 'form-content', {
                         '<div class="form-group">'+
                             '<label class="col-md-5 control-label" for="dimensao">* Dimensão do componente: </label>'+
                             '<div class="col-md-3">'+
-                                '<input type="text" id="dimensao" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', value: dimmerSelect, numeric: dimmerSelect">' +
+                                '<input type="text" id="dimensao" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\' && flagDeletar() == false, value: dimmerSelect, numeric: dimmerSelect">' +
                             '</div>'+
                             '<div class="col-md-4">'+
-                                '<select id="dimensao_medida" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', value: dimmerComboSelect">' +
+                                '<select id="dimensao_medida" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\' && flagDeletar() == false, value: dimmerComboSelect">' +
                                     '<option value="0">Polegadas</option>'+
                                     '<option value="1">Milímetros</option>'+
                                 '</select>'+
@@ -189,27 +216,40 @@ ko.components.register( 'form-content', {
                         '<div class="form-group">'+
                             '<label class="col-md-5 control-label" for="posicao">* Posição do ponto: </label>'+
                             '<div class="col-md-7">'+
-                                '<input type="text" id="posicao" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', value: positionSelect"class="form-control input-sm">' +
+                                '<input type="text" id="posicao" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\' && flagDeletar() == false, value: positionSelect"class="form-control input-sm">' +
                             '</div>'+
                         '</div>'+
                         '<div class="form-group">'+
                             '<label class="col-md-5 control-label" for="especialidade">* Especialidade do ponto: </label>'+
                             '<div class="col-md-7">'+
-                                '<select id="especialidade" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', options: listSpecialty, optionsText: \'ESPECIALIDADE\', optionsValue: \'ID\', optionsCaption: \'Selecione\', value:specialtySelect"></select>' +
+                                '<select id="especialidade" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\' && flagDeletar() == false, options: listSpecialty, optionsText: \'ESPECIALIDADE\', optionsValue: \'ID\', optionsCaption: \'Selecione\', value:specialtySelect"></select>' +
                             '</div>'+
                         '</div>'+
                    '</div>'+
                    '<div class="row">'+
                        '<div class="col-md-3 col-md-offset-2">'+
-                            '<button type="submit" class="btn btn-success btn-block" data-bind="visible: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', click: savePoint">Salvar</button>' +
+                            '<button type="submit" class="btn btn-success btn-block" data-bind="visible: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', enable: flagDeletar() == false, click: savePoint">Salvar</button>' +
                        '</div>'+
                        '<div class="col-md-3">'+
-                            '<button type="button" class="btn btn-danger btn-block" data-bind="visible: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', click: deleted">Deletar</button>' +
+                            '<button type="button" class="btn btn-danger btn-block" data-bind="visible: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', enable: flagDeletar() == false, click: deleted">Deletar</button>' +
                        '</div>'+
                        '<div class="col-md-3">'+
-                            '<button type="button" class="btn btn-default btn-block" data-bind="click: close">Fechar</button>'+
+                            '<button type="button" class="btn btn-default btn-block" data-bind="enable: flagDeletar() == false, click: close">Fechar</button>' +
                        '</div>'+
-                   '</div>'+
+                   '</div>' +
+                   '<div class="row rowDelet" data-bind="fadeVisible: flagDeletar">' +
+                       '<div class="col-md-12">' +
+                            '<h2>Deseja realmente deletar este ponto?</h2>' +
+                       '</div>' +
+                   '</div>' +
+                   '<div class="row rowDelet" data-bind="fadeVisible: flagDeletar">' +
+                       '<div class="col-md-4 col-md-offset-2">' +
+                            '<button type="submit" class="btn btn-danger btn-block btn-xs" data-bind="click: yesDeletar">Sim</button>' +
+                       '</div>' +
+                       '<div class="col-md-4">' +
+                            '<button type="button" class="btn btn-primary btn-block btn-xs" data-bind="click: noDeletar">Não</button>' +
+                       '</div>' +
+                   '</div>' +
               '</div>'+
            '</form>'
 });

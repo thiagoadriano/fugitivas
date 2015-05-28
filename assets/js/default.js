@@ -21,6 +21,7 @@ Fugitivas.defaultImgNotes = {
     {
         var $elem = $( elem );
         Fugitivas.ModelFugitivas.flagSatatusPonto( "new" );
+        Fugitivas.ModelFugitivas.idPonto( Fugitivas.Methods.getLastID() );
         return Fugitivas.Methods.dialogOpen( "Adicionar Ponto", elem);
     }
 };

@@ -170,3 +170,24 @@ textarea.form-control { resize: none; height:80px; }
       border-left: #C50C0C solid 3px;
       background: #FFF9F9;
 }
+#NoteDialog{
+    min-height:240px!important;
+    height: auto!important;
+    max-height:320px!important;
+}
+
+.rowDelet{
+    background:#EAEAEA;
+    padding:8px 0 0;
+    margin-top:11px;
+}
+.rowDelet:last-child{
+    padding-bottom:10px;
+    margin-top: 0;
+}
+.rowDelet h2{
+    font-size:16px;
+    font-weight:700;
+    text-align:center;
+    margin:0;
+}
