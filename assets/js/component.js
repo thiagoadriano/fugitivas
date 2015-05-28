@@ -4,6 +4,12 @@
 ko.components.register( 'form-content', {
     viewModel: function (params) {
         var self = this;
+        var objeto = Fugitivas.ModelFugitivas.flagSatatusPonto() !== "new" ? 
+            ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO, function ( item )
+                {
+                    return Fugitivas.ModelFugitivas.idPonto() == item.ID
+
+                } ) : undefined;
         self.listType = params.tipos;
         self.listManufacturers = params.fabricantes;
         self.listSpecialty = params.especialidade;
@@ -15,7 +21,6 @@ ko.components.register( 'form-content', {
         self.dimmerComboSelect = ko.observable();
         self.positionSelect = ko.observable();
         self.specialtySelect = ko.observable();
-        //self.novoPonto = params.flag;
 
         ko.bindingHandlers.numeric = {
             init: function ( element, valueAcessor )
@@ -44,6 +49,17 @@ ko.components.register( 'form-content', {
                     }
                 });
 
+                if ( Fugitivas.ModelFugitivas.flagSatatusPonto() !== "new" && objeto !== undefined)
+                {
+
+                    self.typeSelect( objeto.DADOS_PONTO.TIPO_COMPONENTE );
+                    self.subTypeSelect( objeto.DADOS_PONTO.SUBTIPO_COMPONENTE );
+                    self.manufactSelect( objeto.DADOS_PONTO.FABRICANTE );
+                    self.dimmerSelect( objeto.DADOS_PONTO.DIMENSAO );
+                    self.dimmerComboSelect( objeto.DADOS_PONTO.MEDIDA_DIMENSAO );
+                    self.positionSelect( objeto.DADOS_PONTO.POSICAO_PONTO );
+                    self.specialtySelect( objeto.DADOS_PONTO.ESPECIALIDADE_PONTO );
+                }
                 
             }
         };
@@ -66,49 +82,42 @@ ko.components.register( 'form-content', {
         );
 
         self.savePoint = function (data) {
-            try {
-                if ( Fugitivas.Methods.validarCampos() )
-                {
+           
+            if ( Fugitivas.Methods.validarCampos() )
+            {
 
-                    var dados = Fugitivas.ModelFugitivas.dadosModal(),
-                        pontos = dados.MARCACAO_PONTO;
-                    var novaId = ( pontos.length ? parseInt( pontos[pontos.length - 1].ID ) + 1 : 0 );
-                    var dadosPontoImagem = $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "export" );
-                    var ultimoPonto = dadosPontoImagem[dadosPontoImagem.length - 1];
-                    var ultimoPontoTag = $( ".markerPoint" ).last();
-                    var Componente = Fugitivas.Methods.getItemId( self.listType(), data.typeSelect() );
-                    var subComponente = data.subTypeSelect() !== "" ? Fugitivas.Methods.getItemId( Componente.SUBTIPO(), data.subTypeSelect() ) : "";
-                    var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA() : "" ) + " - " + Math.floor( Math.random() * 1000 );
-                    ultimoPontoTag.removeClass( "pointInitial" );
+                var dados = Fugitivas.ModelFugitivas.dadosModal(),
+                    pontos = dados.MARCACAO_PONTO;
+                var novaId = ( pontos.length ? parseInt( pontos[pontos.length - 1].ID ) + 1 : 0 );
+                var dadosPontoImagem = $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "export" );
+                var ultimoPonto = dadosPontoImagem[dadosPontoImagem.length - 1];
+                var ultimoPontoTag = $( ".markerPoint" ).last();
+                var Componente = Fugitivas.Methods.getItemId( self.listType(), data.typeSelect() );
+                var subComponente = data.subTypeSelect() !== "" ? Fugitivas.Methods.getItemId( Componente.SUBTIPO(), data.subTypeSelect() ) : "";
+                var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA() : "" ) + " - " + Math.floor( Math.random() * 1000 );
 
-                    pontos.push( {
-                        ID: novaId,
-                        COORDS: { X: ultimoPonto.x, Y: ultimoPonto.y },
-                        DADOS_PONTO: {
-                            TIPO_COMPONENTE: data.typeSelect(),
-                            SUBTIPO_COMPONENTE: data.subTypeSelect(),
-                            FABRICANTE: data.manufactSelect(),
-                            DIMENSAO: data.dimmerSelect(),
-                            MEDIDA_DIMENSAO: data.dimmerComboSelect(),
-                            POSICAO_PONTO: data.positionSelect(),
-                            ESPECIALIDADE_PONTO: data.specialtySelect()
-                        }
-                    } );
+                ultimoPontoTag.off( "click" );
 
-                    
-                    //$.post("URLDOSERVER", JSON.stringify(ModelFugitivas.dadosModal()), callbackAPOSCADASTRO, "JSON");
+                pontos.push( {
+                    ID: novaId,
+                    COORDS: { X: ultimoPonto.x, Y: ultimoPonto.y },
+                    DADOS_PONTO: {
+                        TIPO_COMPONENTE: data.typeSelect(),
+                        SUBTIPO_COMPONENTE: data.subTypeSelect(),
+                        FABRICANTE: data.manufactSelect(),
+                        DIMENSAO: data.dimmerSelect(),
+                        MEDIDA_DIMENSAO: data.dimmerComboSelect(),
+                        POSICAO_PONTO: data.positionSelect(),
+                        ESPECIALIDADE_PONTO: data.specialtySelect()
+                    }
+                } );
 
-                    Fugitivas.Methods.callbackCadastro(templateTag, ultimoPontoTag)
 
-                    
-                }
+                //$.post("URLDOSERVER", JSON.stringify(ModelFugitivas.dadosModal()), callbackAPOSCADASTRO, "JSON");
 
-            } catch (e) {
-                if (console.table) {
-                    console.table(e);
-                }
-                console.error(e)
-            }
+                Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag )
+
+            };
 
 
         };
@@ -127,9 +136,80 @@ ko.components.register( 'form-content', {
         {
             console.log( data );
             console.log( "\n" );
-            console.log( element )
+            console.log( element );
+            console.log(objeto)
         };
 
     },
-    template: '<form id="fromDados" class="form-horizontal"><div role="tabpanel"><ul class="nav nav-tabs" role="tablist"><li role="presentation" class="active"><a href="#componente" aria-controls="componente" role="tab" data-toggle="tab">Componente</a></li><li role="presentation"><a href="#caracteristicas" aria-controls="caracteristicas" role="tab" data-toggle="tab">Características</a></li></ul></div><div class="tab-content"><div role="tabpanel" class="tab-pane fade in active" id="componente"><div class="form-group"><label class="col-md-4 control-label" for="tipo">* Tipo: </label><div class="col-md-8"><select id="tipo" class="form-control input-sm" data-bind="options: listType, optionsText: \'COMPONENTE\', optionsValue: \'ID\', optionsCaption: \'Selecione\', value: typeSelect"></select></div></div><div class="form-group"><label class="col-md-4 control-label" for="subtipo">* Subtipo: </label><div class="col-md-8"><select id="subtipo" class="form-control input-sm" data-bind="options: listSubtype, enable: subTypeSelect() != \'\' && subTypeSelect() != undefined , optionsText: \'NOME\', optionsValue: \'ID\', value: subTypeSelect"></select></div></div><div class="form-group"><label class="col-md-4 control-label" for="fabricante">* Fabricante: </label><div class="col-md-8"><select id="fabricante" class="form-control input-sm" data-bind="options: listManufacturers, optionsText: \'RAZAO_SOCIAL\', optionsValue: \'ID\', optionsCaption: \'Selecione\', value: manufactSelect"></select></div></div></div><div role="tabpanel" class="tab-pane fade" id="caracteristicas"><div class="form-group"><label class="col-md-5 control-label" for="dimensao">* Dimensão do componente: </label><div class="col-md-3"><input type="text" id="dimensao" class="form-control input-sm" data-bind="value: dimmerSelect, numeric: dimmerSelect"></div><div class="col-md-4"><select id="dimensao_medida" class="form-control input-sm" data-bind="value: dimmerComboSelect"><option value="0">Polegadas</option><option value="1">Milímetros</option></select></div></div><div class="form-group"><label class="col-md-5 control-label" for="posicao">* Posição do ponto: </label><div class="col-md-7"><input type="text" id="posicao" data-bind="value: positionSelect"class="form-control input-sm"></div></div><div class="form-group"><label class="col-md-5 control-label" for="especialidade">* Especialidade do ponto: </label><div class="col-md-7"><select id="especialidade" class="form-control input-sm" data-bind="options: listSpecialty, optionsText: \'ESPECIALIDADE\', optionsValue: \'ID\', optionsCaption: \'Selecione\', value:specialtySelect"></select></div></div></div><div class="row"><div class="col-md-3 col-md-offset-2"><button type="submit" class="btn btn-success btn-block" data-bind="click: savePoint">Salvar</button></div><div class="col-md-3"><button type="button" class="btn btn-danger btn-block" data-bind="click: deleted">Deletar</button></div><div class="col-md-3"><button type="button" class="btn btn-default btn-block" data-bind="click: close">Fechar</button></div></div></div></form>'
+    template: '<form id="fromDados" class="form-horizontal">'+
+                '<div role="tabpanel">'+
+                    '<ul class="nav nav-tabs" role="tablist">'+
+                        '<li role="presentation" class="active">'+
+                            '<a href="#componente" aria-controls="componente" role="tab" data-toggle="tab">Componente</a>'+
+                        '</li>'+
+                        '<li role="presentation">'+
+                            '<a href="#caracteristicas" aria-controls="caracteristicas" role="tab" data-toggle="tab">Características</a>'+
+                        '</li>'+
+                    '</ul>'+
+                '</div>'+
+                '<div class="tab-content">'+
+                    '<div role="tabpanel" class="tab-pane fade in active" id="componente">'+
+                        '<div class="form-group">'+
+                            '<label class="col-md-4 control-label" for="tipo">* Tipo: </label>'+
+                            '<div class="col-md-8">'+
+                                '<select id="tipo" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', options: listType, optionsText: \'COMPONENTE\', optionsValue: \'ID\', optionsCaption: \'Selecione\', value: typeSelect"></select>' +
+                            '</div>'+
+                        '</div>'+
+                        '<div class="form-group">'+
+                            '<label class="col-md-4 control-label" for="subtipo">* Subtipo: </label>'+
+                            '<div class="col-md-8">'+
+                                '<select id="subtipo" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\' && subTypeSelect() != \'\' && subTypeSelect() != undefined, options: listSubtype, optionsText: \'NOME\', optionsValue: \'ID\', value: subTypeSelect"></select>' +
+                            '</div>'+
+                        '</div>'+
+                        '<div class="form-group">'+
+                            '<label class="col-md-4 control-label" for="fabricante">* Fabricante: </label>'+
+                            '<div class="col-md-8">'+
+                                '<select id="fabricante" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', options: listManufacturers, optionsText: \'RAZAO_SOCIAL\', optionsValue: \'ID\', optionsCaption: \'Selecione\', value: manufactSelect"></select>' +
+                            '</div>'+
+                         '</div>'+
+                   '</div>'+
+                   '<div role="tabpanel" class="tab-pane fade" id="caracteristicas">'+
+                        '<div class="form-group">'+
+                            '<label class="col-md-5 control-label" for="dimensao">* Dimensão do componente: </label>'+
+                            '<div class="col-md-3">'+
+                                '<input type="text" id="dimensao" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', value: dimmerSelect, numeric: dimmerSelect">' +
+                            '</div>'+
+                            '<div class="col-md-4">'+
+                                '<select id="dimensao_medida" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', value: dimmerComboSelect">' +
+                                    '<option value="0">Polegadas</option>'+
+                                    '<option value="1">Milímetros</option>'+
+                                '</select>'+
+                            '</div>'+
+                        '</div>'+
+                        '<div class="form-group">'+
+                            '<label class="col-md-5 control-label" for="posicao">* Posição do ponto: </label>'+
+                            '<div class="col-md-7">'+
+                                '<input type="text" id="posicao" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', value: positionSelect"class="form-control input-sm">' +
+                            '</div>'+
+                        '</div>'+
+                        '<div class="form-group">'+
+                            '<label class="col-md-5 control-label" for="especialidade">* Especialidade do ponto: </label>'+
+                            '<div class="col-md-7">'+
+                                '<select id="especialidade" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', options: listSpecialty, optionsText: \'ESPECIALIDADE\', optionsValue: \'ID\', optionsCaption: \'Selecione\', value:specialtySelect"></select>' +
+                            '</div>'+
+                        '</div>'+
+                   '</div>'+
+                   '<div class="row">'+
+                       '<div class="col-md-3 col-md-offset-2">'+
+                            '<button type="submit" class="btn btn-success btn-block" data-bind="visible: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', click: savePoint">Salvar</button>' +
+                       '</div>'+
+                       '<div class="col-md-3">'+
+                            '<button type="button" class="btn btn-danger btn-block" data-bind="visible: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', click: deleted">Deletar</button>' +
+                       '</div>'+
+                       '<div class="col-md-3">'+
+                            '<button type="button" class="btn btn-default btn-block" data-bind="click: close">Fechar</button>'+
+                       '</div>'+
+                   '</div>'+
+              '</div>'+
+           '</form>'
 });

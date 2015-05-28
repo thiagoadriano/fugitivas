@@ -65,29 +65,29 @@ Fugitivas.Methods = {
 
         return idNotValid.length ? 0 : 1;
     },
-    setPointCustom: function ( nameId, id, fixX, fixY, tag )
+    setPointCustom: function ( nameId, id, fixX, fixY, tagElem)
     {
         var idBaseName = nameId.replace( /\W/g, "" );
         var idFix = "fix-" + idBaseName;
         var idBase = "base-" + idBaseName;
         var idLabel = "label-" + idBaseName;
-        var template = '<div class="basePoint" id="' + idBase + '">' +
-                           '<div class="fixPoint" id="' + idFix + '"></div>' +
-                           '<div class="namePoint"  data-id="' + id + '" id="' + idLabel + '">' +
-                               '<span>' + nameId + '</span>' +
-                               '<button class="visualizar"><span class="glyphicon glyphicon-eye-open"></span></button>' +
-                               '<button class="editar"><span class="glyphicon glyphicon-edit"></span></button>' +
-                            '</div>' +
-                       '</div>';
-        
-        tag.attr( "id", idFix );
-        tag.append( template );
-        $( ".fixPoint" ).last().css( { top: parseFloat( fixY ) + "px", left: parseFloat( fixY ) + "px" } );
+        var template = '<div class="namePoint" data-id="' + id + '" id="' + idLabel + '">' +
+                            '<input type="hidden" name="idPoint" value="' + id + '"/>'+
+                            '<span>' + nameId + '</span>' +
+                            '<button class="visualizar"><span class="glyphicon glyphicon-eye-open"></span></button>' +
+                            '<button class="editar"><span class="glyphicon glyphicon-edit"></span></button>' +
+                        '</div>';
 
+        $( "#viewport" ).append( template );
+        //$( ".fixPoint" ).last().css( { top: parseFloat( fixY ) + "px", left: parseFloat( fixY ) + "px" } );
+        $( ".namePoint" ).last().css( { top: ( parseInt( fixY ) + 8 ) + "px", left: ( parseInt( fixX ) + 8 ) + "px" } );
+
+        tagElem.attr( "id", idFix )
+                .removeClass( "pointInitial" )
+                .addClass( 'fixPoint' );
         Fugitivas.Methods.createLine( {} )
+
         
-
-
     },
     getItemId: function ( list, id )
     {
@@ -104,7 +104,8 @@ Fugitivas.Methods = {
         var top = tag.css( "top" );
         var id = tag.attr( "data-id" );
 
-        Fugitivas.Methods.setPointCustom( tpl, id, left, top, tag );
+
+        Fugitivas.Methods.setPointCustom( tpl, id, left, top, tag);
     },
     getLastID: function ()
     {
@@ -144,6 +145,68 @@ Fugitivas.Methods = {
 
         } );
 
-    }
+    },
+    delegateEdit: function ()
+    {
+        ( function ()
+        {
 
+            $( "#viewport" ).on( "click", ".editar", function ()
+            {
+                var id = $( this ).siblings( 'input[name="idPoint"]' ).val();
+                Fugitivas.ModelFugitivas.flagSatatusPonto( "edit" );
+                Fugitivas.ModelFugitivas.idPonto( id );
+                if ( Fugitivas.ModelFugitivas.flagSatatusPonto() === "edit" )
+                {
+                    Fugitivas.Methods.dialogOpen( "Editar Ponto", $( this ) );
+                }
+
+            } );
+
+        }
+        )();
+    },
+    delegateView: function(){
+        (function()
+        {
+        
+            $( "#viewport" ).on( "click", ".visualizar", function ()
+            {
+                var id = $( this ).siblings( 'input[name="idPoint"]' ).val();
+                Fugitivas.ModelFugitivas.flagSatatusPonto( "view" );
+                Fugitivas.ModelFugitivas.idPonto( id );
+
+                if ( Fugitivas.ModelFugitivas.flagSatatusPonto() === "view" )
+                {
+                    Fugitivas.Methods.dialogOpen( "Visualizar Ponto", $( this ) );
+                }
+
+
+            } );
+        
+        }
+        )();
+    },
+    dialogOpen: function (title, elem)
+    {
+       $( '#NoteDialog' ).remove();
+       $( '<div id="NoteDialog"></div>' ).dialog( {
+            title: title,
+            resizable: false,
+            draggable: true,
+            modal: true,
+            closeOnEscape: false,
+            closeText: "hide",
+            height: "280",
+            width: "400",
+            position: { my: "left top", at: "right bottom", of: elem },
+            open: function ( event, ui )
+            {
+                $( this ).css( "overflow", "hidden" );
+                $( '.ui-dialog-titlebar-close' ).remove();
+                $( this ).attr( "data-bind", "component: {name: 'form-content', params:{tipos: listagemComponente, fabricantes: listagemFabricante, especialidade: listagemEspecialidade} }" );
+                ko.applyBindings( Fugitivas.ModelFugitivas, $( "#NoteDialog" )[0] );
+            }
+        } )
+    }
 };

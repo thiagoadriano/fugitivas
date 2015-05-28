@@ -100,6 +100,7 @@
     background: #fff;
     border-radius: 3px;
     border: #A8A8A8 solid 1px;
+    position:absolute;
 }
 
 .namePoint span{
@@ -107,9 +108,35 @@
     font-weight:700;
     font-size:14px;
 }
-.namePoint .glyphicon{
-    margin-left:6px;
-    font-size:12px;
+.visualizar,
+.editar{
+    border:none;
+    padding: 0 5px;
+    width:auto;
+    height:auto;
+    margin-left: 7px;
+}
+.visualizar{
+    background: #0788B3;
+}
+.editar{
+    background: #EABE00;
+}
+.visualizar:hover{
+    background: #024e67;
+}
+.editar:hover{
+    background: #b29300;
+}
+.visualizar span,
+.editar span{
+    color:#272727;
+    font-size:11px;
+    font-weight:normal;
+}
+.visualizar:hover span,
+.editar:hover span{
+    color:#fff;
 }
 .tab-content{
     background:#fff;

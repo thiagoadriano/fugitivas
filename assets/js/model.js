@@ -13,7 +13,8 @@ Fugitivas.ModelFugitivas =
     listagemComponente: ko.observableArray(),
     listagemEspecialidade: ko.observableArray(),
     listagemFabricante: ko.observableArray(),
-    flagNovoPonto: ko.observable(),
+    flagSatatusPonto: ko.observable(),
+    idPonto: ko.observable(),
 
     openModal: function (grupo)
     {
@@ -30,8 +31,9 @@ Fugitivas.ModelFugitivas =
                 var $modal = $( '#modalPontos' );
                 $modal.modal( { modal: true } );
                 $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( Fugitivas.defaultImgNotes );
-                $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "zoomable", false );
 
+                Fugitivas.Methods.delegateEdit();
+                Fugitivas.Methods.delegateView();
 
             } );
         }
@@ -59,6 +61,10 @@ Fugitivas.ModelFugitivas =
         $('#modalPontos').modal("hide");
         $(".viewport").html("").remove();
         
+    },
+
+    zoomOut: function(){
+        $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "zoom", 1 );
     },
 
     init: function ()
