@@ -99,7 +99,7 @@ ko.components.register( 'form-content', {
 
                 ultimoPontoTag.off( "click" );
 
-                pontos.push( {
+                var PontoNovo = {
                     ID: novaId,
                     COORDS: { X: ultimoPonto.x, Y: ultimoPonto.y },
                     DADOS_PONTO: {
@@ -111,12 +111,28 @@ ko.components.register( 'form-content', {
                         POSICAO_PONTO: data.positionSelect(),
                         ESPECIALIDADE_PONTO: data.specialtySelect()
                     }
-                } );
+                }
+
+                
 
 
-                //$.post("URLDOSERVER", JSON.stringify(ModelFugitivas.dadosModal()), callbackAPOSCADASTRO, "JSON");
+                if ( Fugitivas.URLS.Salvar !== undefined )
+                {
+                    var jsonPonto = JSON.stringify( PontoNovo );
+                    Fugitivas.Methods.postData( Fugitivas.URLS.Salvar, jsonPonto, function ()
+                    {
+                        if ( result.success )
+                        {
+                            pontos.push( PontoNovo );
+                            Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
+                        }
+                    } );
 
-                Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag )
+                } else
+                {
+                    pontos.push( PontoNovo );
+                    Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag )
+                };
 
             };
 

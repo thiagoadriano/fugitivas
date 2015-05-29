@@ -191,3 +191,70 @@ textarea.form-control { resize: none; height:80px; }
     text-align:center;
     margin:0;
 }
+#containerLoading{
+    position:absolute;
+    top:0;
+    left:0;
+    background:#000;
+    background:rgba(0,0,0,0.7);
+    z-index:100000000;
+    width:100%;
+    height:100%;
+}
+#containerLoading #loading{
+    width: 350px;
+    text-align: center;
+    padding: 20px 0;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    margin-left: -175px;
+    height: auto;
+    display: block;            
+}
+#containerLoading #loading p{
+    margin: 14px 0 0;
+    font-weight: 700;
+    color: #fff;
+}
+
+#containerLoading #loading img{
+    width:45px;
+    height:auto;
+    margin:0 auto;
+    display:block
+}
+#notifica{
+    width:auto;
+    max-width: 350px;
+    height:auto;
+    max-height: 250px;
+    position:fixed;
+    top: 15px;
+    right:15px;
+    z-index:10000000000;
+    padding: 20px;
+    margin:0;
+}
+#notifica p{
+    font-size:16px;
+    color:#fff;
+    font-weight:700;
+    margin:0;
+    letter-spacing: 0.05em;
+}
+#notifica p span{
+    margin-right: 6px;
+    margin-top: 3px;
+    display:inline-block;
+}
+#notifica.notifica-ok{
+    background:green;
+    border-top:#015501 solid 4px;
+    border-bottom:#015501 solid 4px;
+}
+#notifica.notifica-erro{
+    background:#9c0000;
+    border-top:#550101 solid 4px;
+    border-bottom:#550101 solid 4px;
+}

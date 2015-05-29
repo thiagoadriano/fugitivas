@@ -137,6 +137,30 @@ Fugitivas.Methods = {
 
 
     },
+    postData: function ( urlLink, dados, callback )
+    {
+        $.ajax( {
+            url: urlLink,
+            type: "POST",
+            dataType: "json",
+            data: dados,
+            cache: false,
+            sync: true,
+            success: function ( result )
+            {
+                if ( callback && typeof callback === "function" )
+                {
+                    callback( result );
+                }
+
+            },
+            error: function ( e )
+            {
+                console.error( e );
+            }
+        } );
+
+    },
     createLine: function ( obj )
     {
         jsPlumb.ready( function ()

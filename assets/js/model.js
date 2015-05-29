@@ -109,7 +109,7 @@ Fugitivas.ModelFugitivas =
     }
 };
 
-ko.applyBindings(Fugitivas.ModelFugitivas);
+ko.applyBindings( Fugitivas.ModelFugitivas );
 Fugitivas.ModelFugitivas.init();
 
 ko.bindingHandlers.fadeVisible = {

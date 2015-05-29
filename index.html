@@ -13,174 +13,164 @@
     <link rel="stylesheet" href="assets/css/main.css">
   </head>
 
-  <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
 
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th class="hide">id</th>
-              <th>Grupo de Pontos</th>
-              <th>Unidade de Processo</th>
-              <th>Linha de Processo</th>
-              <th>Tag do Equipamento</th>
-              <th>Ação</th>
-            </tr>
-          </thead>
-            <tbody data-bind="foreach: Fugitivas.ModelFugitivas.listaGrupoPontos">
-                <tr>
-                    <th scope="row" class="hide" data-bind="text: ID"></th>
-                    <td data-bind="text: NOME_GRUPO_PONTOS"></td>
-                    <td data-bind="text: UNIDADE_PROCESSO"></td>
-                    <td data-bind="text: LINHA_PROCESSO"></td>
-                    <td data-bind="text: TAG_EQUIPAMENTO"></td>
-                    <td>
-                        <button type="button"
-                                class="btn btn-primary btn-md"
-                                data-bind="enable: EXISTE_IMAGEM(), click: $parent.openModal">
-                            Pontos de Medição
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
-      </div>
-    </div>
-    
-    <!-- Modal -->
-    <div class="modal" id="modalPontos" role="dialog" aria-labelledby="ModalEditPoint" aria-hidden="false">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-              <button type="button" class="close" data-bind="click: closeModal"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Grupo de Ponto:  <strong data-bind="text: titleModal"></strong></h4>
-          </div>
-            <div class="modal-body" data-bind="foreach: Fugitivas.ModelFugitivas.dadosModal">
-                <div class="row">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="hide">id</th>
+                            <th>Grupo de Pontos</th>
+                            <th>Unidade de Processo</th>
+                            <th>Linha de Processo</th>
+                            <th>Tag do Equipamento</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: Fugitivas.ModelFugitivas.listaGrupoPontos">
+                        <tr>
+                            <th scope="row" class="hide" data-bind="text: ID"></th>
+                            <td data-bind="text: NOME_GRUPO_PONTOS"></td>
+                            <td data-bind="text: UNIDADE_PROCESSO"></td>
+                            <td data-bind="text: LINHA_PROCESSO"></td>
+                            <td data-bind="text: TAG_EQUIPAMENTO"></td>
+                            <td>
+                                <button type="button"
+                                        class="btn btn-primary btn-md"
+                                        data-bind="enable: EXISTE_IMAGEM(), click: $parent.openModal">
+                                    Pontos de Medição
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-                    <div class="col-md-4">
-                        <form class="form-horizontal">
-                            <fieldset>
-                                <legend>Unidade Organizacional</legend>
+            </div>
+        </div>
 
-                                <div class="form-group">
-                                    <label for="" class="col-md-4 control-label label-control-one">Empresa</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: EMPRESA">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="" class="col-md-4 control-label label-control-one">Nível 1</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: NIVEL1">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="" class="col-md-4 control-label label-control-one">Nível 2</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: NIVEL2">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="" class="col-md-4 control-label label-control-one">Nível 3</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: NIVEL3">
-                                    </div>
-                                </div>
-
-                            </fieldset>
-
-                            <fieldset>
-                                <!--<legend>Processo</legend>-->
-
-                                <div class="form-group">
-                                    <label for="" class="col-md-4 control-label">Unidade de Processo</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: UNIDADE_PROCESSO">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="" class="col-md-4 control-label">Linha de Processo</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: LINHA_PROCESSO">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="" class="col-md-4 control-label">Tag do Equipamento</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: TAG_EQUIPAMENTO">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="" class="col-md-4 control-label">Posição do Grupo</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: POSICAO_GRUPO">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="" class="col-md-4 control-label label-control-one">Fluxograma</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: FLUXOGRAMA">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="" class="col-md-4 control-label">Nota</label>
-                                    <div class="col-md-8">
-                                        <textarea class="form-control" rows="3" data-bind="value: NOTA" readonly="readonly" disabled="disabled"></textarea>
-                                    </div>
-                                </div>
-
-                            </fieldset>
-                        </form>
+        <!-- Modal -->
+        <div class="modal" id="modalPontos" role="dialog" aria-labelledby="ModalEditPoint" aria-hidden="false">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-bind="click: closeModal"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Grupo de Ponto:  <strong data-bind="text: titleModal"></strong></h4>
                     </div>
+                    <div class="modal-body" data-bind="foreach: Fugitivas.ModelFugitivas.dadosModal">
+                        <div class="row">
 
-                    <div class="col-md-8">
-                        <div id="content">
-                            <div id="content-img">
-                                <img id="MainContentIMG" data-bind="attr: {src: 'imagem/' + IMG_NAME}">
+                            <div class="col-md-4">
+                                <form class="form-horizontal">
+                                    <fieldset>
+                                        <legend>Unidade Organizacional</legend>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label label-control-one">Empresa</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: EMPRESA">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label label-control-one">Nível 1</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: NIVEL1">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label label-control-one">Nível 2</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: NIVEL2">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label label-control-one">Nível 3</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: NIVEL3">
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <!--<legend>Processo</legend>-->
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label">Unidade de Processo</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: UNIDADE_PROCESSO">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label">Linha de Processo</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: LINHA_PROCESSO">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label">Tag do Equipamento</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: TAG_EQUIPAMENTO">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label">Posição do Grupo</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: POSICAO_GRUPO">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label label-control-one">Fluxograma</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" data-bind="value: FLUXOGRAMA">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label">Nota</label>
+                                            <div class="col-md-8">
+                                                <textarea class="form-control" rows="3" data-bind="value: NOTA" readonly="readonly" disabled="disabled"></textarea>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                </form>
                             </div>
+
+                            <div class="col-md-8">
+                                <div id="content">
+                                    <div id="content-img">
+                                        <img id="MainContentIMG" data-bind="attr: {src: 'imagem/' + IMG_NAME}">
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-modal btn-primary" data-bind="click: zoomOut">Zoom 100%</button>
+                        <button type="button" class="btn btn-modal btn-warning" data-bind="text: btnEditar, click: editClick"></button>
+                        <button type="button" class="btn btn-modal btn-default" data-bind="click: closeModal">Fechar</button>
+                    </div>
                 </div>
             </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-modal btn-primary" data-bind="click: zoomOut">Zoom 100%</button>
-              <button type="button" class="btn btn-modal btn-warning" data-bind="text: btnEditar, click: editClick"></button>
-              <button type="button" class="btn btn-modal btn-default" data-bind="click: closeModal">Fechar</button>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-  
-    <!-- Controle de Scripts -->
-    <script src="assets/js/lib/jquery-1.11.3.js"></script>
-    <script src="assets/js/lib/jquery-ui.js"></script>
-    <script src="assets/js/lib/bootstrap.js"></script>
-    <script src="assets/js/lib/jquery.fs.zoetrope.js"></script>
-    <script src="assets/js/lib/toe.js"></script>
-    <script src="assets/js/lib/jquery.mousewheel.js"></script>
-    <script src="assets/js/lib/imgViewer.js"></script>
-    <script src="assets/js/lib/knockout-3.3.0.js"></script>
-    <script src="assets/js/lib/knockout.mapping.js"></script>
-    <script src="assets/js/lib/imgNotes.js"></script>
-    <script src="assets/js/lib/jquery.jsPlumb-1.7.5.js"></script>
-    <script src="assets/js/controller.js"></script>
-    <script src="assets/js/default.js"></script>
-    <script src="assets/js/component.js"></script>
-    <script src="assets/js/model.js"></script>
 
+    <!-- Controle de Scripts -->
+    <script src="assets/js/lib/jquery.min.js"></script>
+    <script src="assets/js/lib/knockout.min.js"></script>
+    <script src="assets/js/lib/bootstrap.min.js"></script>
+    <script src="assets/js/lib/notes_plugin.min.js"></script>
+    <script src="assets/js/lib/jquery.jsPlumb-1.7.5.js"></script>
+    <script src="assets/js/fugitivas_system.min.js"></script>
 </body>
 </html>
