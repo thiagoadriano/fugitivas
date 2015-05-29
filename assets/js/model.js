@@ -21,11 +21,7 @@ Fugitivas.ModelFugitivas =
         if (grupo.ID_GRUPO_PONTO() != "") {
             Fugitivas.Methods.getData( Fugitivas.URLS.Base + grupo.ID_GRUPO_PONTO() + ".json", function ( result )
             {
-                Fugitivas.ModelFugitivas.dadosModal(result);
-                for (var i in result.MARCACAO_PONTO) {
-                    Fugitivas.ModelFugitivas.listaPontos.push( ko.mapping.fromJS(result.MARCACAO_PONTO[i]) );
-                }
-
+                Fugitivas.ModelFugitivas.dadosModal( ko.mapping.fromJS( result ) );
                 Fugitivas.ModelFugitivas.titleModal( grupo.NOME_GRUPO_PONTOS() );
 
                 var $modal = $( '#modalPontos' );

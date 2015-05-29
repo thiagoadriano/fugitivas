@@ -109,7 +109,7 @@ Fugitivas.Methods = {
     getLastID: function ()
     {
         var dados = Fugitivas.ModelFugitivas.dadosModal(),
-                pontos = dados.MARCACAO_PONTO;
+                pontos = dados.MARCACAO_PONTO();
         var lastId = ( pontos.length ? parseInt( pontos[pontos.length - 1].ID ) + 1 : 0 );
         return lastId;
     },

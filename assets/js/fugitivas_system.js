@@ -103,7 +103,7 @@ ko.components.register( 'form-content', {
     viewModel: function (params) {
         var self = this;
         var objeto = Fugitivas.ModelFugitivas.flagSatatusPonto() !== "new" ? 
-            ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO, function ( item )
+            ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function ( item )
                 {
                     return Fugitivas.ModelFugitivas.idPonto() == item.ID
 
@@ -185,8 +185,7 @@ ko.components.register( 'form-content', {
             if ( Fugitivas.Methods.validarCampos() )
             {
 
-                var dados = Fugitivas.ModelFugitivas.dadosModal(),
-                    pontos = dados.MARCACAO_PONTO;
+                var pontos = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
                 var novaId = Fugitivas.Methods.getLastID();
                 var dadosPontoImagem = $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "export" );
                 var ultimoPonto = dadosPontoImagem[dadosPontoImagem.length - 1];
@@ -214,22 +213,24 @@ ko.components.register( 'form-content', {
                 
 
 
-                if ( Fugitivas.URLS.Salvar !== undefined )
+                if ( Fugitivas.URLS.Salvar )
                 {
                     var jsonPonto = JSON.stringify( PontoNovo );
-                    Fugitivas.Methods.postData( Fugitivas.URLS.Salvar, jsonPonto, function ()
+                    Fugitivas.Methods.postData( Fugitivas.URLS.Salvar + Fugitivas.ModelFugitivas.dadosModal().ID, jsonPonto, function ( result )
                     {
-                        if ( result.success )
+                        if ( result.type )
                         {
                             pontos.push( PontoNovo );
                             Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
                         }
+                        Fugitivas.Notifica(result.type, result.mensagem)
                     } );
 
                 } else
                 {
                     pontos.push( PontoNovo );
-                    Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag )
+                    Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
+                    Fugitivas.Notifica( true, "Ponto Cadastrado com Sucesso!" );
                 };
 
             };
@@ -259,25 +260,40 @@ ko.components.register( 'form-content', {
 
         self.yesDeletar = function ()
         {
-            console.log( Fugitivas.ModelFugitivas.idPonto() );
-            console.log( Fugitivas.ModelFugitivas.flagSatatusPonto() );
-            console.info( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO )
-            console.table( objeto );
-
-            if ( Fugitivas.ModelFugitivas.idPonto() !== "" || Fugitivas.ModelFugitivas.idPonto() !== undefined )
+           
+            if ( Fugitivas.ModelFugitivas.idPonto() !== "" && Fugitivas.ModelFugitivas.idPonto() !== undefined )
             {
                 if ( Fugitivas.ModelFugitivas.flagSatatusPonto() !== "new" )
                 {
-                    Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove( objeto );
-                    $( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
-                    $( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
+                    
+                    if ( Fugitivas.URLS.Deletar )
+                    {
+                        Fugitivas.Methods.postData( Fugitivas.URLS.Deletar + Fugitivas.ModelFugitivas.idPonto(), objeto, function ( result )
+                        {
+                            if ( result.type )
+                            {
+                                
+                                Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove( objeto );
+                                $( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
+                                $( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
+
+                            }
+                            Fugitivas.Notifica( result.type, result.mensagem );
+                        } );
+
+                    } else
+                    {
+                        Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove(objeto);                       
+                        $( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
+                        $( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
+                        Fugitivas.Notifica( true, "Ponto Deletado com Sucesso!" );
+                    }
                 } else
                 {
                     $( '.pointInitial[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
                 }
                 $( "#NoteDialog" ).dialog( "close" );
             }
-            console.info( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO )
 
         }
         
@@ -479,7 +495,7 @@ Fugitivas.Methods = {
     getLastID: function ()
     {
         var dados = Fugitivas.ModelFugitivas.dadosModal(),
-                pontos = dados.MARCACAO_PONTO;
+                pontos = dados.MARCACAO_PONTO();
         var lastId = ( pontos.length ? parseInt( pontos[pontos.length - 1].ID ) + 1 : 0 );
         return lastId;
     },
@@ -627,11 +643,7 @@ Fugitivas.ModelFugitivas =
         if (grupo.ID_GRUPO_PONTO() != "") {
             Fugitivas.Methods.getData( Fugitivas.URLS.Base + grupo.ID_GRUPO_PONTO() + ".json", function ( result )
             {
-                Fugitivas.ModelFugitivas.dadosModal(result);
-                for (var i in result.MARCACAO_PONTO) {
-                    Fugitivas.ModelFugitivas.listaPontos.push( ko.mapping.fromJS(result.MARCACAO_PONTO[i]) );
-                }
-
+                Fugitivas.ModelFugitivas.dadosModal( ko.mapping.fromJS( result ) );
                 Fugitivas.ModelFugitivas.titleModal( grupo.NOME_GRUPO_PONTOS() );
 
                 var $modal = $( '#modalPontos' );
