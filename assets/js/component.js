@@ -1,4 +1,5 @@
-﻿var Fugitivas = Fugitivas || {};
+﻿/// <reference path="../../Scripts/_references.js" />
+var Fugitivas = Fugitivas || {};
 
 'use strict';
 ko.components.register( 'form-content', {
@@ -7,8 +8,7 @@ ko.components.register( 'form-content', {
         var objeto = Fugitivas.ModelFugitivas.flagSatatusPonto() !== "new" ? 
             ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function ( item )
                 {
-                    return Fugitivas.ModelFugitivas.idPonto() == item.ID
-
+                    return Fugitivas.ModelFugitivas.idPonto() == item.ID();
                 } ) : undefined;
         self.listType = params.tipos;
         self.listManufacturers = params.fabricantes;
@@ -22,6 +22,96 @@ ko.components.register( 'form-content', {
         self.positionSelect = ko.observable();
         self.specialtySelect = ko.observable();
         self.flagDeletar = ko.observable( false );
+
+        
+
+        self.save = {
+            novo: function (data)
+            {
+                var pontos = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
+                var novaId = Fugitivas.Methods.getLastID();
+                var dadosPontoImagem = $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "export" );
+                var ultimoPonto = dadosPontoImagem[dadosPontoImagem.length - 1];
+                var ultimoPontoTag = $( ".markerPoint" ).last();
+                var Componente = Fugitivas.Methods.getItemId( self.listType(), data.typeSelect() );
+                var subComponente = data.subTypeSelect() !== "" ? Fugitivas.Methods.getItemId( Componente.SUBTIPO(), data.subTypeSelect() ) : "";
+                var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA() : "" ) + " - " + Math.floor( Math.random() * 1000 );
+
+                ultimoPontoTag.off( "click" );
+
+                var PontoNovo = {
+                    ID: novaId,
+                    COORDS: { X: ultimoPonto.x, Y: ultimoPonto.y },
+                    DADOS_PONTO: {
+                        TIPO_COMPONENTE: data.typeSelect(),
+                        SUBTIPO_COMPONENTE: data.subTypeSelect(),
+                        FABRICANTE: data.manufactSelect(),
+                        DIMENSAO: data.dimmerSelect(),
+                        MEDIDA_DIMENSAO: data.dimmerComboSelect(),
+                        POSICAO_PONTO: data.positionSelect(),
+                        ESPECIALIDADE_PONTO: data.specialtySelect()
+                    }
+                }
+
+
+
+
+                if ( Fugitivas.URLS.Salvar )
+                {
+                    var jsonPonto = JSON.stringify( PontoNovo );
+                    Fugitivas.Methods.postData( Fugitivas.URLS.Salvar + Fugitivas.ModelFugitivas.dadosModal().ID, jsonPonto, function ( result )
+                    {
+                        if ( result.type )
+                        {
+                            pontos.push( PontoNovo );
+                            Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
+                        }
+                        Fugitivas.Notifica( result.type, result.mensagem )
+                    } );
+
+                } else
+                {
+                    pontos.push( ko.mapping.fromJS(PontoNovo) );
+                    Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
+                    Fugitivas.Notifica( true, "Ponto Cadastrado com Sucesso!" );
+                };
+
+            },
+            atualiza: function (data)
+            {
+                var pontos = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
+                var Componente = Fugitivas.Methods.getItemId( self.listType(), data.typeSelect() );
+                var subComponente = data.subTypeSelect() !== "" ? Fugitivas.Methods.getItemId( Componente.SUBTIPO(), data.subTypeSelect() ) : "";
+                var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA() : "" ) + " - " + Math.floor( Math.random() * 1000 );
+
+                if ( Fugitivas.URLS.Atualizar )
+                {
+                    Fugitivas.Methods.postData(Fugitivas.URLS.Atualizar + Fugitivas.ModelFugitivas.dadosModal().ID, dados, function(result){
+                        if(result.type){
+
+                        }
+                        Fugitivas.Notifica(result.type, result.mensagem);
+                    });
+                } else
+                {
+                    var editPonto = ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function ( item )
+                    {
+                        return Fugitivas.ModelFugitivas.idPonto() == item.ID();
+                    } );
+
+                    editPonto.DADOS_PONTO.TIPO_COMPONENTE( data.typeSelect() );
+                    editPonto.DADOS_PONTO.SUBTIPO_COMPONENTE( data.subTypeSelect());
+                    editPonto.DADOS_PONTO.FABRICANTE( data.manufactSelect());
+                    editPonto.DADOS_PONTO.DIMENSAO( data.dimmerSelect());
+                    editPonto.DADOS_PONTO.MEDIDA_DIMENSAO( data.dimmerComboSelect());
+                    editPonto.DADOS_PONTO.POSICAO_PONTO( data.positionSelect());
+                    editPonto.DADOS_PONTO.ESPECIALIDADE_PONTO( data.specialtySelect() );
+                    $( "#NoteDialog" ).dialog( "close" );
+                    
+                };
+            }
+        }
+        
 
         ko.bindingHandlers.numeric = {
             init: function ( element, valueAcessor )
@@ -48,22 +138,22 @@ ko.components.register( 'form-content', {
                         $( this ).val( remove( $( this ) ) );
 
                     }
-                });
+                } );
 
-                if ( Fugitivas.ModelFugitivas.flagSatatusPonto() !== "new" && objeto !== undefined)
+                if ( Fugitivas.ModelFugitivas.flagSatatusPonto() !== "new" && objeto !== undefined )
                 {
-
-                    self.typeSelect( objeto.DADOS_PONTO.TIPO_COMPONENTE );
-                    self.subTypeSelect( objeto.DADOS_PONTO.SUBTIPO_COMPONENTE );
-                    self.manufactSelect( objeto.DADOS_PONTO.FABRICANTE );
-                    self.dimmerSelect( objeto.DADOS_PONTO.DIMENSAO );
-                    self.dimmerComboSelect( objeto.DADOS_PONTO.MEDIDA_DIMENSAO );
-                    self.positionSelect( objeto.DADOS_PONTO.POSICAO_PONTO );
-                    self.specialtySelect( objeto.DADOS_PONTO.ESPECIALIDADE_PONTO );
-                }
-                
+                    self.typeSelect( objeto.DADOS_PONTO.TIPO_COMPONENTE() );
+                    self.subTypeSelect( objeto.DADOS_PONTO.SUBTIPO_COMPONENTE() );
+                    self.manufactSelect( objeto.DADOS_PONTO.FABRICANTE() );
+                    self.dimmerSelect( objeto.DADOS_PONTO.DIMENSAO() );
+                    self.dimmerComboSelect( objeto.DADOS_PONTO.MEDIDA_DIMENSAO() );
+                    self.positionSelect( objeto.DADOS_PONTO.POSICAO_PONTO() );
+                    self.specialtySelect( objeto.DADOS_PONTO.ESPECIALIDADE_PONTO() );
+                };
+ 
             }
         };
+
 
         self.typeSelect.subscribe(
             function (data) {
@@ -86,55 +176,15 @@ ko.components.register( 'form-content', {
            
             if ( Fugitivas.Methods.validarCampos() )
             {
-
-                var pontos = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
-                var novaId = Fugitivas.Methods.getLastID();
-                var dadosPontoImagem = $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "export" );
-                var ultimoPonto = dadosPontoImagem[dadosPontoImagem.length - 1];
-                var ultimoPontoTag = $( ".markerPoint" ).last();
-                var Componente = Fugitivas.Methods.getItemId( self.listType(), data.typeSelect() );
-                var subComponente = data.subTypeSelect() !== "" ? Fugitivas.Methods.getItemId( Componente.SUBTIPO(), data.subTypeSelect() ) : "";
-                var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA() : "" ) + " - " + Math.floor( Math.random() * 1000 );
-
-                ultimoPontoTag.off( "click" );
-
-                var PontoNovo = {
-                    ID: novaId,
-                    COORDS: { X: ultimoPonto.x, Y: ultimoPonto.y },
-                    DADOS_PONTO: {
-                        TIPO_COMPONENTE: data.typeSelect(),
-                        SUBTIPO_COMPONENTE: data.subTypeSelect(),
-                        FABRICANTE: data.manufactSelect(),
-                        DIMENSAO: data.dimmerSelect(),
-                        MEDIDA_DIMENSAO: data.dimmerComboSelect(),
-                        POSICAO_PONTO: data.positionSelect(),
-                        ESPECIALIDADE_PONTO: data.specialtySelect()
-                    }
+                if ( Fugitivas.ModelFugitivas.flagSatatusPonto() === "new" )
+                {
+                    self.save.novo( data );
                 }
-
+                else if ( Fugitivas.ModelFugitivas.flagSatatusPonto() === "edit" )
+                {
+                    self.save.atualiza(data);
+                }
                 
-
-
-                if ( Fugitivas.URLS.Salvar )
-                {
-                    var jsonPonto = JSON.stringify( PontoNovo );
-                    Fugitivas.Methods.postData( Fugitivas.URLS.Salvar + Fugitivas.ModelFugitivas.dadosModal().ID, jsonPonto, function ( result )
-                    {
-                        if ( result.type )
-                        {
-                            pontos.push( PontoNovo );
-                            Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
-                        }
-                        Fugitivas.Notifica(result.type, result.mensagem)
-                    } );
-
-                } else
-                {
-                    pontos.push( PontoNovo );
-                    Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
-                    Fugitivas.Notifica( true, "Ponto Cadastrado com Sucesso!" );
-                };
-
             };
 
 
@@ -175,7 +225,7 @@ ko.components.register( 'form-content', {
                             if ( result.type )
                             {
                                 
-                                Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove( objeto );
+                                 Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove(objeto);
                                 $( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
                                 $( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
 
