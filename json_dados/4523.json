@@ -1,41 +1,72 @@
 ﻿{
-	"ID": "4523", 
-	"IMG_NAME": "petroleo.jpg", 
-	"EMPRESA": "TIVIT",
-	"NIVEL1": "ADM", 
-	"NIVEL2": "SEGUIMENTAÇÂO", 
-	"NIVEL3": "LISTENER", 
-	"UNIDADE_PROCESSO": "PRESIDENTE VARGAS", 
-	"LINHA_PROCESSO": "NOVO PROCESSO", 
-	"TAG_EQUIPAMENTO": "XYZ54",
-	"POSICAO_GRUPO": "15", 
-	"FLUXOGRAMA": "FLUXO NOVO", 
-	"NOTA": "Teste de inserção de dados", 
-	"MARCACAO_PONTO": 
-	[
-		{"ID": "0", 
-		"COORDS": { "X": "", "Y": ""}, 
-		 "DADOS_PONTO": { 
-			"TIPO_COMPONENTE": "",
-			"SUBTIPO_COMPONENTE": "",
-			"FABRICANTE": "",
-			"DIMENSAO": "",
-			"MEDIDA_DIMENSAO": "",
-			"POSICAO_PONTO": "",
-			"ESPECIALIDADE_PONTO": ""}
-		},
+    "ID": "4523",
+    "IMG_NAME": "petroleo.jpg",
+    "EMPRESA": "TIVIT",
+    "NIVEL1": "ADM",
+    "NIVEL2": "SEGUIMENTAÇÂO",
+    "NIVEL3": "LISTENER",
+    "UNIDADE_PROCESSO": "PRESIDENTE VARGAS",
+    "LINHA_PROCESSO": "NOVO PROCESSO",
+    "TAG_EQUIPAMENTO": "XYZ54",
+    "POSICAO_GRUPO": "15",
+    "FLUXOGRAMA": "FLUXO NOVO",
+    "NOTA": "Teste de inserção de dados",
+    "MARCACAO_PONTO": [
+        {
+            "ID": 0,
+            "COORDS": { "X": 0.044275, "Y": 0.03125 },
+            "DADOS_PONTO": {
+                "TIPO_COMPONENTE": "0",
+                "SUBTIPO_COMPONENTE": "1",
+                "FABRICANTE": "0",
+                "DIMENSAO": "23",
+                "MEDIDA_DIMENSAO": "0",
+                "POSICAO_PONTO": "43",
+                "ESPECIALIDADE_PONTO": "0"
 
-		{"ID": "1", 
-		"COORDS": { "X": "", "Y": ""}, 
-		 "DADOS_PONTO": { 
-			"TIPO_COMPONENTE": "",
-			"SUBTIPO_COMPONENTE": "",
-			"FABRICANTE": "",
-			"DIMENSAO": "",
-			"MEDIDA_DIMENSAO": "",
-			"POSICAO_PONTO": "",
-			"ESPECIALIDADE_PONTO": ""}
-		}
+            }
+        },
+        {
+            "ID": 1,
+            "COORDS": { "X": 0.711475, "Y": 0.03571428571428571 },
+            "DADOS_PONTO": {
+                "TIPO_COMPONENTE": "3",
+                "SUBTIPO_COMPONENTE": "",
+                "FABRICANTE": "0",
+                "DIMENSAO": "567",
+                "MEDIDA_DIMENSAO": "0",
+                "POSICAO_PONTO": "er4t5s5uy",
+                "ESPECIALIDADE_PONTO": "2"
 
-	]
+            }
+        },
+        {
+            "ID": 2,
+            "COORDS": { "X": 0.465075, "Y": 0.49330357142857145 },
+            "DADOS_PONTO": {
+                "TIPO_COMPONENTE": "2",
+                "SUBTIPO_COMPONENTE": "1",
+                "FABRICANTE": "2",
+                "DIMENSAO": "45",
+                "MEDIDA_DIMENSAO": "0",
+                "POSICAO_PONTO": "h45y7sk",
+                "ESPECIALIDADE_PONTO": "0"
+
+            }
+        },
+        {
+            "ID": 3,
+            "COORDS": { "X": 0.066675, "Y": 0.6919642857142857 },
+            "DADOS_PONTO": {
+                "TIPO_COMPONENTE": "6",
+                "SUBTIPO_COMPONENTE": "",
+                "FABRICANTE": "1",
+                "DIMENSAO": "5214",
+                "MEDIDA_DIMENSAO": "0",
+                "POSICAO_PONTO": "734uyw7GSf36",
+                "ESPECIALIDADE_PONTO": "0" 
+                    
+            }
+        }
+    ]
 }

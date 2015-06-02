@@ -23,8 +23,6 @@ ko.components.register( 'form-content', {
         self.specialtySelect = ko.observable();
         self.flagDeletar = ko.observable( false );
 
-        
-
         self.save = {
             novo: function (data)
             {
@@ -35,7 +33,7 @@ ko.components.register( 'form-content', {
                 var ultimoPontoTag = $( ".markerPoint" ).last();
                 var Componente = Fugitivas.Methods.getItemId( self.listType(), data.typeSelect() );
                 var subComponente = data.subTypeSelect() !== "" ? Fugitivas.Methods.getItemId( Componente.SUBTIPO(), data.subTypeSelect() ) : "";
-                var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA() : "" ) + " - " + Math.floor( Math.random() * 1000 );
+                var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA_SUBTIPO() : "" ) + " - " + Math.floor( Math.random() * 1000 );
 
                 ultimoPontoTag.off( "click" );
 
@@ -51,19 +49,18 @@ ko.components.register( 'form-content', {
                         POSICAO_PONTO: data.positionSelect(),
                         ESPECIALIDADE_PONTO: data.specialtySelect()
                     }
-                }
+                };
 
 
 
 
                 if ( Fugitivas.URLS.Salvar )
                 {
-                    var jsonPonto = JSON.stringify( PontoNovo );
-                    Fugitivas.Methods.postData( Fugitivas.URLS.Salvar + Fugitivas.ModelFugitivas.dadosModal().ID, jsonPonto, function ( result )
+                    Fugitivas.Methods.postData( Fugitivas.URLS.Salvar + Fugitivas.ModelFugitivas.dadosModal().ID(), JSON.stringify( PontoNovo ), function ( result )
                     {
                         if ( result.type )
                         {
-                            pontos.push( PontoNovo );
+                            pontos.push( ko.mapping.fromJS( PontoNovo ) );
                             Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
                         }
                         Fugitivas.Notifica( result.type, result.mensagem )
@@ -82,23 +79,44 @@ ko.components.register( 'form-content', {
                 var pontos = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
                 var Componente = Fugitivas.Methods.getItemId( self.listType(), data.typeSelect() );
                 var subComponente = data.subTypeSelect() !== "" ? Fugitivas.Methods.getItemId( Componente.SUBTIPO(), data.subTypeSelect() ) : "";
-                var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA() : "" ) + " - " + Math.floor( Math.random() * 1000 );
+                var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA_SUBTIPO() : "" ) + " - " + Math.floor( Math.random() * 1000 );
+                var editPonto = ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function ( item )
+                {
+                    return Fugitivas.ModelFugitivas.idPonto() == item.ID();
+                } );
+                var PontoEditado = {
+                    ID_GRUPO: Fugitivas.ModelFugitivas.dadosModal().ID(),
+                    ID: Fugitivas.ModelFugitivas.idPonto(),
+                    DADOS_PONTO: {
+                        TIPO_COMPONENTE: data.typeSelect(),
+                        SUBTIPO_COMPONENTE: data.subTypeSelect(),
+                        FABRICANTE: data.manufactSelect(),
+                        DIMENSAO: data.dimmerSelect(),
+                        MEDIDA_DIMENSAO: data.dimmerComboSelect(),
+                        POSICAO_PONTO: data.positionSelect(),
+                        ESPECIALIDADE_PONTO: data.specialtySelect()
+                    }
+                };
 
                 if ( Fugitivas.URLS.Atualizar )
                 {
-                    Fugitivas.Methods.postData(Fugitivas.URLS.Atualizar + Fugitivas.ModelFugitivas.dadosModal().ID, dados, function(result){
+                    Fugitivas.Methods.postData(Fugitivas.URLS.Atualizar + Fugitivas.ModelFugitivas.dadosModal().ID(), JSON.stringify(PontoEditado), function(result){
                         if(result.type){
-
+                            editPonto.DADOS_PONTO.TIPO_COMPONENTE( data.typeSelect() );
+                            editPonto.DADOS_PONTO.SUBTIPO_COMPONENTE( data.subTypeSelect() );
+                            editPonto.DADOS_PONTO.FABRICANTE( data.manufactSelect() );
+                            editPonto.DADOS_PONTO.DIMENSAO( data.dimmerSelect() );
+                            editPonto.DADOS_PONTO.MEDIDA_DIMENSAO( data.dimmerComboSelect() );
+                            editPonto.DADOS_PONTO.POSICAO_PONTO( data.positionSelect() );
+                            editPonto.DADOS_PONTO.ESPECIALIDADE_PONTO( data.specialtySelect() );
+                            $( ".namePoint[data-id='" + Fugitivas.ModelFugitivas.idPonto() + "']" ).find( "#nomeTag" ).text( templateTag );
+                            $( "#NoteDialog" ).dialog( "close" );
                         }
                         Fugitivas.Notifica(result.type, result.mensagem);
                     });
                 } else
                 {
-                    var editPonto = ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function ( item )
-                    {
-                        return Fugitivas.ModelFugitivas.idPonto() == item.ID();
-                    } );
-
+                    
                     editPonto.DADOS_PONTO.TIPO_COMPONENTE( data.typeSelect() );
                     editPonto.DADOS_PONTO.SUBTIPO_COMPONENTE( data.subTypeSelect());
                     editPonto.DADOS_PONTO.FABRICANTE( data.manufactSelect());
@@ -106,13 +124,13 @@ ko.components.register( 'form-content', {
                     editPonto.DADOS_PONTO.MEDIDA_DIMENSAO( data.dimmerComboSelect());
                     editPonto.DADOS_PONTO.POSICAO_PONTO( data.positionSelect());
                     editPonto.DADOS_PONTO.ESPECIALIDADE_PONTO( data.specialtySelect() );
+                    $( ".namePoint[data-id='" + Fugitivas.ModelFugitivas.idPonto() + "']" ).find( "#nomeTag" ).text( templateTag );
                     $( "#NoteDialog" ).dialog( "close" );
-                    
+                    Fugitivas.Notifica( true, "Ponto atualizado com Sucesso!" );
                 };
             }
         }
         
-
         ko.bindingHandlers.numeric = {
             init: function ( element, valueAcessor )
             {
@@ -139,7 +157,13 @@ ko.components.register( 'form-content', {
 
                     }
                 } );
+ 
+            }
+        };
 
+        ko.bindingHandlers.dadosInicial = {
+            init: function ()
+            {
                 if ( Fugitivas.ModelFugitivas.flagSatatusPonto() !== "new" && objeto !== undefined )
                 {
                     self.typeSelect( objeto.DADOS_PONTO.TIPO_COMPONENTE() );
@@ -150,9 +174,8 @@ ko.components.register( 'form-content', {
                     self.positionSelect( objeto.DADOS_PONTO.POSICAO_PONTO() );
                     self.specialtySelect( objeto.DADOS_PONTO.ESPECIALIDADE_PONTO() );
                 };
- 
             }
-        };
+        }
 
 
         self.typeSelect.subscribe(
@@ -250,7 +273,7 @@ ko.components.register( 'form-content', {
         }
         
     },
-    template: '<form id="fromDados" class="form-horizontal">'+
+    template: '<form id="fromDados" class="form-horizontal" data-bind="dadosInicial">' +
                 '<div role="tabpanel">'+
                     '<ul class="nav nav-tabs" role="tablist">'+
                         '<li role="presentation" class="active">'+
@@ -316,7 +339,7 @@ ko.components.register( 'form-content', {
                             '<button type="button" class="btn btn-danger btn-block" data-bind="visible: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\', enable: flagDeletar() == false, click: deleted">Deletar</button>' +
                        '</div>'+
                        '<div class="col-md-3">'+
-                            '<button type="button" class="btn btn-default btn-block" data-bind="enable: flagDeletar() == false, click: close">Fechar</button>' +
+                            '<button type="button" class="btn btn-default btn-block" data-bind="visible: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'new\', enable: flagDeletar() == false, click: close">Fechar</button>' +
                        '</div>'+
                    '</div>' +
                    '<div class="row rowDelet" data-bind="fadeVisible: flagDeletar">' +

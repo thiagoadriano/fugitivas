@@ -31,6 +31,8 @@ Fugitivas.ModelFugitivas =
                 Fugitivas.Methods.delegateEdit();
                 Fugitivas.Methods.delegateView();
 
+                Fugitivas.Methods.carregaPontos();
+
             } );
         }
         
@@ -48,13 +50,13 @@ Fugitivas.ModelFugitivas =
     },
 
     closeModal: function(){
-        this.dadosModal([]);
+        Fugitivas.ModelFugitivas.dadosModal( "" );
         if (Fugitivas.ModelFugitivas.btnEditar() !== "Editar") {
             $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "canEdit", false);
             Fugitivas.ModelFugitivas.btnEditar( "Editar" );
         }
 
-        $('#modalPontos').modal("hide");
+        $( '#modalPontos' ).modal( { show: false });
         $(".viewport").html("").remove();
         
     },
@@ -63,7 +65,7 @@ Fugitivas.ModelFugitivas =
         $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "zoom", 1 );
     },
 
-    init: function ()
+    initcial: function ()
     {
 
         Fugitivas.Methods.getData( Fugitivas.URLS.ListaGrupo, function ( result )
@@ -106,18 +108,16 @@ Fugitivas.ModelFugitivas =
 };
 
 ko.applyBindings( Fugitivas.ModelFugitivas );
-Fugitivas.ModelFugitivas.init();
+Fugitivas.ModelFugitivas.initcial();
 
 ko.bindingHandlers.fadeVisible = {
     init: function ( element, valueAccessor )
     {
-        // Initially set the element to be instantly visible/hidden depending on the value
         var value = valueAccessor();
-        $( element ).toggle( ko.unwrap( value ) ); // Use "unwrapObservable" so we can handle values that may or may not be observable
+        $( element ).toggle( ko.unwrap( value ) );
     },
     update: function ( element, valueAccessor )
     {
-        // Whenever the value subsequently changes, slowly fade the element in or out
         var value = valueAccessor();
         ko.unwrap( value ) ? $( element ).fadeIn() : $( element ).fadeOut();
     }

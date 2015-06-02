@@ -20,7 +20,19 @@ Fugitivas.defaultImgNotes = {
     {
         this.options.vAll = "bottom";
         this.options.hAll = "middle";
-        var elem = $( document.createElement( 'div' ) ).addClass( "markerPoint pointInitial" ).attr( "data-id", Fugitivas.Methods.getLastID() );
+
+        var elem = $( document.createElement( 'div' ) );
+        elem.addClass( "markerPoint pointInitial" );
+
+        if ( Fugitivas.ModelFugitivas.flagSatatusPonto() !== "insert" )
+        {
+            elem.attr( "data-id", Fugitivas.Methods.getLastID() );
+        }
+        else
+        {
+            elem.attr( "data-id", Fugitivas.ModelFugitivas.idPonto() );
+        }
+            
         return elem;
     },
     onEdit: function ( ev, elem )
