@@ -23,16 +23,7 @@ Fugitivas.ModelFugitivas =
             {
                 Fugitivas.ModelFugitivas.dadosModal( ko.mapping.fromJS( result ) );
                 Fugitivas.ModelFugitivas.titleModal( grupo.NOME_GRUPO_PONTOS() );
-
-                var $modal = $( '#modalPontos' );
-                $modal.modal( { modal: true } );
-                $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( Fugitivas.defaultImgNotes );
-
-                Fugitivas.Methods.delegateEdit();
-                Fugitivas.Methods.delegateView();
-
-                Fugitivas.Methods.carregaPontos();
-
+                Fugitivas.Methods.dispararEventos();
             } );
         }
         
@@ -47,18 +38,6 @@ Fugitivas.ModelFugitivas =
             $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "canEdit", true);
             Fugitivas.ModelFugitivas.btnEditar( "Concluir" );
         }
-    },
-
-    closeModal: function(){
-        Fugitivas.ModelFugitivas.dadosModal( "" );
-        if (Fugitivas.ModelFugitivas.btnEditar() !== "Editar") {
-            $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "canEdit", false);
-            Fugitivas.ModelFugitivas.btnEditar( "Editar" );
-        }
-
-        $( '#modalPontos' ).modal( { show: false });
-        $(".viewport").html("").remove();
-        
     },
 
     zoomOut: function(){

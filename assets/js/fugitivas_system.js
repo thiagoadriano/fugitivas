@@ -106,6 +106,27 @@ $( function ()
 
         }
     } );
+
+    $( '#btnFecharModalView' ).on( 'click', function ()
+    {
+        //Fugitivas.ModelFugitivas.dadosModal( "" );
+        if ( Fugitivas.ModelFugitivas.btnEditar() !== "Editar" )
+        {
+            $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "canEdit", false );
+            Fugitivas.ModelFugitivas.btnEditar( "Editar" );
+        }
+
+        var node = document.querySelector( '#viewport' );
+        if ( node.parentNode )
+        {
+            node.parentNode.removeChild( node );
+        }
+
+        $( '#modalPontos' ).modal( "hide" );
+
+    } );
+
+
 } );
 ///#source 1 1 /assets/js/component.js
 /// <reference path="../../Scripts/_references.js" />
@@ -286,8 +307,7 @@ ko.components.register( 'form-content', {
                 };
             }
         }
-
-
+        
         self.typeSelect.subscribe(
             function (data) {
                 self.listSubtype([]);
@@ -358,9 +378,14 @@ ko.components.register( 'form-content', {
                             if ( result.type )
                             {
                                 
-                                 Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove(objeto);
-                                $( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
-                                $( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
+                                Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove( objeto );
+                                var nodeFix = document.querySelector( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
+                                var nodePoint = document.querySelector( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
+                                if ( nodeFix.parentNode )
+                                {
+                                    nodeFix.parentNode.removeChild( nodeFix );
+                                    nodePoint.parentNode.removeChild( nodePoint );
+                                }
 
                             }
                             Fugitivas.Notifica( result.type, result.mensagem );
@@ -368,14 +393,25 @@ ko.components.register( 'form-content', {
 
                     } else
                     {
-                        Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove(objeto);                       
-                        $( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
-                        $( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
+                        Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove( objeto );
+                        var nodeFix = document.querySelector( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
+                        var nodePoint = document.querySelector( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
+                        if ( nodeFix.parentNode )
+                        {
+                            nodeFix.parentNode.removeChild( nodeFix );
+                            nodePoint.parentNode.removeChild( nodePoint );
+                        }
+                        
                         Fugitivas.Notifica( true, "Ponto Deletado com Sucesso!" );
                     }
                 } else
                 {
-                    $( '.pointInitial[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
+                    var node = document.querySelector( '.pointInitial[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
+                    if ( node.parentNode )
+                    {
+                        node.parentNode.removeChild( node );
+                    }
+                    
                 }
                 $( "#NoteDialog" ).dialog( "close" );
             }
@@ -568,7 +604,6 @@ Fugitivas.Methods = {
     callbackCadastro: function ( tpl, tag )
     {
         $( "#NoteDialog" ).dialog( "close" );
-
         var left = tag.css( "left" );
         var top = tag.css( "top" );
         var id = tag.attr( "data-id" );
@@ -708,31 +743,29 @@ Fugitivas.Methods = {
         var totalPontos = pontos.length;
 
         Fugitivas.ModelFugitivas.flagSatatusPonto( "insert" );
+        ko.applyBindings( Fugitivas.ModelFugitivas, document.querySelector( '#viewport' ) );
 
-        for ( var i = 0; i < totalPontos; i++ )
+        ko.utils.arrayForEach( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function ( item )
         {
-            var that = pontos[i];
-            Fugitivas.ModelFugitivas.idPonto( that.ID() );
+            Fugitivas.ModelFugitivas.idPonto( item.ID() );
 
-            function addPontos()
-            {
-                $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( 'addNote', that.COORDS.X(), that.COORDS.Y(), null );
-            }
             
-            function addTag()
-            {
+                $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( 'addNote', item.COORDS.X(), item.COORDS.Y(), null )
+                $( Fugitivas.CONTAINER_IMAGEM ).imgViewer( "update" );
+
                 var ultimoPontoTag = $( ".markerPoint" ).last();
+                ultimoPontoTag.off( "click" );
 
                 var Componente = ko.computed( function ()
                 {
-                    var _tipo = ko.utils.arrayFirst( Fugitivas.ModelFugitivas.listagemComponente(), function ( item )
+                    var _tipo = ko.utils.arrayFirst( Fugitivas.ModelFugitivas.listagemComponente(), function ( itemSearch )
                     {
-                        return that.DADOS_PONTO.TIPO_COMPONENTE() == item.ID();
+                        return item.DADOS_PONTO.TIPO_COMPONENTE() == itemSearch.ID();
                     } );
 
-                    var _subtipo = _tipo.SUBTIPO().length ? ko.utils.arrayFirst( _tipo.SUBTIPO(), function ( item )
+                    var _subtipo = _tipo.SUBTIPO().length ? ko.utils.arrayFirst( _tipo.SUBTIPO(), function ( itemSearch )
                     {
-                        return that.DADOS_PONTO.SUBTIPO_COMPONENTE() == item.ID();
+                        return item.DADOS_PONTO.SUBTIPO_COMPONENTE() == itemSearch.ID();
                     } ) : "";
 
 
@@ -743,18 +776,35 @@ Fugitivas.Methods = {
 
                 }, this );
 
-                var templateTag = Componente().tipo.SIGLA() + ( Componente().subtipo.SIGLA_SUBTIPO !== undefined ? " - " + Componente().subtipo.SIGLA_SUBTIPO() : "" );
-                ultimoPontoTag.off( "click" );
+                var templateTag = Componente().tipo.SIGLA() + ( Componente().subtipo.SIGLA_SUBTIPO !== undefined ? " - " + Componente().subtipo.SIGLA_SUBTIPO() : "" ) + " - " + item.HASH();
                 Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
-            }
-
-            $.when( addPontos() ).then( function ()
-            {
-                addTag();
-            } )
             
-        };
+            
+        }, this );
+        
+        
+    },
+    dispararEventos: function ()
+    {
+        $( '#modalPontos' ).modal( "show" );
+
+        $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( Fugitivas.defaultImgNotes )
+        Fugitivas.Methods.delegateEdit();
+        Fugitivas.Methods.delegateView();
+
+        if ( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO().length )
+        {
+            ( function ()
+            {
+                $( function ()
+                {
+                    Fugitivas.Methods.carregaPontos();
+                } )
+            } )();
+            
+        }
     }
+
 };
 ///#source 1 1 /assets/js/model.js
 var Fugitivas = Fugitivas || {};
@@ -782,16 +832,7 @@ Fugitivas.ModelFugitivas =
             {
                 Fugitivas.ModelFugitivas.dadosModal( ko.mapping.fromJS( result ) );
                 Fugitivas.ModelFugitivas.titleModal( grupo.NOME_GRUPO_PONTOS() );
-
-                var $modal = $( '#modalPontos' );
-                $modal.modal( { modal: true } );
-                $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( Fugitivas.defaultImgNotes );
-
-                Fugitivas.Methods.delegateEdit();
-                Fugitivas.Methods.delegateView();
-
-                Fugitivas.Methods.carregaPontos();
-
+                Fugitivas.Methods.dispararEventos();
             } );
         }
         
@@ -806,18 +847,6 @@ Fugitivas.ModelFugitivas =
             $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "canEdit", true);
             Fugitivas.ModelFugitivas.btnEditar( "Concluir" );
         }
-    },
-
-    closeModal: function(){
-        Fugitivas.ModelFugitivas.dadosModal( "" );
-        if (Fugitivas.ModelFugitivas.btnEditar() !== "Editar") {
-            $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "canEdit", false);
-            Fugitivas.ModelFugitivas.btnEditar( "Editar" );
-        }
-
-        $( '#modalPontos' ).modal( { show: false });
-        $(".viewport").html("").remove();
-        
     },
 
     zoomOut: function(){
@@ -881,3 +910,4 @@ ko.bindingHandlers.fadeVisible = {
         ko.unwrap( value ) ? $( element ).fadeIn() : $( element ).fadeOut();
     }
 };
+

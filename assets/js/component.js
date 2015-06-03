@@ -176,8 +176,7 @@ ko.components.register( 'form-content', {
                 };
             }
         }
-
-
+        
         self.typeSelect.subscribe(
             function (data) {
                 self.listSubtype([]);
@@ -248,9 +247,14 @@ ko.components.register( 'form-content', {
                             if ( result.type )
                             {
                                 
-                                 Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove(objeto);
-                                $( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
-                                $( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
+                                Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove( objeto );
+                                var nodeFix = document.querySelector( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
+                                var nodePoint = document.querySelector( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
+                                if ( nodeFix.parentNode )
+                                {
+                                    nodeFix.parentNode.removeChild( nodeFix );
+                                    nodePoint.parentNode.removeChild( nodePoint );
+                                }
 
                             }
                             Fugitivas.Notifica( result.type, result.mensagem );
@@ -258,14 +262,25 @@ ko.components.register( 'form-content', {
 
                     } else
                     {
-                        Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove(objeto);                       
-                        $( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
-                        $( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
+                        Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove( objeto );
+                        var nodeFix = document.querySelector( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
+                        var nodePoint = document.querySelector( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
+                        if ( nodeFix.parentNode )
+                        {
+                            nodeFix.parentNode.removeChild( nodeFix );
+                            nodePoint.parentNode.removeChild( nodePoint );
+                        }
+                        
                         Fugitivas.Notifica( true, "Ponto Deletado com Sucesso!" );
                     }
                 } else
                 {
-                    $( '.pointInitial[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).remove();
+                    var node = document.querySelector( '.pointInitial[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
+                    if ( node.parentNode )
+                    {
+                        node.parentNode.removeChild( node );
+                    }
+                    
                 }
                 $( "#NoteDialog" ).dialog( "close" );
             }

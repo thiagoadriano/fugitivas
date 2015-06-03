@@ -105,4 +105,25 @@ $( function ()
 
         }
     } );
+
+    $( '#btnFecharModalView' ).on( 'click', function ()
+    {
+        //Fugitivas.ModelFugitivas.dadosModal( "" );
+        if ( Fugitivas.ModelFugitivas.btnEditar() !== "Editar" )
+        {
+            $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "canEdit", false );
+            Fugitivas.ModelFugitivas.btnEditar( "Editar" );
+        }
+
+        var node = document.querySelector( '#viewport' );
+        if ( node.parentNode )
+        {
+            node.parentNode.removeChild( node );
+        }
+
+        $( '#modalPontos' ).modal( "hide" );
+
+    } );
+
+
 } );

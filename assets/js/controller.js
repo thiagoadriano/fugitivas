@@ -97,7 +97,6 @@ Fugitivas.Methods = {
     callbackCadastro: function ( tpl, tag )
     {
         $( "#NoteDialog" ).dialog( "close" );
-
         var left = tag.css( "left" );
         var top = tag.css( "top" );
         var id = tag.attr( "data-id" );
@@ -237,31 +236,29 @@ Fugitivas.Methods = {
         var totalPontos = pontos.length;
 
         Fugitivas.ModelFugitivas.flagSatatusPonto( "insert" );
+        ko.applyBindings( Fugitivas.ModelFugitivas, document.querySelector( '#viewport' ) );
 
-        for ( var i = 0; i < totalPontos; i++ )
+        ko.utils.arrayForEach( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function ( item )
         {
-            var that = pontos[i];
-            Fugitivas.ModelFugitivas.idPonto( that.ID() );
+            Fugitivas.ModelFugitivas.idPonto( item.ID() );
 
-            function addPontos()
-            {
-                $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( 'addNote', that.COORDS.X(), that.COORDS.Y(), null );
-            }
             
-            function addTag()
-            {
+                $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( 'addNote', item.COORDS.X(), item.COORDS.Y(), null )
+                $( Fugitivas.CONTAINER_IMAGEM ).imgViewer( "update" );
+
                 var ultimoPontoTag = $( ".markerPoint" ).last();
+                ultimoPontoTag.off( "click" );
 
                 var Componente = ko.computed( function ()
                 {
-                    var _tipo = ko.utils.arrayFirst( Fugitivas.ModelFugitivas.listagemComponente(), function ( item )
+                    var _tipo = ko.utils.arrayFirst( Fugitivas.ModelFugitivas.listagemComponente(), function ( itemSearch )
                     {
-                        return that.DADOS_PONTO.TIPO_COMPONENTE() == item.ID();
+                        return item.DADOS_PONTO.TIPO_COMPONENTE() == itemSearch.ID();
                     } );
 
-                    var _subtipo = _tipo.SUBTIPO().length ? ko.utils.arrayFirst( _tipo.SUBTIPO(), function ( item )
+                    var _subtipo = _tipo.SUBTIPO().length ? ko.utils.arrayFirst( _tipo.SUBTIPO(), function ( itemSearch )
                     {
-                        return that.DADOS_PONTO.SUBTIPO_COMPONENTE() == item.ID();
+                        return item.DADOS_PONTO.SUBTIPO_COMPONENTE() == itemSearch.ID();
                     } ) : "";
 
 
@@ -272,16 +269,33 @@ Fugitivas.Methods = {
 
                 }, this );
 
-                var templateTag = Componente().tipo.SIGLA() + ( Componente().subtipo.SIGLA_SUBTIPO !== undefined ? " - " + Componente().subtipo.SIGLA_SUBTIPO() : "" );
-                ultimoPontoTag.off( "click" );
+                var templateTag = Componente().tipo.SIGLA() + ( Componente().subtipo.SIGLA_SUBTIPO !== undefined ? " - " + Componente().subtipo.SIGLA_SUBTIPO() : "" ) + " - " + item.HASH();
                 Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
-            }
-
-            $.when( addPontos() ).then( function ()
-            {
-                addTag();
-            } )
             
-        };
+            
+        }, this );
+        
+        
+    },
+    dispararEventos: function ()
+    {
+        $( '#modalPontos' ).modal( "show" );
+
+        $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( Fugitivas.defaultImgNotes )
+        Fugitivas.Methods.delegateEdit();
+        Fugitivas.Methods.delegateView();
+
+        if ( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO().length )
+        {
+            ( function ()
+            {
+                $( function ()
+                {
+                    Fugitivas.Methods.carregaPontos();
+                } )
+            } )();
+            
+        }
     }
+
 };
