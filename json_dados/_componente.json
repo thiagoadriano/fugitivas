@@ -41,9 +41,9 @@
 	]},
 	
 	{"ID":"8", "COMPONENTE" : "Outros", "SIGLA" : "OUT", "STATUS" : "ativo", "SUBTIPO": [
-		{"ID":"0", "NOME":"Alívio", "SIGLA" : "ALV"},
-		{"ID":"1", "NOME":"Controle", "SIGLA" : "CON"},
-		{"ID":"2", "NOME":"Esfera", "SIGLA" : "ESF"}
+		{"ID":"0", "NOME":"Alívio", "SIGLA_SUBTIPO" : "ALV"},
+		{"ID":"1", "NOME":"Controle", "SIGLA_SUBTIPO" : "CON"},
+		{"ID":"2", "NOME":"Esfera", "SIGLA_SUBTIPO" : "ESF"}
 	]},
 	
 	{"ID":"9", "COMPONENTE" : "PIG", "SIGLA" : "PIG", "STATUS" : "ativo", "SUBTIPO": [

@@ -109,7 +109,7 @@ $( function ()
 
     $( '#btnFecharModalView' ).on( 'click', function ()
     {
-        //Fugitivas.ModelFugitivas.dadosModal( "" );
+        //Fugitivas.ModelFugitivas.dadosModal( [] );
         if ( Fugitivas.ModelFugitivas.btnEditar() !== "Editar" )
         {
             $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "canEdit", false );
@@ -164,7 +164,6 @@ ko.components.register( 'form-content', {
                 var ultimoPontoTag = $( ".markerPoint" ).last();
                 var Componente = Fugitivas.Methods.getItemId( self.listType(), data.typeSelect() );
                 var subComponente = data.subTypeSelect() !== "" ? Fugitivas.Methods.getItemId( Componente.SUBTIPO(), data.subTypeSelect() ) : "";
-                var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA_SUBTIPO() : "" ) + " - " + Math.floor( Math.random() * 1000 );
 
                 ultimoPontoTag.off( "click" );
 
@@ -191,6 +190,7 @@ ko.components.register( 'form-content', {
                     {
                         if ( result.type )
                         {
+                            var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA_SUBTIPO() : "" ) + " - " + result.HASH;
                             pontos.push( ko.mapping.fromJS( PontoNovo ) );
                             Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
                         }
@@ -199,11 +199,12 @@ ko.components.register( 'form-content', {
 
                 } else
                 {
+                    var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA_SUBTIPO() : "" ) + " - " + Math.floor( Math.random() * 1000 );
                     pontos.push( ko.mapping.fromJS(PontoNovo) );
                     Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
                     Fugitivas.Notifica( true, "Ponto Cadastrado com Sucesso!" );
                 };
-
+                
             },
             atualiza: function (data)
             {
@@ -737,50 +738,65 @@ Fugitivas.Methods = {
             }
         } )
     },
+    buscaComponetes:function(idComponente, idSubComponente)
+    {
+        var componentes = Fugitivas.ModelFugitivas.listagemComponente();
+        var resultComponente = "";
+        var resultSubComponete = "";
+
+        for ( var comp in componentes )
+        {
+            if ( componentes[comp].ID() === idComponente.toString() )
+            {
+                resultComponente = componentes[comp];
+                for ( var sub in componentes[comp].SUBTIPO() )
+                {
+                    if ( componentes[comp].SUBTIPO().length > 0 && componentes[comp].SUBTIPO()[sub].ID() === idSubComponente.toString() )
+                    {
+                        resultSubComponete = componentes[comp].SUBTIPO()[sub].SIGLA_SUBTIPO();
+                        break;
+                    } else if ( componentes[comp].SUBTIPO().length === 0 )
+                    {
+                        break;
+                    }
+                }
+
+            } else if ( componentes.length === 0)
+            {
+                break;
+            }
+        };
+
+        return {
+            tipo: resultComponente,
+            subtipo: resultSubComponete
+        };
+
+    },
     carregaPontos: function ()
     {
         var pontos = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
         var totalPontos = pontos.length;
+        
 
         Fugitivas.ModelFugitivas.flagSatatusPonto( "insert" );
         ko.applyBindings( Fugitivas.ModelFugitivas, document.querySelector( '#viewport' ) );
 
-        ko.utils.arrayForEach( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function ( item )
-        {
-            Fugitivas.ModelFugitivas.idPonto( item.ID() );
+        for(var i = 0; i < totalPontos; i++){
+            var Componente = Fugitivas.Methods.buscaComponetes( pontos[i].DADOS_PONTO.TIPO_COMPONENTE(), pontos[i].DADOS_PONTO.SUBTIPO_COMPONENTE() );
+            Fugitivas.ModelFugitivas.idPonto( pontos[i].ID() );
 
-            
-                $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( 'addNote', item.COORDS.X(), item.COORDS.Y(), null )
-                $( Fugitivas.CONTAINER_IMAGEM ).imgViewer( "update" );
+            $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( 'addNote', pontos[i].COORDS.X(), pontos[i].COORDS.Y(), null );
+            $( Fugitivas.CONTAINER_IMAGEM ).imgViewer( "update" );
 
-                var ultimoPontoTag = $( ".markerPoint" ).last();
-                ultimoPontoTag.off( "click" );
+            var ultimoPontoTag = $( ".markerPoint" ).last();
+            ultimoPontoTag.off( "click" );
 
-                var Componente = ko.computed( function ()
-                {
-                    var _tipo = ko.utils.arrayFirst( Fugitivas.ModelFugitivas.listagemComponente(), function ( itemSearch )
-                    {
-                        return item.DADOS_PONTO.TIPO_COMPONENTE() == itemSearch.ID();
-                    } );
+            var templateTag = Componente.tipo.SIGLA() + ( Componente.subtipo !== "" ? " - " + Componente.subtipo : "" ) + " - " + pontos[i].HASH();
+            Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
+        }
 
-                    var _subtipo = _tipo.SUBTIPO().length ? ko.utils.arrayFirst( _tipo.SUBTIPO(), function ( itemSearch )
-                    {
-                        return item.DADOS_PONTO.SUBTIPO_COMPONENTE() == itemSearch.ID();
-                    } ) : "";
-
-
-                    return {
-                        tipo: _tipo,
-                        subtipo: _subtipo
-                    };
-
-                }, this );
-
-                var templateTag = Componente().tipo.SIGLA() + ( Componente().subtipo.SIGLA_SUBTIPO !== undefined ? " - " + Componente().subtipo.SIGLA_SUBTIPO() : "" ) + " - " + item.HASH();
-                Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
-            
-            
-        }, this );
+        Fugitivas.ModelFugitivas.flagSatatusPonto( "new" );
         
         
     },
@@ -798,7 +814,11 @@ Fugitivas.Methods = {
             {
                 $( function ()
                 {
-                    Fugitivas.Methods.carregaPontos();
+                    $( Fugitivas.CONTAINER_IMAGEM ).on( 'load', function ()
+                    {
+                        Fugitivas.Methods.carregaPontos();
+                    } )
+                    
                 } )
             } )();
             
@@ -816,7 +836,7 @@ Fugitivas.ModelFugitivas =
     listaGrupoPontos: ko.observableArray(),
     editModelFugitivas: ko.observable(),
     pathIMg: "imagem/",
-    dadosModal: ko.observable(),
+    dadosModal: ko.observableArray(),
     listaPontos: ko.observableArray(),
     btnEditar: ko.observable("Editar"),
     listagemComponente: ko.observableArray(),
@@ -827,9 +847,12 @@ Fugitivas.ModelFugitivas =
 
     openModal: function (grupo)
     {
-        if (grupo.ID_GRUPO_PONTO() != "") {
+        if ( grupo.ID_GRUPO_PONTO() != "" )
+        {
+            Fugitivas.ModelFugitivas.dadosModal( [] );
+
             Fugitivas.Methods.getData( Fugitivas.URLS.Base + grupo.ID_GRUPO_PONTO() + ".json", function ( result )
-            {
+            {                
                 Fugitivas.ModelFugitivas.dadosModal( ko.mapping.fromJS( result ) );
                 Fugitivas.ModelFugitivas.titleModal( grupo.NOME_GRUPO_PONTOS() );
                 Fugitivas.Methods.dispararEventos();

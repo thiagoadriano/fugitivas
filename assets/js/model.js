@@ -7,7 +7,7 @@ Fugitivas.ModelFugitivas =
     listaGrupoPontos: ko.observableArray(),
     editModelFugitivas: ko.observable(),
     pathIMg: "imagem/",
-    dadosModal: ko.observable(),
+    dadosModal: ko.observableArray(),
     listaPontos: ko.observableArray(),
     btnEditar: ko.observable("Editar"),
     listagemComponente: ko.observableArray(),
@@ -18,9 +18,12 @@ Fugitivas.ModelFugitivas =
 
     openModal: function (grupo)
     {
-        if (grupo.ID_GRUPO_PONTO() != "") {
+        if ( grupo.ID_GRUPO_PONTO() != "" )
+        {
+            Fugitivas.ModelFugitivas.dadosModal( [] );
+
             Fugitivas.Methods.getData( Fugitivas.URLS.Base + grupo.ID_GRUPO_PONTO() + ".json", function ( result )
-            {
+            {                
                 Fugitivas.ModelFugitivas.dadosModal( ko.mapping.fromJS( result ) );
                 Fugitivas.ModelFugitivas.titleModal( grupo.NOME_GRUPO_PONTOS() );
                 Fugitivas.Methods.dispararEventos();

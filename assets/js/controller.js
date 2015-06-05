@@ -230,50 +230,65 @@ Fugitivas.Methods = {
             }
         } )
     },
+    buscaComponetes:function(idComponente, idSubComponente)
+    {
+        var componentes = Fugitivas.ModelFugitivas.listagemComponente();
+        var resultComponente = "";
+        var resultSubComponete = "";
+
+        for ( var comp in componentes )
+        {
+            if ( componentes[comp].ID() === idComponente.toString() )
+            {
+                resultComponente = componentes[comp];
+                for ( var sub in componentes[comp].SUBTIPO() )
+                {
+                    if ( componentes[comp].SUBTIPO().length > 0 && componentes[comp].SUBTIPO()[sub].ID() === idSubComponente.toString() )
+                    {
+                        resultSubComponete = componentes[comp].SUBTIPO()[sub].SIGLA_SUBTIPO();
+                        break;
+                    } else if ( componentes[comp].SUBTIPO().length === 0 )
+                    {
+                        break;
+                    }
+                }
+
+            } else if ( componentes.length === 0)
+            {
+                break;
+            }
+        };
+
+        return {
+            tipo: resultComponente,
+            subtipo: resultSubComponete
+        };
+
+    },
     carregaPontos: function ()
     {
         var pontos = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
         var totalPontos = pontos.length;
+        
 
         Fugitivas.ModelFugitivas.flagSatatusPonto( "insert" );
         ko.applyBindings( Fugitivas.ModelFugitivas, document.querySelector( '#viewport' ) );
 
-        ko.utils.arrayForEach( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function ( item )
-        {
-            Fugitivas.ModelFugitivas.idPonto( item.ID() );
+        for(var i = 0; i < totalPontos; i++){
+            var Componente = Fugitivas.Methods.buscaComponetes( pontos[i].DADOS_PONTO.TIPO_COMPONENTE(), pontos[i].DADOS_PONTO.SUBTIPO_COMPONENTE() );
+            Fugitivas.ModelFugitivas.idPonto( pontos[i].ID() );
 
-            
-                $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( 'addNote', item.COORDS.X(), item.COORDS.Y(), null )
-                $( Fugitivas.CONTAINER_IMAGEM ).imgViewer( "update" );
+            $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( 'addNote', pontos[i].COORDS.X(), pontos[i].COORDS.Y(), null );
+            $( Fugitivas.CONTAINER_IMAGEM ).imgViewer( "update" );
 
-                var ultimoPontoTag = $( ".markerPoint" ).last();
-                ultimoPontoTag.off( "click" );
+            var ultimoPontoTag = $( ".markerPoint" ).last();
+            ultimoPontoTag.off( "click" );
 
-                var Componente = ko.computed( function ()
-                {
-                    var _tipo = ko.utils.arrayFirst( Fugitivas.ModelFugitivas.listagemComponente(), function ( itemSearch )
-                    {
-                        return item.DADOS_PONTO.TIPO_COMPONENTE() == itemSearch.ID();
-                    } );
+            var templateTag = Componente.tipo.SIGLA() + ( Componente.subtipo !== "" ? " - " + Componente.subtipo : "" ) + " - " + pontos[i].HASH();
+            Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
+        }
 
-                    var _subtipo = _tipo.SUBTIPO().length ? ko.utils.arrayFirst( _tipo.SUBTIPO(), function ( itemSearch )
-                    {
-                        return item.DADOS_PONTO.SUBTIPO_COMPONENTE() == itemSearch.ID();
-                    } ) : "";
-
-
-                    return {
-                        tipo: _tipo,
-                        subtipo: _subtipo
-                    };
-
-                }, this );
-
-                var templateTag = Componente().tipo.SIGLA() + ( Componente().subtipo.SIGLA_SUBTIPO !== undefined ? " - " + Componente().subtipo.SIGLA_SUBTIPO() : "" ) + " - " + item.HASH();
-                Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
-            
-            
-        }, this );
+        Fugitivas.ModelFugitivas.flagSatatusPonto( "new" );
         
         
     },
@@ -291,7 +306,11 @@ Fugitivas.Methods = {
             {
                 $( function ()
                 {
-                    Fugitivas.Methods.carregaPontos();
+                    $( Fugitivas.CONTAINER_IMAGEM ).on( 'load', function ()
+                    {
+                        Fugitivas.Methods.carregaPontos();
+                    } )
+                    
                 } )
             } )();
             

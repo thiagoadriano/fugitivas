@@ -108,7 +108,7 @@ $( function ()
 
     $( '#btnFecharModalView' ).on( 'click', function ()
     {
-        //Fugitivas.ModelFugitivas.dadosModal( "" );
+        //Fugitivas.ModelFugitivas.dadosModal( [] );
         if ( Fugitivas.ModelFugitivas.btnEditar() !== "Editar" )
         {
             $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "canEdit", false );
