@@ -1,5 +1,4 @@
-﻿/// <reference path="../../Scripts/_references.js" />
-var Fugitivas = Fugitivas || {};
+﻿var Fugitivas = Fugitivas || {};
 
 'use strict';
 ko.components.register( 'form-content', {
@@ -60,16 +59,19 @@ ko.components.register( 'form-content', {
                         if ( result.type )
                         {
                             var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA_SUBTIPO() : "" ) + " - " + result.HASH;
+                            PontoNovo.HASH = hash;
                             pontos.push( ko.mapping.fromJS( PontoNovo ) );
                             Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
                         }
-                        Fugitivas.Notifica( result.type, result.mensagem )
+                        Fugitivas.Notifica( result.type, result.mensagem );
                     } );
 
                 } else
                 {
-                    var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA_SUBTIPO() : "" ) + " - " + Math.floor( Math.random() * 1000 );
-                    pontos.push( ko.mapping.fromJS(PontoNovo) );
+                    var hash = Math.floor( Math.random() * 1000 );
+                    var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA_SUBTIPO() : "" ) + " - " + hash;
+                    PontoNovo.HASH = hash;
+                    pontos.push( ko.mapping.fromJS( PontoNovo ) );
                     Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
                     Fugitivas.Notifica( true, "Ponto Cadastrado com Sucesso!" );
                 };
@@ -80,11 +82,11 @@ ko.components.register( 'form-content', {
                 var pontos = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
                 var Componente = Fugitivas.Methods.getItemId( self.listType(), data.typeSelect() );
                 var subComponente = data.subTypeSelect() !== "" ? Fugitivas.Methods.getItemId( Componente.SUBTIPO(), data.subTypeSelect() ) : "";
-                var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA_SUBTIPO() : "" ) + " - " + Math.floor( Math.random() * 1000 );
                 var editPonto = ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function ( item )
                 {
                     return Fugitivas.ModelFugitivas.idPonto() == item.ID();
                 } );
+                var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA_SUBTIPO() : "" ) + " - " + editPonto.HASH();
                 var PontoEditado = {
                     ID_GRUPO: Fugitivas.ModelFugitivas.dadosModal().ID(),
                     ID: Fugitivas.ModelFugitivas.idPonto(),

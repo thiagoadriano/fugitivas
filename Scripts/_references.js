@@ -10,6 +10,7 @@
 /// <reference path="../assets/js/lib/knockout.mapping.js" />
 /// <reference path="../assets/js/lib/toe.js" />
 /// <reference path="../assets/js/model.js" />
+/// <reference path="../assets/js/eventos.js" />
 /// <reference path="../assets/js/controller.js" />
 /// <reference path="../assets/js/default.js" />
 /// <reference path="../assets/js/component.js" />

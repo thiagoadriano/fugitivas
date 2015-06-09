@@ -45,6 +45,26 @@ Fugitivas.defaultImgNotes = {
 };
 
 
+//Elemetnos do Modal
+Fugitivas.ElModal = {
+    tituloModal: $( '#tituloModal' ),
+    EMPRESA: $( '#EMPRESA' ),
+    NIVEL1: $( '#NIVEL1' ),
+    NIVEL2: $( '#NIVEL2' ),
+    NIVEL3: $( '#NIVEL3' ),
+    UNIDADE_PROCESSO: $( '#UNIDADE_PROCESSO' ),
+    LINHA_PROCESSO: $( '#LINHA_PROCESSO' ),
+    TAG_EQUIPAMENTO: $( '#TAG_EQUIPAMENTO' ),
+    POSICAO_GRUPO: $( '#POSICAO_GRUPO' ),
+    FLUXOGRAMA: $( '#FLUXOGRAMA' ),
+    NOTA: $( '#NOTA' ),
+    IMAGEM: $(Fugitivas.CONTAINER_IMAGEM),
+    zoomOut: $( '#zoomOut' ),
+    editClick: $( '#editClick' ),
+    FecharModal: $( '#FecharModal' ),
+    openModal: $( '#grupo' )
+};
+
 //ALERTA DE ERRO OU SUCESSO
 Fugitivas.Notifica = function ( boolNotifica, msg )
 {
@@ -70,60 +90,3 @@ Fugitivas.Notifica = function ( boolNotifica, msg )
 
 
 };
-
-
-//LOADING REQUEST AJAX
-$( function ()
-{
-    $.ajaxSetup( {
-        beforeSend: function ()
-        {
-            var tplLodoading = '<div id="containerLoading" style="display:none;">' +
-                                '<div id="loading">' +
-                                    '<img src="assets/img/preloader.gif">' +
-                                    '<p>Aguarde os dados estão sendo carregados...</p>' +
-                               '</div>' +
-                           '</div>';
-
-            if ( $( '#containerLoading' ).length )
-            {
-                $( '#containerLoading' ).html( "" ).remove();
-            }
-
-            $( '#containerLoading' ).css( 'height', $( 'body' ).height() )
-            $( 'body' ).append( tplLodoading );
-
-            $( '#containerLoading' ).fadeIn( 'slow' );
-
-        },
-        complete: function ()
-        {
-            $( '#containerLoading' ).fadeOut( 'slow', function ()
-            {
-                $( this ).html( "" ).remove();
-            } );
-
-        }
-    } );
-
-    $( '#btnFecharModalView' ).on( 'click', function ()
-    {
-        //Fugitivas.ModelFugitivas.dadosModal( [] );
-        if ( Fugitivas.ModelFugitivas.btnEditar() !== "Editar" )
-        {
-            $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "canEdit", false );
-            Fugitivas.ModelFugitivas.btnEditar( "Editar" );
-        }
-
-        var node = document.querySelector( '#viewport' );
-        if ( node.parentNode )
-        {
-            node.parentNode.removeChild( node );
-        }
-
-        $( '#modalPontos' ).modal( "hide" );
-
-    } );
-
-
-} );

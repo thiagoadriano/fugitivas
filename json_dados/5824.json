@@ -1,0 +1,365 @@
+﻿{
+    "ID": "5824",
+    "IMG_NAME": "navio-joao-candido.jpg",
+    "EMPRESA": "PETROBRAS",
+    "NIVEL1": "ADM",
+    "NIVEL2": "BASE",
+    "NIVEL3": "SEQUENCIAL",
+    "UNIDADE_PROCESSO": "CENTRO RJ",
+    "LINHA_PROCESSO": "GHB54RF",
+    "TAG_EQUIPAMENTO": "XO45ER3",
+    "POSICAO_GRUPO": "215",
+    "FLUXOGRAMA": "FLUXO SEGUENCIAL DE BASE",
+    "NOTA": "Nova modificação de base com administração segundaria de seguimento",
+    "MARCACAO_PONTO": [
+        {
+            "ID": 0,
+            "HASH": "458",
+            "COORDS": { "X": 0.044275, "Y": 0.03125 },
+            "DADOS_PONTO": {
+                "TIPO_COMPONENTE": "0",
+                "SUBTIPO_COMPONENTE": "1",
+                "FABRICANTE": "0",
+                "DIMENSAO": "23",
+                "MEDIDA_DIMENSAO": "0",
+                "POSICAO_PONTO": "43",
+                "ESPECIALIDADE_PONTO": "0"
+
+            }
+        },
+        {
+            "ID": 1,
+            "HASH": "895",
+            "COORDS": { "X": 0.711475, "Y": 0.03571428571428571 },
+            "DADOS_PONTO": {
+                "TIPO_COMPONENTE": "3",
+                "SUBTIPO_COMPONENTE": "",
+                "FABRICANTE": "0",
+                "DIMENSAO": "567",
+                "MEDIDA_DIMENSAO": "0",
+                "POSICAO_PONTO": "er4t5s5uy",
+                "ESPECIALIDADE_PONTO": "2"
+
+            }
+        },
+        {
+            "ID": 2,
+            "HASH": "895",
+            "COORDS": { "X": 0.465075, "Y": 0.49330357142857145 },
+            "DADOS_PONTO": {
+                "TIPO_COMPONENTE": "2",
+                "SUBTIPO_COMPONENTE": "1",
+                "FABRICANTE": "2",
+                "DIMENSAO": "45",
+                "MEDIDA_DIMENSAO": "0",
+                "POSICAO_PONTO": "h45y7sk",
+                "ESPECIALIDADE_PONTO": "0"
+
+            }
+        },
+        {
+            "ID": 3,
+            "HASH": "785",
+            "COORDS": { "X": 0.066675, "Y": 0.6919642857142857 },
+            "DADOS_PONTO": {
+                "TIPO_COMPONENTE": "6",
+                "SUBTIPO_COMPONENTE": "",
+                "FABRICANTE": "1",
+                "DIMENSAO": "5214",
+                "MEDIDA_DIMENSAO": "0",
+                "POSICAO_PONTO": "734uyw7GSf36",
+                "ESPECIALIDADE_PONTO": "0"
+
+            }
+        },
+        {  
+   "ID":4,
+   "COORDS":{  
+      "X":0.263475,
+      "Y":0.21651785714285715
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"0",
+      "SUBTIPO_COMPONENTE":"0",
+      "FABRICANTE":"0",
+      "DIMENSAO":"4",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"4",
+      "ESPECIALIDADE_PONTO":"0"
+   },
+   "HASH":752
+},{  
+   "ID":5,
+   "COORDS":{  
+      "X":0.817075,
+      "Y":0.22767857142857142
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"0",
+      "SUBTIPO_COMPONENTE":"1",
+      "FABRICANTE":"0",
+      "DIMENSAO":"5",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"6",
+      "ESPECIALIDADE_PONTO":"0"
+   },
+   "HASH":735
+},{  
+   "ID":6,
+   "COORDS":{  
+      "X":0.324275,
+      "Y":0.8616071428571429
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"8",
+      "SUBTIPO_COMPONENTE":"0",
+      "FABRICANTE":"2",
+      "DIMENSAO":"5",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"6",
+      "ESPECIALIDADE_PONTO":"2"
+   },
+   "HASH":875
+},{  
+   "ID":7,
+   "COORDS":{  
+      "X":0.095475,
+      "Y":0.40401785714285715
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"1",
+      "SUBTIPO_COMPONENTE":"0",
+      "FABRICANTE":"0",
+      "DIMENSAO":"6",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"6",
+      "ESPECIALIDADE_PONTO":"0"
+   },
+   "HASH":81
+},{  
+   "ID":8,
+   "COORDS":{  
+      "X":0.692275,
+      "Y":0.7299107142857143
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"5",
+      "SUBTIPO_COMPONENTE":"1",
+      "FABRICANTE":"1",
+      "DIMENSAO":"5",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"5",
+      "ESPECIALIDADE_PONTO":"2"
+   },
+   "HASH":185
+},{  
+   "ID":9,
+   "COORDS":{  
+      "X":0.433075,
+      "Y":0.6763392857142857
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"8",
+      "SUBTIPO_COMPONENTE":"0",
+      "FABRICANTE":"2",
+      "DIMENSAO":"6",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"6",
+      "ESPECIALIDADE_PONTO":"1"
+   },
+   "HASH":332
+},{  
+   "ID":10,
+   "COORDS":{  
+      "X":0.124275,
+      "Y":0.8638392857142857
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"8",
+      "SUBTIPO_COMPONENTE":"0",
+      "FABRICANTE":"2",
+      "DIMENSAO":"6",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"6",
+      "ESPECIALIDADE_PONTO":"1"
+   },
+   "HASH":225
+},{  
+   "ID":11,
+   "COORDS":{  
+      "X":0.537075,
+      "Y":0.07366071428571429
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"0",
+      "SUBTIPO_COMPONENTE":"0",
+      "FABRICANTE":"1",
+      "DIMENSAO":"6",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"6",
+      "ESPECIALIDADE_PONTO":"0"
+   },
+   "HASH":702
+},{  
+   "ID":12,
+   "COORDS":{  
+      "X":0.085875,
+      "Y":0.203125
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"2",
+      "SUBTIPO_COMPONENTE":"0",
+      "FABRICANTE":"0",
+      "DIMENSAO":"6",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"6",
+      "ESPECIALIDADE_PONTO":"0"
+   },
+   "HASH":501
+},{  
+   "ID":13,
+   "COORDS":{  
+      "X":0.642675,
+      "Y":0.328125
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"3",
+      "SUBTIPO_COMPONENTE":"",
+      "FABRICANTE":"0",
+      "DIMENSAO":"6",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"6",
+      "ESPECIALIDADE_PONTO":"0"
+   },
+   "HASH":429
+},{  
+   "ID":14,
+   "COORDS":{  
+      "X":0.345075,
+      "Y":0.6116071428571429
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"8",
+      "SUBTIPO_COMPONENTE":"0",
+      "FABRICANTE":"2",
+      "DIMENSAO":"6",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"6",
+      "ESPECIALIDADE_PONTO":"2"
+   },
+   "HASH":779
+},{  
+   "ID":15,
+   "COORDS":{  
+      "X":0.073075,
+      "Y":0.5334821428571429
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"8",
+      "SUBTIPO_COMPONENTE":"0",
+      "FABRICANTE":"0",
+      "DIMENSAO":"6",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"6",
+      "ESPECIALIDADE_PONTO":"1"
+   },
+   "HASH":639
+},{  
+   "ID":16,
+   "COORDS":{  
+      "X":0.671475,
+      "Y":0.8816964285714286
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"9",
+      "SUBTIPO_COMPONENTE":"0",
+      "FABRICANTE":"2",
+      "DIMENSAO":"5",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"5",
+      "ESPECIALIDADE_PONTO":"1"
+   },
+   "HASH":578
+},{  
+   "ID":17,
+   "COORDS":{  
+      "X":0.471475,
+      "Y":0.33705357142857145
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"3",
+      "SUBTIPO_COMPONENTE":"",
+      "FABRICANTE":"0",
+      "DIMENSAO":"6",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"6",
+      "ESPECIALIDADE_PONTO":"0"
+   },
+   "HASH":568
+},{  
+   "ID":18,
+   "COORDS":{  
+      "X":0.407475,
+      "Y":0.06696428571428571
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"6",
+      "SUBTIPO_COMPONENTE":"",
+      "FABRICANTE":"0",
+      "DIMENSAO":"5",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"5",
+      "ESPECIALIDADE_PONTO":"0"
+   },
+   "HASH":32
+},{  
+   "ID":19,
+   "COORDS":{  
+      "X":0.345075,
+      "Y":0.7678571428571429
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"8",
+      "SUBTIPO_COMPONENTE":"0",
+      "FABRICANTE":"2",
+      "DIMENSAO":"5",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"5",
+      "ESPECIALIDADE_PONTO":"1"
+   },
+   "HASH":878
+},{  
+   "ID":20,
+   "COORDS":{  
+      "X":0.143475,
+      "Y":0.33482142857142855
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"1",
+      "SUBTIPO_COMPONENTE":"0",
+      "FABRICANTE":"0",
+      "DIMENSAO":"6",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"6",
+      "ESPECIALIDADE_PONTO":"1"
+   },
+   "HASH":609
+},{  
+   "ID":21,
+   "COORDS":{  
+      "X":0.617075,
+      "Y":0.22321428571428573
+   },
+   "DADOS_PONTO":{  
+      "TIPO_COMPONENTE":"0",
+      "SUBTIPO_COMPONENTE":"0",
+      "FABRICANTE":"0",
+      "DIMENSAO":"5",
+      "MEDIDA_DIMENSAO":"0",
+      "POSICAO_PONTO":"5",
+      "ESPECIALIDADE_PONTO":"0"
+   },
+   "HASH":701
+}
+    ]
+}
