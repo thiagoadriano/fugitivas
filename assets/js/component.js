@@ -61,7 +61,7 @@ ko.components.register( 'form-content', {
                             var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA_SUBTIPO() : "" ) + " - " + result.HASH;
                             PontoNovo.HASH = hash;
                             pontos.push( ko.mapping.fromJS( PontoNovo ) );
-                            Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
+                            Fugitivas.Methods.callbackCadastro(templateTag, ultimoPontoTag, { x: ultimoPonto.x, x: ultimoPonto.y });
                         }
                         Fugitivas.Notifica( result.type, result.mensagem );
                     } );
@@ -72,7 +72,7 @@ ko.components.register( 'form-content', {
                     var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA_SUBTIPO() : "" ) + " - " + hash;
                     PontoNovo.HASH = hash;
                     pontos.push( ko.mapping.fromJS( PontoNovo ) );
-                    Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag );
+                    Fugitivas.Methods.callbackCadastro(templateTag, ultimoPontoTag, { x: ultimoPonto.x, y: ultimoPonto.y });
                     Fugitivas.Notifica( true, "Ponto Cadastrado com Sucesso!" );
                 };
                 
