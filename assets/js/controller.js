@@ -107,7 +107,7 @@ Fugitivas.Methods = {
                 .removeClass( "pointInitial" )
                 .addClass( 'fixPoint' );
 
-        Fugitivas.Methods.createLine( {} );
+        Fugitivas.Methods.createLine( {id:id} );
     },
     getLastID: function ()
     {
@@ -168,7 +168,28 @@ Fugitivas.Methods = {
     {
         jsPlumb.ready( function ()
         {
+            var instance = jsPlumb.getInstance({
+                PaintStyle: {
+                    lineWidth: 4,
+                    strokeStyle: "#61B7CF",
+                    outlineColor: "white",
+                    outlineWidth: 0.5
+                },
+                Connector: ["Bezier", { curviness: 30 }],
+                Endpoint: ["Dot", { radius: 4 }],
+                EndpointStyle: { fillStyle: '#7AB02C' },
+                Anchors: [[0.5, 0.5], [0.04, 0.12]],
+                DragOptions: { cursor: "move", zIndex: 2000 },
+                Container: "viewport"
+            });
 
+            instance.connect({
+                source: $('.fixPoint[data-id="' + obj.id + '"]'),
+                target: $('.namePoint[data-id="' + obj.id + '"]'),
+                scope: "scope_" + obj.id
+            });
+
+            instance.draggable($('.namePoint[data-id="' + obj.id + '"]'));
         } );
 
     },
@@ -332,5 +353,4 @@ Fugitivas.Methods = {
         Fugitivas.ElModal.NOTA.val( obj.NOTA() );
         Fugitivas.ElModal.IMAGEM.attr( 'src', 'imagem/' + obj.IMG_NAME() );
     }
-
 };

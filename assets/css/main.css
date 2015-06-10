@@ -258,3 +258,6 @@ textarea.form-control { resize: none; height:80px; }
     border-top:#550101 solid 4px;
     border-bottom:#550101 solid 4px;
 }
+#viewport .namePoint{
+    cursor:move;
+}
