@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<bundle minify="true" runOnBuild="true" output="jsplumb.js" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://vswebessentials.com/schemas/v1/bundle.xsd">
+  <!--The order of the <file> elements determines the order of the file contents when bundled.-->
+    <file>/assets/js/lib/jsplumb/jsBezier-0.7.js</file>
+    <file>/assets/js/lib/jsplumb/mottle-0.6.js</file>
+    <file>/assets/js/lib/jsplumb/biltong-0.2.js</file>
+    <file>/assets/js/lib/jsplumb/katavorio-0.6.js</file>
+    <file>/assets/js/lib/jsplumb/util.js</file>
+    <file>/assets/js/lib/jsplumb/browser-util.js</file>
+    <file>/assets/js/lib/jsplumb/jsPlumb.js</file>
+    <file>/assets/js/lib/jsplumb/dom-adapter.js</file>
+    <file>/assets/js/lib/jsplumb/overlay-component.js</file>
+    <file>/assets/js/lib/jsplumb/endpoint.js</file>
+    <file>/assets/js/lib/jsplumb/connection.js</file>
+    <file>/assets/js/lib/jsplumb/anchors.js</file>
+    <file>/assets/js/lib/jsplumb/defaults.js</file>
+    <file>/assets/js/lib/jsplumb/connectors-bezier.js</file>
+    <file>/assets/js/lib/jsplumb/connectors-statemachine.js</file>
+    <file>/assets/js/lib/jsplumb/connectors-flowchart.js</file>
+    <file>/assets/js/lib/jsplumb/connector-editors.js</file>
+    <file>/assets/js/lib/jsplumb/renderers-svg.js</file>
+    <file>/assets/js/lib/jsplumb/renderers-vml.js</file>
+    <file>/assets/js/lib/jsplumb/base-library-adapter.js</file>
+    <file>/assets/js/lib/jsplumb/dom.jsPlumb.js</file>
+</bundle>

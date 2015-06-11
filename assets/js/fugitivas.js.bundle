@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<bundle minify="true" runOnBuild="true" output="fugitivas.js" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://vswebessentials.com/schemas/v1/bundle.xsd">
+  <!--The order of the <file> elements determines the order of the file contents when bundled.-->
+  <file>/assets/js/system_fugitivas/component.js</file>
+  <file>/assets/js/system_fugitivas/controller.js</file>
+  <file>/assets/js/system_fugitivas/default.js</file>
+  <file>/assets/js/system_fugitivas/eventos.js</file>
+  <file>/assets/js/system_fugitivas/model.js</file>
+</bundle>
