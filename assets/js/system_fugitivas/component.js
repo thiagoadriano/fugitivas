@@ -62,6 +62,8 @@ ko.components.register( 'form-content', {
                             PontoNovo.HASH = hash;
                             pontos.push( ko.mapping.fromJS( PontoNovo ) );
                             Fugitivas.Methods.callbackCadastro(templateTag, ultimoPontoTag, { x: ultimoPonto.x, x: ultimoPonto.y });
+                            Fugitivas.Methods.connect(novaId);
+                            $('.editar').show();
                         }
                         Fugitivas.Notifica( result.type, result.mensagem );
                     } );
@@ -73,6 +75,8 @@ ko.components.register( 'form-content', {
                     PontoNovo.HASH = hash;
                     pontos.push( ko.mapping.fromJS( PontoNovo ) );
                     Fugitivas.Methods.callbackCadastro(templateTag, ultimoPontoTag, { x: ultimoPonto.x, y: ultimoPonto.y });
+                    Fugitivas.Methods.connect(novaId);
+                    $('.editar').show();
                     Fugitivas.Notifica( true, "Ponto Cadastrado com Sucesso!" );
                 };
                 
@@ -267,10 +271,11 @@ ko.components.register( 'form-content', {
                     {
                         Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove( objeto );
                         var nodeFix = document.querySelector( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
-                        var nodePoint = document.querySelector( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
+                        var nodePoint = document.querySelector('.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]');
+                        
                         if ( nodeFix.parentNode )
                         {
-                            nodeFix.parentNode.removeChild( nodeFix );
+                            conectionInstance.remove(nodeFix);
                             nodePoint.parentNode.removeChild( nodePoint );
                         }
                         

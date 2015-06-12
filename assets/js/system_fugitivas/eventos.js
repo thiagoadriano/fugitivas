@@ -1,6 +1,6 @@
 ﻿$( function ()
 {
-    $( '#containerLoading' ).css( 'height', $( document ).height() );
+    $( '#containerLoading' ).css( 'height', $( window ).height() );
     $.ajaxSetup( {
         beforeSend: function ()
         { 
@@ -19,7 +19,7 @@
         $( '#modalPontos' ).modal( "hide" );
         Fugitivas.ElModal.IMAGEM.attr( 'src', '' );
         $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( 'destroy' );
-
+        conectionInstance = null;
     } );
 
     Fugitivas.ElModal.openModal.on('click', '.openModal', function(){
@@ -42,11 +42,13 @@
         if ( $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "canEdit" ) )
         {
             $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "canEdit", false )
-            $(this).text( "Editar" );
+            $(this).text("Editar");
+            $('.editar').hide();
         } else
         {
             $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "canEdit", true );
-            $( this ).text( "Concluir" );
+            $(this).text("Concluir");
+            $('.editar').show();
         }
     } );
 

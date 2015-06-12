@@ -189,6 +189,8 @@ body{
     border-radius: 3px;
     border: #A8A8A8 solid 1px;
     position:absolute;
+    z-index: 50000;
+    cursor:move;
 }
 
 .namePoint span{
@@ -208,6 +210,9 @@ body{
     top: 1px;
     font-size:14px;
     position: relative;
+}
+.editar{
+    display:none;
 }
 .input-sm {
     height: auto;
@@ -360,8 +365,9 @@ textarea.form-control { resize: none; height:80px; }
     border-top:#550101 solid 4px;
     border-bottom:#550101 solid 4px;
 }
-#viewport .namePoint{
-    cursor:move;
+form label{
+    font-size: 14px;
+    font-weight:600;
 }
 @media screen and (min-width:100px) and (max-width:1000px){
     .container{

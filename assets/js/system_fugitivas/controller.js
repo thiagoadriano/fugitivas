@@ -106,8 +106,6 @@ Fugitivas.Methods = {
         tag.attr( "id", idFix )
                 .removeClass( "pointInitial" )
                 .addClass( 'fixPoint' );
-
-        Fugitivas.Methods.createLine( {id:id} );
     },
     getLastID: function ()
     {
@@ -164,34 +162,41 @@ Fugitivas.Methods = {
         } );
 
     },
-    createLine: function ( obj )
+    createLine: function ()
     {
+        
         jsPlumb.ready( function ()
-        {
-            var instance = jsPlumb.getInstance({
+        {      
+            var config = {
                 PaintStyle: {
-                    lineWidth: 4,
-                    strokeStyle: "#61B7CF",
-                    outlineColor: "white",
-                    outlineWidth: 0.5
+                    lineWidth: 2.5,
+                    strokeStyle: "white",
+                    outlineColor: "",
+                    outlineWidth: 0
                 },
-                Connector: ["Bezier", { curviness: 30 }],
-                Endpoints: [null, ["Dot", { radius: 4 }]],
-                EndpointStyles: [{fillStyle:""}, { fillStyle: '#7AB02C' }],
-                MaxConnections: 1,
+                ConnectionsDetachable: false,
+                DoNotThrowErrors: true,
+                Connector: ["Bezier", { curviness: 80 }],
+                Endpoints: [null, ["Dot", { radius: 2 }]],
+                EndpointStyles: [{ fillStyle: "" }, { fillStyle: 'white' }],
+                MaxConnections: 10,
                 ReattachConnections: true,
-                Anchors: ["BottomCenter", [0.04, 0.12]],
+                Anchors: ["Bottom", "TopRight"],
                 DragOptions: { cursor: "move", zIndex: 2000 },
+                isSource: true,
+                isTarget: true,
                 Container: "viewport"
+            };
+            var conectionInstance = window.conectionInstance = jsPlumb.getInstance(config);
+            conectionInstance.batch(function () {
+                var dados = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
+                if (dados.length) {
+                    for (var i in dados) {
+                        var id = dados[i].ID();
+                        Fugitivas.Methods.connect(id);
+                    };
+                };
             });
-
-            instance.connect({
-                source: $('.fixPoint[data-id="' + obj.id + '"]'),
-                target: $('.namePoint[data-id="' + obj.id + '"]'),
-                scope: "scope_" + obj.id
-            });
-
-            instance.draggable($('.namePoint[data-id="' + obj.id + '"]'));
         } );
 
     },
@@ -331,6 +336,7 @@ Fugitivas.Methods = {
             if ( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO().length )
             {
                 Fugitivas.Methods.carregaPontos();
+                Fugitivas.Methods.createLine();
             }
         } ).each( function ()
         {
@@ -354,5 +360,20 @@ Fugitivas.Methods = {
         Fugitivas.ElModal.FLUXOGRAMA.val( obj.FLUXOGRAMA() );
         Fugitivas.ElModal.NOTA.val( obj.NOTA() );
         Fugitivas.ElModal.IMAGEM.attr( 'src', 'imagem/' + obj.IMG_NAME() );
+    },
+    connect: function (id) {
+        var fixId = $('.fixPoint[data-id="' + id + '"]'),
+            nomeId = $('.namePoint[data-id="' + id + '"]');
+
+
+        conectionInstance.connect({
+            source: fixId,
+            target: nomeId,
+            newConnection: true,
+            scope: "link_" + id,
+            anchor: "AutoDefault"
+        });
+
+        conectionInstance.draggable(nomeId);
     }
 };
