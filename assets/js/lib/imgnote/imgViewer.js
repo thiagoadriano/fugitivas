@@ -80,7 +80,7 @@
              *		a copy of the original image to be positioned over it and manipulated to
              *		provide zoom and pan
              */
-            self.zimg = $( "<img/>", { "src": self.img.src } ).appendTo( "body" ).wrap( "<div class='viewport' id='viewport'/>" );
+            self.zimg = $("<img/>", { "src": self.img.src }).appendTo("#content-img").wrap("<div class='viewport' id='viewport'/>");
             var $zimg = $(self.zimg);
             //		the container or viewport for the image view
             self.view = $(self.zimg).parent();
@@ -91,7 +91,7 @@
             self.dragging = false;
             //		a flag used to check the target image has loaded
             self.ready = false;
-            $img.one("load",function() {
+            $img.on("load",function() {
                 //			get and some geometry information about the image
                 self.ready = true;
                 var	width = $img.width(),
@@ -123,10 +123,11 @@
                 $view.css({
                     position: "absolute",
                     overflow: "hidden",
-                    top: vTop+"px",
-                    left: vLeft+"px",
+                    top: 0+"px",
+                    left: 0+"px",
                     width: width+"px",
-                    height: height+"px"
+                    height: height + "px",
+                    zIndex:1
                 });
                 //			the zoom and pan image is position relative to the view container
                 $zimg.css({
@@ -556,6 +557,7 @@
                  *		probably shouldn't pass out the this object - need to think of something better
                  */
                 this._trigger("onUpdate", null, this);
+                
             }
         }
 

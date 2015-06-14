@@ -1,5 +1,6 @@
 ﻿var Fugitivas = Fugitivas || {};
 
+'use strict';
 Fugitivas.Methods = {
     validarCampos: function ()
     {
@@ -80,7 +81,6 @@ Fugitivas.Methods = {
         }
        
         var id = tag.attr( "data-id" );
-        var posi = $( Fugitivas.CONTAINER_IMAGEM ).imgViewer( "imgToView", coord.x, coord.y );
         
         var idBaseName = tpl.replace( /\W/g, "" );
         var idFix = "fix-" + idBaseName;
@@ -96,7 +96,7 @@ Fugitivas.Methods = {
             .addClass( 'namePoint' )
             .attr( 'data-id', id )
             .attr( 'id', idLabel )
-            .css( { top: posi.y, left: posi.x } )
+            .css({ top: coord.top, left: coord.left })
             .append( template );
 
         $( Fugitivas.CONTAINER_IMAGEM ).imgViewer( "addElem", elem );
@@ -104,8 +104,8 @@ Fugitivas.Methods = {
         
 
         tag.attr( "id", idFix )
-                .removeClass( "pointInitial" )
-                .addClass( 'fixPoint' );
+           .removeClass( "pointInitial" )
+           .addClass( 'fixPoint' );
     },
     getLastID: function ()
     {
@@ -163,32 +163,11 @@ Fugitivas.Methods = {
 
     },
     createLine: function ()
-    {
-        
+    {        
         jsPlumb.ready( function ()
         {      
-            var config = {
-                PaintStyle: {
-                    lineWidth: 2.5,
-                    strokeStyle: "white",
-                    outlineColor: "",
-                    outlineWidth: 0
-                },
-                ConnectionsDetachable: false,
-                DoNotThrowErrors: true,
-                Connector: ["Bezier", { curviness: 80 }],
-                Endpoints: [null, ["Dot", { radius: 2 }]],
-                EndpointStyles: [{ fillStyle: "" }, { fillStyle: 'white' }],
-                MaxConnections: 10,
-                ReattachConnections: true,
-                Anchors: ["Bottom", "TopRight"],
-                DragOptions: { cursor: "move", zIndex: 2000 },
-                isSource: true,
-                isTarget: true,
-                Container: "viewport"
-            };
-            var conectionInstance = window.conectionInstance = jsPlumb.getInstance(config);
-            conectionInstance.batch(function () {
+            Fugitivas.conectionInstance = jsPlumb.getInstance(Fugitivas.defaultJSPlumb);
+            Fugitivas.conectionInstance.batch(function () {
                 var dados = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
                 if (dados.length) {
                     for (var i in dados) {
@@ -302,25 +281,25 @@ Fugitivas.Methods = {
     {
         var pontos = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
         var totalPontos = pontos.length;
-        
 
-        Fugitivas.ModelFugitivas.flagSatatusPonto( "insert" );
+        if (pontos.length) {
+            Fugitivas.ModelFugitivas.flagSatatusPonto("insert");
 
-        for(var i = 0; i < totalPontos; i++){
-            var Componente = Fugitivas.Methods.buscaComponetes( pontos[i].DADOS_PONTO.TIPO_COMPONENTE(), pontos[i].DADOS_PONTO.SUBTIPO_COMPONENTE() );
-            Fugitivas.ModelFugitivas.idPonto( pontos[i].ID() );
+            for(var i = 0; i < totalPontos; i++){
+                var Componente = Fugitivas.Methods.buscaComponetes( pontos[i].DADOS_PONTO.TIPO_COMPONENTE(), pontos[i].DADOS_PONTO.SUBTIPO_COMPONENTE() );
+                Fugitivas.ModelFugitivas.idPonto( pontos[i].ID() );
 
-            $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( 'addNote', pontos[i].COORDS.X(), pontos[i].COORDS.Y(), null );
+                $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( 'addNote', pontos[i].COORDS.X(), pontos[i].COORDS.Y(), null );
 
-            var ultimoPontoTag = $( ".markerPoint" ).last();
-            ultimoPontoTag.off( "click" );
+                var ultimoPontoTag = $( ".markerPoint" ).last();
+                ultimoPontoTag.off( "click" );
 
-            var templateTag = Componente.tipo.SIGLA() + ( Componente.subtipo !== "" ? " - " + Componente.subtipo : "" ) + " - " + pontos[i].HASH();
-            Fugitivas.Methods.callbackCadastro( templateTag, ultimoPontoTag, { x: pontos[i].COORDS.X(), y: pontos[i].COORDS.Y() } );
+                var templateTag = Componente.tipo.SIGLA() + ( Componente.subtipo !== "" ? " - " + Componente.subtipo : "" ) + " - " + pontos[i].HASH();
+                Fugitivas.Methods.callbackCadastro(templateTag, ultimoPontoTag, { top: pontos[i].POSICAO_TAG.TOP(), left: pontos[i].POSICAO_TAG.LEFT() });
+            }
+
+            Fugitivas.ModelFugitivas.flagSatatusPonto( "new" );
         }
-
-        Fugitivas.ModelFugitivas.flagSatatusPonto( "new" );
-        
         
     },
     dispararEventos: function ()
@@ -329,21 +308,14 @@ Fugitivas.Methods = {
 
         $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( Fugitivas.defaultImgNotes );
 
-        $( '#viewport > img' ).one( 'load', function ()
-        {
-            Fugitivas.Methods.delegateEdit();
-            Fugitivas.Methods.delegateView();
-            if ( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO().length )
-            {
+        $('#viewport > img').on('load', function () {
+            setTimeout(function () {
+                Fugitivas.Methods.delegateEdit();
+                Fugitivas.Methods.delegateView();
                 Fugitivas.Methods.carregaPontos();
                 Fugitivas.Methods.createLine();
-            }
-        } ).each( function ()
-        {
-            if ( $( this ).get( 0 ).complete ){
-                $( this ).load();
-            }
-        } )
+            }, 600);
+        });
         
 
     },
@@ -365,15 +337,95 @@ Fugitivas.Methods = {
         var fixId = $('.fixPoint[data-id="' + id + '"]'),
             nomeId = $('.namePoint[data-id="' + id + '"]');
 
-
-        conectionInstance.connect({
+        Fugitivas.conectionInstance.connect({
             source: fixId,
             target: nomeId,
-            newConnection: true,
             scope: "link_" + id,
             anchor: "AutoDefault"
         });
 
-        conectionInstance.draggable(nomeId);
+        Fugitivas.conectionInstance.draggable(nomeId);
+
+        nomeId.on('dragstop', function () {
+            var that = $(this);
+            var $viewport = $('#viewport');
+            var sizeFont = 7;
+            var totalFont = that.text().length < 10 ? 11 : that.text().length;
+            var button = that.find('.editar').is(':visible') ? 45 : 20;
+            
+            var objTag = {
+                id: that.attr("data-id"),
+                topPosition: that.css('top'),
+                leftPosition: that.css('left')
+            };
+
+            var size = {
+                height: parseInt( that.css('height') ) + 2,
+                width: (totalFont * sizeFont) + button 
+            };
+
+            var viewport = {
+                width: parseInt( $viewport.width() ),
+                height: parseInt( $viewport.height() )
+            };
+
+            function repintar() {
+                setTimeout(function () {
+                    var objPosi = {
+                        left: parseInt( objTag.leftPosition ),
+                        top: parseInt( objTag.topPosition )
+                    };
+                    Fugitivas.conectionInstance.repaint(that, objPosi);
+                }, 40);
+            }
+
+            if (parseInt(objTag.leftPosition) < 0) {
+                $(this).css('left', '0px');
+                objTag.leftPosition = "0px";
+                repintar();
+            }
+
+            if (parseInt(objTag.leftPosition) > viewport.width) {
+                var calcWidth = (viewport.width - size.width) + "px";
+                $(this).css('left', calcWidth);
+                objTag.leftPosition = calcWidth;
+                repintar();
+            }
+
+            if (parseInt(objTag.topPosition) < 0) {
+                $(this).css('top', '0px');
+                objTag.topPosition = "0px";
+                repintar();
+            }
+
+            if (parseInt(objTag.topPosition) > viewport.height) {
+                var calcHeight = (viewport.height - size.height) + "px";
+                $(this).css('top', calcHeight);
+                objTag.topPosition = calcHeight;
+                repintar();
+            }
+
+            Fugitivas.Methods.salvarPosicaoTag(objTag);
+
+        });
+
+    },
+    salvarPosicaoTag: function (obj) {
+        var editPonto = ko.utils.arrayFirst(Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function (item) {
+            return obj.id == item.ID();
+        });
+        if (Fugitivas.URLS.AtualizarPosicaoTag) {
+            Fugitivas.Methods.postData(Fugitivas.URLS.AtualizarPosicaoTag + Fugitivas.ModelFugitivas.dadosModal().ID, obj, function (result) {
+                if (result.type) {
+                    editPonto.POSICAO_TAG.TOP( obj.topPosition );
+                    editPonto.POSICAO_TAG.LEFT( obj.leftPosition );
+                }
+                Fugitivas.Notifica(result.type, result.mensagem);
+            });
+        } else {
+            editPonto.POSICAO_TAG.TOP( obj.topPosition );
+            editPonto.POSICAO_TAG.LEFT( obj.leftPosition );
+            Fugitivas.Notifica(true, "Posição atualizada com sucesso!");
+        }
     }
 };

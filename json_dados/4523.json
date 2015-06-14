@@ -16,6 +16,7 @@
             "ID": 0,
             "HASH": "458",
             "COORDS": { "X": 0.044275, "Y": 0.03125 },
+            "POSICAO_TAG":  {"TOP": "77px","LEFT": "102px"},
             "DADOS_PONTO": {
                 "TIPO_COMPONENTE": "0",
                 "SUBTIPO_COMPONENTE": "1",
@@ -31,6 +32,7 @@
             "ID": 1,
             "HASH": "895",
             "COORDS": { "X": 0.711475, "Y": 0.03571428571428571 },
+            "POSICAO_TAG":  {"TOP": "114px","LEFT": "320px"},
             "DADOS_PONTO": {
                 "TIPO_COMPONENTE": "3",
                 "SUBTIPO_COMPONENTE": "",
@@ -46,6 +48,7 @@
             "ID": 2,
             "HASH": "895",
             "COORDS": { "X": 0.465075, "Y": 0.49330357142857145 },
+            "POSICAO_TAG":  {"TOP": "52px","LEFT": "171px"},
             "DADOS_PONTO": {
                 "TIPO_COMPONENTE": "2",
                 "SUBTIPO_COMPONENTE": "1",
@@ -61,6 +64,7 @@
             "ID": 3,
             "HASH": "785",
             "COORDS": { "X": 0.066675, "Y": 0.6919642857142857 },
+            "POSICAO_TAG":  {"TOP": "274px","LEFT": "383px"},
             "DADOS_PONTO": {
                 "TIPO_COMPONENTE": "6",
                 "SUBTIPO_COMPONENTE": "",

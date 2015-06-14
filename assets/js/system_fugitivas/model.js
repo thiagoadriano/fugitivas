@@ -1,5 +1,6 @@
 ﻿var Fugitivas = Fugitivas || {};
 
+'use strict';
 Fugitivas.ModelFugitivas =
  {
     listaGrupoPontos: ko.observableArray(),

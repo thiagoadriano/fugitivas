@@ -1,4 +1,5 @@
-﻿$( function ()
+﻿'use strict';
+$(function ()
 {
     $( '#containerLoading' ).css( 'height', $( window ).height() );
     $.ajaxSetup( {
@@ -16,10 +17,16 @@
 
     Fugitivas.ElModal.FecharModal.on( 'click', function ()
     {
-        $( '#modalPontos' ).modal( "hide" );
-        Fugitivas.ElModal.IMAGEM.attr( 'src', '' );
-        $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( 'destroy' );
+        $('#modalPontos').modal("hide");
+        if ($(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "canEdit")) {
+            $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "canEdit", false);
+        }
+        Fugitivas.ElModal.IMAGEM.attr('src', '');
+        $(Fugitivas.CONTAINER_IMAGEM).imgNotes('destroy');
+        Fugitivas.ElModal.editClick.text("Editar");
         conectionInstance = null;
+        
+        
     } );
 
     Fugitivas.ElModal.openModal.on('click', '.openModal', function(){
@@ -41,7 +48,7 @@
     {
         if ( $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "canEdit" ) )
         {
-            $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "canEdit", false )
+            $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "canEdit", false);
             $(this).text("Editar");
             $('.editar').hide();
         } else
@@ -54,7 +61,8 @@
 
     Fugitivas.ElModal.zoomOut.on( 'click', function ()
     {
-        $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "zoom", 1 );
-    } );
+        $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "zoom", 1);
+        Fugitivas.conectionInstance.repaintEverything();
+    });
 
 } );

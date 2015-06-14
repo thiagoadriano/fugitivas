@@ -9,18 +9,18 @@ ko.components.register( 'form-content', {
                 {
                     return Fugitivas.ModelFugitivas.idPonto() == item.ID();
                 } ) : undefined;
-        self.listType = params.tipos;
+        self.listType          = params.tipos;
         self.listManufacturers = params.fabricantes;
-        self.listSpecialty = params.especialidade;
-        self.listSubtype = ko.observableArray([{ NOME: "Selecione um Tipo com Subtipo", ID: "" }]);
-        self.typeSelect = ko.observable();
-        self.subTypeSelect = ko.observable();
-        self.manufactSelect = ko.observable();
-        self.dimmerSelect = ko.observable();
+        self.listSpecialty     = params.especialidade;
+        self.listSubtype       = ko.observableArray([{ NOME: "Selecione um Tipo com Subtipo", ID: "" }]);
+        self.typeSelect        = ko.observable();
+        self.subTypeSelect     = ko.observable();
+        self.manufactSelect    = ko.observable();
+        self.dimmerSelect      = ko.observable();
         self.dimmerComboSelect = ko.observable();
-        self.positionSelect = ko.observable();
-        self.specialtySelect = ko.observable();
-        self.flagDeletar = ko.observable( false );
+        self.positionSelect    = ko.observable();
+        self.specialtySelect   = ko.observable();
+        self.flagDeletar       = ko.observable( false );
 
         self.save = {
             novo: function (data)
@@ -32,12 +32,13 @@ ko.components.register( 'form-content', {
                 var ultimoPontoTag = $( ".markerPoint" ).last();
                 var Componente = Fugitivas.Methods.getItemId( self.listType(), data.typeSelect() );
                 var subComponente = data.subTypeSelect() !== "" ? Fugitivas.Methods.getItemId( Componente.SUBTIPO(), data.subTypeSelect() ) : "";
-
+                var posicaoTag = $(Fugitivas.CONTAINER_IMAGEM).imgViewer("imgToView", ultimoPonto.x, ultimoPonto.y);
                 ultimoPontoTag.off( "click" );
 
                 var PontoNovo = {
                     ID: novaId,
                     COORDS: { X: ultimoPonto.x, Y: ultimoPonto.y },
+                    POSICAO_TAG: {TOP: posicaoTag.y ,LEFT: posicaoTag.x},
                     DADOS_PONTO: {
                         TIPO_COMPONENTE: data.typeSelect(),
                         SUBTIPO_COMPONENTE: data.subTypeSelect(),
@@ -61,7 +62,7 @@ ko.components.register( 'form-content', {
                             var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA_SUBTIPO() : "" ) + " - " + result.HASH;
                             PontoNovo.HASH = hash;
                             pontos.push( ko.mapping.fromJS( PontoNovo ) );
-                            Fugitivas.Methods.callbackCadastro(templateTag, ultimoPontoTag, { x: ultimoPonto.x, x: ultimoPonto.y });
+                            Fugitivas.Methods.callbackCadastro(templateTag, ultimoPontoTag, { top: posicaoTag.y, left: posicaoTag.x });
                             Fugitivas.Methods.connect(novaId);
                             $('.editar').show();
                         }
@@ -74,7 +75,7 @@ ko.components.register( 'form-content', {
                     var templateTag = Componente.SIGLA() + ( subComponente ? " - " + subComponente.SIGLA_SUBTIPO() : "" ) + " - " + hash;
                     PontoNovo.HASH = hash;
                     pontos.push( ko.mapping.fromJS( PontoNovo ) );
-                    Fugitivas.Methods.callbackCadastro(templateTag, ultimoPontoTag, { x: ultimoPonto.x, y: ultimoPonto.y });
+                    Fugitivas.Methods.callbackCadastro(templateTag, ultimoPontoTag, { top: posicaoTag.y, left: posicaoTag.x });
                     Fugitivas.Methods.connect(novaId);
                     $('.editar').show();
                     Fugitivas.Notifica( true, "Ponto Cadastrado com Sucesso!" );
@@ -259,7 +260,7 @@ ko.components.register( 'form-content', {
                                 var nodePoint = document.querySelector( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
                                 if ( nodeFix.parentNode )
                                 {
-                                    nodeFix.parentNode.removeChild( nodeFix );
+                                    Fugitivas.conectionInstance.remove(nodeFix);
                                     nodePoint.parentNode.removeChild( nodePoint );
                                 }
 
@@ -275,7 +276,7 @@ ko.components.register( 'form-content', {
                         
                         if ( nodeFix.parentNode )
                         {
-                            conectionInstance.remove(nodeFix);
+                            Fugitivas.conectionInstance.remove(nodeFix);
                             nodePoint.parentNode.removeChild( nodePoint );
                         }
                         

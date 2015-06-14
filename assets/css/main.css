@@ -106,7 +106,15 @@ body{
 #content #content-img img{
   width:100%;
   height:448px;
-  position:relative;
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:0;
+}
+#content #content-img #viewport{
+    left:0!important;
+    top:0!important;
+    z-index:1!important;
 }
 
 .btn{
@@ -191,6 +199,8 @@ body{
     position:absolute;
     z-index: 50000;
     cursor:move;
+    min-width:80px;
+    width:auto!important;
 }
 
 .namePoint span{

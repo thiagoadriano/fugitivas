@@ -1,7 +1,12 @@
 ﻿var Fugitivas = Fugitivas || {};
 
+'use strict';
 //ID DO CONTAINER DE IMAGEM PARA USO DO COMPONENTE
 Fugitivas.CONTAINER_IMAGEM = "#MainContentIMG";
+
+//ISNTANCIA DE CONEXÂO
+Fugitivas.conectionInstance = undefined;
+
 
 //URLS PARA USO DO SISTEMA
 Fugitivas.URLS = {};
@@ -13,6 +18,7 @@ Fugitivas.URLS.Fabricante    = Fugitivas.URLS.Base + "_fabricantes.json";
 Fugitivas.URLS.Deletar       = undefined;
 Fugitivas.URLS.Salvar        = undefined;
 Fugitivas.URLS.Atualizar     = undefined;
+Fugitivas.URLS.AtualizarPosicaoTag = undefined;
 
 //CONFIGURAÇÂO PADRÂO DO COMPONENTE
 Fugitivas.defaultImgNotes = {
@@ -41,9 +47,47 @@ Fugitivas.defaultImgNotes = {
         Fugitivas.ModelFugitivas.flagSatatusPonto( "new" );
         Fugitivas.ModelFugitivas.idPonto( Fugitivas.Methods.getLastID() );
         return Fugitivas.Methods.dialogOpen( "Adicionar Ponto", elem);
+    },
+    onUpdateMarker: function (elem) {
+        var $elem = $(elem);
+        var $img = $(this.img);
+        var pos = $img.imgViewer("imgToView", $elem.data("relx"), $elem.data("rely"));
+        var zoom = $img.imgViewer("option", "zoom");
+        if (pos) {
+            $elem.css({
+                left: (pos.x - $elem.data("xOffset")),
+                top: (pos.y - $elem.data("yOffset")),
+                position: "absolute"
+            });
+            if (Fugitivas.conectionInstance !== undefined) {
+                Fugitivas.conectionInstance.repaintEverything();
+            }
+            
+        }
     }
 };
 
+//CONFIGURAÇÂO PARA O ENCADEAMENTO
+Fugitivas.defaultJSPlumb = {
+    PaintStyle: {
+        lineWidth: 2.5,
+        strokeStyle: "white",
+        outlineColor: "",
+        outlineWidth: 0
+    },
+    ConnectionsDetachable: false,
+    DoNotThrowErrors: true,
+    Connector: ["Bezier", { curviness: 80 }],
+    Endpoints: [null, ["Dot", { radius: 2 }]],
+    EndpointStyles: [{ fillStyle: "" }, { fillStyle: 'white' }],
+    MaxConnections: 10,
+    ReattachConnections: true,
+    Anchors: ["Bottom", "TopRight"],
+    DragOptions: { cursor: "move", zIndex: 2000 },
+    isSource: true,
+    isTarget: true,
+    Container: "viewport"
+};
 
 //Elemetnos do Modal
 Fugitivas.ElModal = {

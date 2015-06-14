@@ -10,9 +10,10 @@
   </settings>
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
-    <file>/assets/js/lib/jquery/jquery-2.1.4.js</file>
-    <file>/assets/js/lib/jquery/jquery-ui.js</file>
-    <file>/assets/js/lib/jquery/jquery.tmpl.min.js</file>
-    <file>/assets/js/lib/jquery/jquery.ui.touch-punch-0.2.2.min.js</file>
+    <file>/assets/js/lib/imgnote/jquery.fs.zoetrope.js</file>
+    <file>/assets/js/lib/imgnote/jquery.mousewheel.js</file>
+    <file>/assets/js/lib/imgnote/toe.js</file>
+    <file>/assets/js/lib/imgnote/imgViewer.js</file>
+    <file>/assets/js/lib/imgnote/imgNotes.js</file>   
   </files>
 </bundle>
