@@ -391,6 +391,24 @@ form label{
 #groupBtn{
     margin-top: 30px;
 }
+#confirmDelete .modal-dialog{
+    width:420px;
+}
+#confirmDelete .modal-title{
+      margin: 10px 0;
+      color:#fff;
+}
+#confirmDelete .modal-title .glyphicon{
+    top: 2px;
+    margin-right: 5px;
+}
+#confirmDelete .modal-header{
+    background:#2E97A4;
+    border-radius: 5px 5px 0 0;
+}
+#titleAction .glyphicon{
+    top:1px;
+}
 @media screen and (min-width:100px) and (max-width:1000px){
     .container{
         width: 1170px;
