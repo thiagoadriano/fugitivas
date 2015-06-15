@@ -11,6 +11,40 @@ Fugitivas.ModelFugitivas =
     listagemFabricante: ko.observableArray(),
     flagSatatusPonto: ko.observable(),
     idPonto: ko.observable(),
+    nomeExclude: ko.observable(),
+    idExclude: ko.observable(),
+
+    deleteGroup: function () {
+        var id = Fugitivas.ModelFugitivas.idExclude();
+        if (Fugitivas.URLS.RemoverGrupo) {
+            Fugitivas.Methods.postData(Fugitivas.URLS.RemoverGrupo, { id: id }, function (result) {
+                if (result.type) {
+                    var objetoAtual = Fugitivas.Methods.getItemId(Fugitivas.ModelFugitivas.listaGrupoPontos(), id);
+                    Fugitivas.ModelFugitivas.listaGrupoPontos.remove(objetoAtual);
+                    Fugitivas.ModelFugitivas.closeModalExclude();
+                }
+                Fugitivas.Notifica(result.type, result.mensagem);
+            });
+        } else {
+            var objetoAtual = Fugitivas.Methods.getItemId(Fugitivas.ModelFugitivas.listaGrupoPontos(), id);
+            Fugitivas.ModelFugitivas.listaGrupoPontos.remove(objetoAtual);
+            Fugitivas.ModelFugitivas.closeModalExclude();
+            Fugitivas.Notifica(true, "Grupo Removido com sucesso!");
+        }
+        
+    },
+
+    deleteGroupConfirm: function (data) {
+        Fugitivas.ModelFugitivas.nomeExclude(data.NOME_GRUPO_PONTOS());
+        Fugitivas.ModelFugitivas.idExclude(data.ID());
+        $('#confirmDelete').modal('show');
+    },
+
+    closeModalExclude: function(){
+        $('#confirmDelete').modal('hide');
+        Fugitivas.ModelFugitivas.nomeExclude("");
+        Fugitivas.ModelFugitivas.idExclude("");
+    },
 
     initcial: function ()
     {

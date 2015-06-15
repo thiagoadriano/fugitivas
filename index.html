@@ -10,6 +10,29 @@
 
 <body>
     <div class="container">
+        <div class="row" id="titleAction">
+            <div class="col-md-5">
+                <h1 class="pull-left">Grupo de pontos</h1>
+            </div>
+            <div class="col-md-4 pull-right" id="groupBtn">
+                <button type="button" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Adicionar Novo Grupo
+                </button>
+                <button type="button" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-import"></span>
+                    Importar
+                </button>
+                <button type="button" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-export"></span>
+                    Exportar
+                </button>
+            </div>
+            
+            
+        </div>
+
+
         <div class="row">
             <div class="col-md-12">
 
@@ -21,7 +44,7 @@
                             <th>Unidade de Processo</th>
                             <th>Linha de Processo</th>
                             <th>Tag do Equipamento</th>
-                            <th>Ação</th>
+                            <th colspan="4" class="text-center">Ações</th>
                         </tr>
                     </thead>
                     <tbody data-bind="foreach: Fugitivas.ModelFugitivas.listaGrupoPontos">
@@ -36,6 +59,21 @@
                                     Pontos de Medição
                                 </button>
                             </td>
+                            <td>
+                                <button type="button" class="btn btn-ico btn-primary">
+                                    <span class="glyphicon glyphicon glyphicon-search"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-ico btn-warning">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-ico btn-danger">
+                                    <span class="glyphicon glyphicon-trash" data-bind="click: $parent.deleteGroupConfirm"></span>
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -43,7 +81,35 @@
             </div>
         </div>
 
-        <!-- Modal -->
+        <!-- Modal Confirmação de apagar -->
+        <div class="modal" id="confirmDelete">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                            Deseja Deletar o Registro: <strong data-bind="text: nomeExclude"></strong>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Ao deletar este registro, o mesmo não poderá mais ser retornado, tornando a ação definitiva.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-md-5 col-md-offset-1">
+                                <button type="button" class="btn btn-danger btn-block" data-bind="click: deleteGroup">Sim</button>
+                            </div>
+                        	<div class="col-md-5">
+                                <button type="button" class="btn btn-primary btn-block" data-bind="click: closeModalExclude">Não</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Confirmação de apagar -->
+
+        <!-- Modal Pontos -->
         <div class="modal" id="modalPontos">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -155,19 +221,44 @@
                 </div>
             </div>
         </div>
+        <!-- Modal Pontos -->
+
+        <!-- Modal de inserção de grupo -->
+        <div class="modal" id="modalIncludGroup">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Grupo de Ponto: </h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                    </div>
+                    <div class="modal-footer">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal de inserção de grupo -->
     </div>
+
+    <!-- loading da página -->
     <div id="containerLoading" style="display:none;">
         <div id="loading">
            <img src="assets/img/preloader.gif">
            <p>Aguarde os dados estão sendo carregados...</p>
         </div>
     </div>
+    <!-- loading da página -->
+
     <!-- Controle de Scripts -->
     <script src="assets/js/lib/jquery.js"></script>
-    <script src="assets/js/lib/bootstrap.js"></script>
     <script src="assets/js/lib/knockout.js"></script>
     <script src="assets/js/lib/jsPlumb.js"></script>
     <script src="assets/js/lib/imgnote.js"></script>
+    <script src="assets/js/lib/recurso.js"></script>
     <script src="assets/js/fugitivas.js"></script>
+    <!-- Controle de Scripts -->
+
 </body>
 </html>

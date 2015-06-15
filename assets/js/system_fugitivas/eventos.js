@@ -64,5 +64,5 @@ $(function ()
         $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "zoom", 1);
         Fugitivas.conectionInstance.repaintEverything();
     });
-
-} );
+    
+});

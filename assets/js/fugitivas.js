@@ -22,6 +22,7 @@ Fugitivas.URLS.Deletar       = undefined;
 Fugitivas.URLS.Salvar        = undefined;
 Fugitivas.URLS.Atualizar     = undefined;
 Fugitivas.URLS.AtualizarPosicaoTag = undefined;
+Fugitivas.URLS.RemoverGrupo  = undefined;
 
 //CONFIGURAÇÂO PADRÂO DO COMPONENTE
 Fugitivas.defaultImgNotes = {
@@ -109,7 +110,8 @@ Fugitivas.ElModal = {
     zoomOut: $( '#zoomOut' ),
     editClick: $( '#editClick' ),
     FecharModal: $( '#FecharModal' ),
-    openModal: $( '#grupo' )
+    openModal: $('#grupo'),
+    btnTooltip: $('button[title]')
 };
 
 //ALERTA DE ERRO OU SUCESSO
@@ -584,6 +586,40 @@ Fugitivas.ModelFugitivas =
     listagemFabricante: ko.observableArray(),
     flagSatatusPonto: ko.observable(),
     idPonto: ko.observable(),
+    nomeExclude: ko.observable(),
+    idExclude: ko.observable(),
+
+    deleteGroup: function () {
+        var id = Fugitivas.ModelFugitivas.idExclude();
+        if (Fugitivas.URLS.RemoverGrupo) {
+            Fugitivas.Methods.postData(Fugitivas.URLS.RemoverGrupo, { id: id }, function (result) {
+                if (result.type) {
+                    var objetoAtual = Fugitivas.Methods.getItemId(Fugitivas.ModelFugitivas.listaGrupoPontos(), id);
+                    Fugitivas.ModelFugitivas.listaGrupoPontos.remove(objetoAtual);
+                    Fugitivas.ModelFugitivas.closeModalExclude();
+                }
+                Fugitivas.Notifica(result.type, result.mensagem);
+            });
+        } else {
+            var objetoAtual = Fugitivas.Methods.getItemId(Fugitivas.ModelFugitivas.listaGrupoPontos(), id);
+            Fugitivas.ModelFugitivas.listaGrupoPontos.remove(objetoAtual);
+            Fugitivas.ModelFugitivas.closeModalExclude();
+            Fugitivas.Notifica(true, "Grupo Removido com sucesso!");
+        }
+        
+    },
+
+    deleteGroupConfirm: function (data) {
+        Fugitivas.ModelFugitivas.nomeExclude(data.NOME_GRUPO_PONTOS());
+        Fugitivas.ModelFugitivas.idExclude(data.ID());
+        $('#confirmDelete').modal('show');
+    },
+
+    closeModalExclude: function(){
+        $('#confirmDelete').modal('hide');
+        Fugitivas.ModelFugitivas.nomeExclude("");
+        Fugitivas.ModelFugitivas.idExclude("");
+    },
 
     initcial: function ()
     {
@@ -1095,5 +1131,6 @@ $(function ()
         $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "zoom", 1);
         Fugitivas.conectionInstance.repaintEverything();
     });
+    
+});
 
-} );

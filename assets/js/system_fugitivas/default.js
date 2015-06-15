@@ -21,6 +21,7 @@ Fugitivas.URLS.Deletar       = undefined;
 Fugitivas.URLS.Salvar        = undefined;
 Fugitivas.URLS.Atualizar     = undefined;
 Fugitivas.URLS.AtualizarPosicaoTag = undefined;
+Fugitivas.URLS.RemoverGrupo  = undefined;
 
 //CONFIGURAÇÂO PADRÂO DO COMPONENTE
 Fugitivas.defaultImgNotes = {
@@ -108,7 +109,8 @@ Fugitivas.ElModal = {
     zoomOut: $( '#zoomOut' ),
     editClick: $( '#editClick' ),
     FecharModal: $( '#FecharModal' ),
-    openModal: $( '#grupo' )
+    openModal: $('#grupo'),
+    btnTooltip: $('button[title]')
 };
 
 //ALERTA DE ERRO OU SUCESSO
