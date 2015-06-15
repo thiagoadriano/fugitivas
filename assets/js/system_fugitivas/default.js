@@ -7,6 +7,8 @@ Fugitivas.CONTAINER_IMAGEM = "#MainContentIMG";
 //ISNTANCIA DE CONEXÂO
 Fugitivas.conectionInstance = undefined;
 
+//CAMINHO PARA O DIRETÒRIO DE IMAGENS
+Fugitivas.PATH_IMAGE = 'imagem/';
 
 //URLS PARA USO DO SISTEMA
 Fugitivas.URLS = {};

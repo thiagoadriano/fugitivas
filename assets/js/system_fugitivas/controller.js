@@ -331,7 +331,7 @@ Fugitivas.Methods = {
         Fugitivas.ElModal.POSICAO_GRUPO.val( obj.POSICAO_GRUPO() );
         Fugitivas.ElModal.FLUXOGRAMA.val( obj.FLUXOGRAMA() );
         Fugitivas.ElModal.NOTA.val( obj.NOTA() );
-        Fugitivas.ElModal.IMAGEM.attr( 'src', 'imagem/' + obj.IMG_NAME() );
+        Fugitivas.ElModal.IMAGEM.attr( 'src', Fugitivas.PATH_IMAGE + obj.IMG_NAME() );
     },
     connect: function (id) {
         var fixId = $('.fixPoint[data-id="' + id + '"]'),
