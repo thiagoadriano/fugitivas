@@ -64,5 +64,35 @@ $(function ()
         $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "zoom", 1);
         Fugitivas.conectionInstance.repaintEverything();
     });
+
+    Fugitivas.ElModal.btnAddCadastro.on('click', function () {
+        $('#modalIncludGroup').modal('show');
+    });
+
+    Fugitivas.ElModal.btnCancelAdd.on('click', function () {
+        $('#modalIncludGroup').modal('hide');
+    });
+
+    Fugitivas.ElModal.btnCadastro.on('click', function () {
+        var obj = {
+            id: "",
+            nomeGrupo: "",
+            empresa: "",
+            nivel1: "",
+            nivel2: "",
+            nivel3: "",
+            unidadeProcesso: "",
+            linhaProcesso: "",
+            tagEquipamento: "",
+            posicaoGrupo: "",
+            fluxograma: "",
+            nota: "",
+            upload: ""
+        };
+
+
+    });
+
+    Fugitivas.ElModal.upload.filestyle();
     
 });

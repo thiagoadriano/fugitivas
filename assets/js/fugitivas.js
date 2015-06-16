@@ -111,7 +111,22 @@ Fugitivas.ElModal = {
     editClick: $( '#editClick' ),
     FecharModal: $( '#FecharModal' ),
     openModal: $('#grupo'),
-    btnTooltip: $('button[title]')
+    btnTooltip: $('button[title]'),
+    btnAddCadastro: $('#addGrupoBtn'),
+    btnCadastro: $('#cadGrupoBtn'),
+    btnCancelAdd: $('#cancelCad'),
+    upload: $('#upload'),
+    nomeGrupo: $('#nomeGrupo'),
+    empresa: $('#empresa'),
+    nivel1: $('#nivel1'),
+    nivel2: $('#nivel2'),
+    nivel3: $('#nivel3'),
+    unidadeProcesso: $('#unidadeProcesso'),
+    linhaProcesso: $('#linhaProcesso'),
+    tagEquipamento: $('#tagEquipamento'),
+    posicaoGrupo: $('#posicaoGrupo'),
+    fluxograma: $('#fluxograma'),
+    nota: $('#nota')
 };
 
 //ALERTA DE ERRO OU SUCESSO
@@ -208,6 +223,30 @@ Fugitivas.Methods = {
         }
 
         return idNotValid.length ? 0 : 1;
+    },
+    validarCadastro: function (ids)
+    {
+        if (Array.isArray(ids)) {
+            var idNotValid = [];
+            for (var i in ids) {
+                var $this = $("#" + ids[i]);
+                if (!$this.attr("disabled")) {
+                    if ($this.val() === "") {
+                        $this.addClass("validation");
+                        idNotValid.push(ids[i]);
+                    } else {
+                        $this.hasClass("validation") ? $this.removeClass("validation") : undefined;
+                    }
+                }
+            };
+
+            if (idNotValid.length) {
+                $("#" + idNotValid[0]).focus();
+                return false;
+            } else {
+                return true;
+            }
+        }
     },
     getItemId: function ( list, id )
     {
@@ -588,6 +627,10 @@ Fugitivas.ModelFugitivas =
     idPonto: ko.observable(),
     nomeExclude: ko.observable(),
     idExclude: ko.observable(),
+
+    salvarNovoGrupo:function(data){
+        console.log(data)
+    },
 
     deleteGroup: function () {
         var id = Fugitivas.ModelFugitivas.idExclude();
@@ -1131,6 +1174,36 @@ $(function ()
         $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "zoom", 1);
         Fugitivas.conectionInstance.repaintEverything();
     });
+
+    Fugitivas.ElModal.btnAddCadastro.on('click', function () {
+        $('#modalIncludGroup').modal('show');
+    });
+
+    Fugitivas.ElModal.btnCancelAdd.on('click', function () {
+        $('#modalIncludGroup').modal('hide');
+    });
+
+    Fugitivas.ElModal.btnCadastro.on('click', function () {
+        var obj = {
+            id: "",
+            nomeGrupo: "",
+            empresa: "",
+            nivel1: "",
+            nivel2: "",
+            nivel3: "",
+            unidadeProcesso: "",
+            linhaProcesso: "",
+            tagEquipamento: "",
+            posicaoGrupo: "",
+            fluxograma: "",
+            nota: "",
+            upload: ""
+        };
+
+
+    });
+
+    Fugitivas.ElModal.upload.filestyle();
     
 });
 

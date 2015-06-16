@@ -66,6 +66,30 @@ Fugitivas.Methods = {
 
         return idNotValid.length ? 0 : 1;
     },
+    validarCadastro: function (ids)
+    {
+        if (Array.isArray(ids)) {
+            var idNotValid = [];
+            for (var i in ids) {
+                var $this = $("#" + ids[i]);
+                if (!$this.attr("disabled")) {
+                    if ($this.val() === "") {
+                        $this.addClass("validation");
+                        idNotValid.push(ids[i]);
+                    } else {
+                        $this.hasClass("validation") ? $this.removeClass("validation") : undefined;
+                    }
+                }
+            };
+
+            if (idNotValid.length) {
+                $("#" + idNotValid[0]).focus();
+                return false;
+            } else {
+                return true;
+            }
+        }
+    },
     getItemId: function ( list, id )
     {
         return ko.utils.arrayFirst( list, function ( item )

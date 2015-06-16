@@ -14,6 +14,10 @@ Fugitivas.ModelFugitivas =
     nomeExclude: ko.observable(),
     idExclude: ko.observable(),
 
+    salvarNovoGrupo:function(data){
+        console.log(data)
+    },
+
     deleteGroup: function () {
         var id = Fugitivas.ModelFugitivas.idExclude();
         if (Fugitivas.URLS.RemoverGrupo) {

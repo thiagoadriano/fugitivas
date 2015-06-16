@@ -110,7 +110,22 @@ Fugitivas.ElModal = {
     editClick: $( '#editClick' ),
     FecharModal: $( '#FecharModal' ),
     openModal: $('#grupo'),
-    btnTooltip: $('button[title]')
+    btnTooltip: $('button[title]'),
+    btnAddCadastro: $('#addGrupoBtn'),
+    btnCadastro: $('#cadGrupoBtn'),
+    btnCancelAdd: $('#cancelCad'),
+    upload: $('#upload'),
+    nomeGrupo: $('#nomeGrupo'),
+    empresa: $('#empresa'),
+    nivel1: $('#nivel1'),
+    nivel2: $('#nivel2'),
+    nivel3: $('#nivel3'),
+    unidadeProcesso: $('#unidadeProcesso'),
+    linhaProcesso: $('#linhaProcesso'),
+    tagEquipamento: $('#tagEquipamento'),
+    posicaoGrupo: $('#posicaoGrupo'),
+    fluxograma: $('#fluxograma'),
+    nota: $('#nota')
 };
 
 //ALERTA DE ERRO OU SUCESSO
