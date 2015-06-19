@@ -273,10 +273,10 @@ ko.components.register( 'form-content', {
                         Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove( objeto );
                         var nodeFix = document.querySelector( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
                         var nodePoint = document.querySelector('.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]');
-                        
+
                         if ( nodeFix.parentNode )
                         {
-                            Fugitivas.conectionInstance.remove(nodeFix);
+                            Fugitivas.conectionInstance.remove( nodeFix );
                             nodePoint.parentNode.removeChild( nodePoint );
                         }
                         

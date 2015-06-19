@@ -66,33 +66,82 @@ $(function ()
     });
 
     Fugitivas.ElModal.btnAddCadastro.on('click', function () {
+        Fugitivas.Methods.bloquearInputCadastro(false);
         $('#modalIncludGroup').modal('show');
     });
 
-    Fugitivas.ElModal.btnCancelAdd.on('click', function () {
-        $('#modalIncludGroup').modal('hide');
+    Fugitivas.ElModal.btnCancelAdd.on( 'click', function ()
+    {
+        Fugitivas.ModelFugitivas.idEditGroup( "" );
+        Fugitivas.ModelFugitivas.idViewGroup( "" );
+        $( '#modalIncludGroup' ).modal( 'hide' );
+        Fugitivas.Methods.limparModalCadastro();
     });
 
     Fugitivas.ElModal.btnCadastro.on('click', function () {
-        var obj = {
-            id: "",
-            nomeGrupo: "",
-            empresa: "",
-            nivel1: "",
-            nivel2: "",
-            nivel3: "",
-            unidadeProcesso: "",
-            linhaProcesso: "",
-            tagEquipamento: "",
-            posicaoGrupo: "",
-            fluxograma: "",
-            nota: "",
-            upload: ""
-        };
+        var ids = ['#nomeGrupo_cad', '#empresa_cad', '#nivel1_cad', '#nivel2_cad', '#nivel3_cad', '#unidadeProcesso_cad', '#linhaProcesso_cad', '#tagEquipamento_cad', '#posicaoGrupo_cad', '#fluxograma_cad', '#situacao_cad', '#nota_cad'];
 
+        if ( Fugitivas.Methods.isValideFormCadastro(ids) )
+        {
+            var Grupo = Fugitivas.ModelFugitivas.listaGrupoPontos();
+            var _idGrupoPonto = parseInt( Grupo[Grupo.length - 1].ID_GRUPO_PONTO() ) + 1;
+            var _idGrupo = parseInt( Grupo[Grupo.length - 1].ID() ) + 1;
 
-    });
+            var GrupoRetornado = {
+                NomeGrupo:       Fugitivas.ElModal.nomeGrupo.val(),
+                Empresa:         Fugitivas.ElModal.empresa.val(),
+                Nivel1:          Fugitivas.ElModal.nivel1.val(),
+                Nivel2:          Fugitivas.ElModal.nivel2.val(),
+                Nivel3:          Fugitivas.ElModal.nivel3.val(),
+                UnidadeProcesso: Fugitivas.ElModal.unidadeProcesso.val(),
+                LinhaProcesso:   Fugitivas.ElModal.linhaProcesso.val(),
+                TagEquipamento:  Fugitivas.ElModal.tagEquipamento.val(),
+                PosicaoGrupo:    Fugitivas.ElModal.posicaoGrupo.val(),
+                Fluxograma:      Fugitivas.ElModal.fluxograma.val(),
+                Situacao:        Fugitivas.ElModal.situacao.val(),
+                upload:          Fugitivas.ElModal.upload.val(),
+                Nota:            Fugitivas.ElModal.nota.val()
+            };
+       
+
+            var GrupoLista = {
+                ID: _idGrupo,
+                NOME_GRUPO_PONTOS: GrupoRetornado.NomeGrupo,
+                UNIDADE_PROCESSO: GrupoRetornado.UnidadeProcesso,
+                LINHA_PROCESSO: GrupoRetornado.LinhaProcesso,
+                TAG_EQUIPAMENTO: GrupoRetornado.TagEquipamento,
+                EXISTE_IMAGEM: GrupoRetornado.upload.length ? true : false,
+                ID_GRUPO_PONTO: _idGrupoPonto
+            };
+
+            if ( Fugitivas.URLS.SalvarGrupo )
+            {
+                var options = {
+                    url: Fugitivas.URLS.SalvarGrupo,
+                    success: function (result)
+                    {
+                        if ( result.type )
+                        {
+                            Fugitivas.ModelFugitivas.listaGrupoPontos.push( ko.mapping.fromJS( GrupoLista ) );
+                            Fugitivas.ElModal.btnCancelAdd.trigger( 'click' );
+                            Fugitivas.Methods.limparModalCadastro();
+                        }
+                        Fugitivas.Notifica( result.type, result.mensagem );
+                    
+                    }
+                };
+                $( '#formCadastro' ).ajaxForm( options );
+            } else
+            {
+                Fugitivas.ModelFugitivas.listaGrupoPontos.push( ko.mapping.fromJS( GrupoLista ) );
+                Fugitivas.Notifica( true, "Grupo Cadastrado com Sucesso!" );
+                Fugitivas.ElModal.btnCancelAdd.trigger( 'click' );
+                Fugitivas.Methods.limparModalCadastro();
+            }
+        }
+
+    } );
 
     Fugitivas.ElModal.upload.filestyle();
-    
+
 });

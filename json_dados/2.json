@@ -10,6 +10,7 @@
     "TAG_EQUIPAMENTO": "XO45ER3",
     "POSICAO_GRUPO": "215",
     "FLUXOGRAMA": "FLUXO SEGUENCIAL DE BASE",
+    "SITUACAO":  "Ativo",
     "NOTA": "Nova modificação de base com administração segundaria de seguimento",
     "MARCACAO_PONTO": [
         {

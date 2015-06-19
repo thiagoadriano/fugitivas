@@ -13,9 +13,21 @@ Fugitivas.ModelFugitivas =
     idPonto: ko.observable(),
     nomeExclude: ko.observable(),
     idExclude: ko.observable(),
+    idEditGroup: ko.observable(),
+    idViewGroup: ko.observable(),
 
-    salvarNovoGrupo:function(data){
-        console.log(data)
+    callAfter: function(){
+        $( '.btn[data-toggle="tooltip"]' ).tooltip();
+    },
+
+    editGroup: function( data ){
+        Fugitivas.ModelFugitivas.idEditGroup( data.ID() );
+        Fugitivas.Methods.preencheGrupoModal( data, "edit" );
+    },
+    
+    viewGroup: function( data ){
+        Fugitivas.ModelFugitivas.idViewGroup( data.ID() );
+        Fugitivas.Methods.preencheGrupoModal( data, "view" );
     },
 
     deleteGroup: function () {
@@ -38,7 +50,7 @@ Fugitivas.ModelFugitivas =
         
     },
 
-    deleteGroupConfirm: function (data) {
+    deleteGroupConfirm: function ( data ) {
         Fugitivas.ModelFugitivas.nomeExclude(data.NOME_GRUPO_PONTOS());
         Fugitivas.ModelFugitivas.idExclude(data.ID());
         $('#confirmDelete').modal('show');

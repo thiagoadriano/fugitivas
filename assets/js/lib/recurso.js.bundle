@@ -12,6 +12,6 @@
   <files>
     <file>/assets/js/lib/recurso/bootstrap.js</file>
     <file>/assets/js/lib/recurso/bootstrap-filestyle.js</file>
-    <file>/assets/js/lib/recurso/jquery.tooltipster.js</file>
+    <file>/assets/js/lib/recurso/jquery.form.js</file>
   </files>
 </bundle>

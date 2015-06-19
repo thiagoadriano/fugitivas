@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Controle de Marcação de Imgens - Petrobras</title>
+    <meta http-equiv="content-encoding" content="gzip" />
 
     <link rel="stylesheet" href="assets/css/libs.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
@@ -10,6 +11,8 @@
 
 <body>
     <div class="container">
+
+    <!-- Grupo de inserir e Nome da janela -->
         <div class="row" id="titleAction">
             <div class="col-md-5">
                 <h1 class="pull-left">Grupo de pontos</h1>
@@ -28,11 +31,13 @@
                     Exportar
                 </button>
             </div>
-            
-            
+
+
         </div>
+    <!-- /Grupo de inserir e Nome da janela -->
 
 
+    <!-- Lista de Grupos de Pontos -->
         <div class="row">
             <div class="col-md-12">
 
@@ -47,7 +52,7 @@
                             <th colspan="4" class="text-center" width="10%">Ações</th>
                         </tr>
                     </thead>
-                    <tbody data-bind="foreach: Fugitivas.ModelFugitivas.listaGrupoPontos">
+                    <tbody data-bind="foreach: {data: Fugitivas.ModelFugitivas.listaGrupoPontos, afterRender: callAfter}">
                         <tr>
                             <th scope="row" class="hide" data-bind="text: ID"></th>
                             <td data-bind="text: NOME_GRUPO_PONTOS" class="nomeGrupo"></td>
@@ -60,17 +65,17 @@
                                 </button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-ico btn-primary">
+                                <button type="button" class="btn btn-ico btn-primary" data-toggle="tooltip" data-placement="top" title="Visualizar Grupo" data-bind="click: $parent.viewGroup">
                                     <span class="glyphicon glyphicon glyphicon-search"></span>
                                 </button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-ico btn-warning">
+                                <button type="button" class="btn btn-ico btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Grupo" data-bind="click: $parent.editGroup">
                                     <span class="glyphicon glyphicon-edit"></span>
                                 </button>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-ico btn-danger" data-bind="click: $parent.deleteGroupConfirm">
+                                <button type="button" class="btn btn-ico btn-danger" data-bind="click: $parent.deleteGroupConfirm" data-toggle="tooltip" data-placement="top" title="Excluir Grupo">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </button>
                             </td>
@@ -80,8 +85,10 @@
 
             </div>
         </div>
+    <!-- /Lista de Grupos de Pontos -->
 
-        <!-- Modal Confirmação de apagar -->
+
+    <!-- Modal Confirmação de apagar -->
         <div class="modal fade" id="confirmDelete">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -107,9 +114,10 @@
                 </div>
             </div>
         </div>
-        <!-- Modal Confirmação de apagar -->
+    <!-- /Modal Confirmação de apagar -->
 
-        <!-- Modal Pontos -->
+
+    <!-- Modal Pontos -->
         <div class="modal fade" id="modalPontos">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -122,7 +130,7 @@
                             <div class="col-md-4">
                                 <form class="form-horizontal">
                                     <fieldset>
-                                        <legend>Unidade Organizacional</legend>
+                                        <!--<legend>Unidade Organizacional</legend>-->
 
                                         <div class="form-group">
                                             <label for="" class="col-md-4 control-label label-control-one">Empresa</label>
@@ -193,6 +201,13 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <label for="" class="col-md-4 control-label label-control-one">Situação</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" id="SITUACAO">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
                                             <label for="" class="col-md-4 control-label">Nota</label>
                                             <div class="col-md-8">
                                                 <textarea class="form-control" rows="3" id="NOTA" readonly="readonly" disabled="disabled"></textarea>
@@ -221,9 +236,10 @@
                 </div>
             </div>
         </div>
-        <!-- Modal Pontos -->
+    <!-- /Modal Pontos -->
 
-        <!-- Modal de inserção de grupo -->
+
+    <!-- Modal de inserção de grupo -->
         <div class="modal fade" id="modalIncludGroup">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -234,11 +250,11 @@
                         </h4>
                     </div>
                     <div class="modal-body">
-                        <form enctype="multipart/form-data" class="form-horizontal">
+                        <form enctype="multipart/form-data" class="form-horizontal" id="formCadastro">
                             <div class="form-group row">
                                 <label for="" class="col-md-4 control-label label-control-one">Nome do Grupo de Pontos</label>
                                 <div class="col-md-7">
-                                    <input type="text" class="form-control input-sm" id="nomeGrupo">
+                                    <input type="text" class="form-control input-sm" id="nomeGrupo_cad" name="nomeGrupo">
                                 </div>
                             </div>
                             <fieldset>
@@ -247,28 +263,28 @@
                                 <div class="form-group row">
                                     <label for="" class="col-md-4 control-label label-control-one">Empresa</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control input-sm" id="empresa">
+                                        <input type="text" class="form-control input-sm" id="empresa_cad" name="empresa">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="" class="col-md-4 control-label label-control-one">Nível 1</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control input-sm" id="nivel1">
+                                        <input type="text" class="form-control input-sm" id="nivel1_cad" name="nivel1">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="" class="col-md-4 control-label label-control-one">Nível 2</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control input-sm" id="nivel2">
+                                        <input type="text" class="form-control input-sm" id="nivel2_cad" name="nivel2">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="" class="col-md-4 control-label label-control-one">Nível 3</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control input-sm" id="nivel3">
+                                        <input type="text" class="form-control input-sm" id="nivel3_cad" name="nivel3">
                                     </div>
                                 </div>
 
@@ -279,54 +295,65 @@
                                 <div class="form-group row">
                                     <label for="" class="col-md-4 control-label">Unidade de Processo</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control input-sm" id="unidadeProcesso">
+                                        <input type="text" class="form-control input-sm" id="unidadeProcesso_cad" name="unidadeProcesso">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="" class="col-md-4 control-label">Linha de Processo</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control input-sm" id="linhaProcesso">
+                                        <input type="text" class="form-control input-sm" id="linhaProcesso_cad" name="linhaProcesso">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="" class="col-md-4 control-label">Tag do Equipamento</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control input-sm" id="tagEquipamento">
+                                        <input type="text" class="form-control input-sm" id="tagEquipamento_cad" name="tagEquipamento">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="" class="col-md-4 control-label">Posição do Grupo</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control input-sm" id="posicaoGrupo">
+                                        <input type="text" class="form-control input-sm" id="posicaoGrupo_cad" name="posicaoGrupo">
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="" class="col-md-4 control-label label-control-one">Fluxograma</label>
                                     <div class="col-md-7">
-                                        <input type="text" class="form-control input-sm" id="fluxograma">
+                                        <input type="text" class="form-control input-sm" id="fluxograma_cad" name="fluxograma">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="" class="col-md-4 control-label label-control-one">Situação</label>
+                                    <div class="col-md-7">
+                                        <select class="form-control input-sm" id="situacao_cad" name="situacao">
+                                            <option value="Ativo">Ativo</option>
+                                            <option value="Inativo">Inativo</option>
+                                        </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group row">
                                     <label for="" class="col-md-4 control-label">Nota</label>
                                     <div class="col-md-7">
-                                        <textarea class="form-control" rows="3" id="nota"></textarea>
+                                        <textarea class="form-control" rows="3" id="nota_cad" name="nota"></textarea>
                                     </div>
                                 </div>
 
-                                <div class="form-group row">
+                                <div class="form-group row" id="upload_row">
                                     <label for="" class="col-md-4 control-label">Imagem Grupo de Pontos</label>
                                     <div class="col-md-7">
                                         <input type="file"
-                                               id="upload"
+                                               id="upload_cad"
                                                class="filestyle"
                                                data-buttontext="Adicionar Imagem"
                                                data-buttonbefore="true"
-                                               data-buttonname="btn-primary" />
+                                               data-buttonname="btn-primary"
+                                               name="imagem" />
                                     </div>
                                 </div>
 
@@ -347,7 +374,8 @@
                 </div>
             </div>
         </div>
-        <!-- Modal de inserção de grupo -->
+    <!-- Modal de inserção de grupo -->
+
     </div>
 
     <!-- loading da página -->
@@ -357,7 +385,7 @@
            <p>Aguarde os dados estão sendo carregados...</p>
         </div>
     </div>
-    <!-- loading da página -->
+    <!-- /loading da página -->
 
     <!-- Controle de Scripts -->
     <script src="assets/js/lib/jquery.js"></script>
@@ -366,7 +394,7 @@
     <script src="assets/js/lib/imgnote.js"></script>
     <script src="assets/js/lib/recurso.js"></script>
     <script src="assets/js/fugitivas.js"></script>
-    <!-- Controle de Scripts -->
+    <!-- /Controle de Scripts -->
 
 </body>
 </html>

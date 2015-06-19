@@ -1,6 +1,6 @@
 ﻿var Fugitivas = Fugitivas || {};
 
-'use strict';
+'use strict'; 
 //ID DO CONTAINER DE IMAGEM PARA USO DO COMPONENTE
 Fugitivas.CONTAINER_IMAGEM = "#MainContentIMG";
 
@@ -21,7 +21,8 @@ Fugitivas.URLS.Deletar       = undefined;
 Fugitivas.URLS.Salvar        = undefined;
 Fugitivas.URLS.Atualizar     = undefined;
 Fugitivas.URLS.AtualizarPosicaoTag = undefined;
-Fugitivas.URLS.RemoverGrupo  = undefined;
+Fugitivas.URLS.RemoverGrupo = undefined;
+Fugitivas.URLS.SalvarGrupo = undefined;
 
 //CONFIGURAÇÂO PADRÂO DO COMPONENTE
 Fugitivas.defaultImgNotes = {
@@ -81,8 +82,7 @@ Fugitivas.defaultJSPlumb = {
     ConnectionsDetachable: false,
     DoNotThrowErrors: true,
     Connector: ["Bezier", { curviness: 80 }],
-    Endpoints: [null, ["Dot", { radius: 2 }]],
-    EndpointStyles: [{ fillStyle: "" }, { fillStyle: 'white' }],
+    Endpoints: [["Dot", { radius: 1 }], ["Dot", { radius: 2 }]],
     MaxConnections: 10,
     ReattachConnections: true,
     Anchors: ["Bottom", "TopRight"],
@@ -92,7 +92,15 @@ Fugitivas.defaultJSPlumb = {
     Container: "viewport"
 };
 
-//Elemetnos do Modal
+//CONFIGURAÇÂO DAS LINHAS DE LIGAÇÂO
+Fugitivas.paintStyle = {
+    strokeStyle: "#FFFFFF",
+    lineWidth: 2,
+    outlineColor: "#A8A8A8",
+    outlineWidth: 0.5
+}
+
+//ELEMENTOS DO MODAL
 Fugitivas.ElModal = {
     tituloModal: $( '#tituloModal' ),
     EMPRESA: $( '#EMPRESA' ),
@@ -103,29 +111,30 @@ Fugitivas.ElModal = {
     LINHA_PROCESSO: $( '#LINHA_PROCESSO' ),
     TAG_EQUIPAMENTO: $( '#TAG_EQUIPAMENTO' ),
     POSICAO_GRUPO: $( '#POSICAO_GRUPO' ),
-    FLUXOGRAMA: $( '#FLUXOGRAMA' ),
+    FLUXOGRAMA: $('#FLUXOGRAMA'),
+    SITUACAO:$('#SITUACAO'),
     NOTA: $( '#NOTA' ),
     IMAGEM: $(Fugitivas.CONTAINER_IMAGEM),
     zoomOut: $( '#zoomOut' ),
     editClick: $( '#editClick' ),
     FecharModal: $( '#FecharModal' ),
     openModal: $('#grupo'),
-    btnTooltip: $('button[title]'),
     btnAddCadastro: $('#addGrupoBtn'),
     btnCadastro: $('#cadGrupoBtn'),
     btnCancelAdd: $('#cancelCad'),
-    upload: $('#upload'),
-    nomeGrupo: $('#nomeGrupo'),
-    empresa: $('#empresa'),
-    nivel1: $('#nivel1'),
-    nivel2: $('#nivel2'),
-    nivel3: $('#nivel3'),
-    unidadeProcesso: $('#unidadeProcesso'),
-    linhaProcesso: $('#linhaProcesso'),
-    tagEquipamento: $('#tagEquipamento'),
-    posicaoGrupo: $('#posicaoGrupo'),
-    fluxograma: $('#fluxograma'),
-    nota: $('#nota')
+    upload: $('#upload_cad'),
+    nomeGrupo: $('#nomeGrupo_cad'),
+    empresa: $('#empresa_cad'),
+    nivel1: $('#nivel1_cad'),
+    nivel2: $('#nivel2_cad'),
+    nivel3: $('#nivel3_cad'),
+    unidadeProcesso: $('#unidadeProcesso_cad'),
+    linhaProcesso: $('#linhaProcesso_cad'),
+    tagEquipamento: $('#tagEquipamento_cad'),
+    posicaoGrupo: $('#posicaoGrupo_cad'),
+    fluxograma: $( '#fluxograma_cad' ),
+    situacao: $( '#situacao_cad' ),
+    nota: $('#nota_cad')
 };
 
 //ALERTA DE ERRO OU SUCESSO

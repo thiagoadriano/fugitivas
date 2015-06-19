@@ -9,6 +9,7 @@
     "LINHA_PROCESSO": "NOVO PROCESSO",
     "TAG_EQUIPAMENTO": "XYZ54",
     "POSICAO_GRUPO": "15",
+    "SITUACAO":  "Ativo", 
     "FLUXOGRAMA": "FLUXO NOVO",
     "NOTA": "Teste de inserção de dados",
     "MARCACAO_PONTO": [
