@@ -1,0 +1,400 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Controle de Marcação de Imgens - Petrobras</title>
+    <meta http-equiv="content-encoding" content="gzip" />
+
+    <link rel="stylesheet" href="assets/css/libs.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+  </head>
+
+<body>
+    <div class="container">
+
+    <!-- Grupo de inserir e Nome da janela -->
+        <div class="row" id="titleAction">
+            <div class="col-md-5">
+                <h1 class="pull-left">Grupo de pontos</h1>
+            </div>
+            <div class="col-md-5 pull-right" id="groupBtn">
+                <button type="button" class="btn btn-primary" id="addGrupoBtn">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Adicionar Novo Grupo
+                </button>
+                <button type="button" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-import"></span>
+                    Importar
+                </button>
+                <button type="button" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-export"></span>
+                    Exportar
+                </button>
+            </div>
+
+
+        </div>
+    <!-- /Grupo de inserir e Nome da janela -->
+
+
+    <!-- Lista de Grupos de Pontos -->
+        <div class="row">
+            <div class="col-md-12">
+
+                <table class="table table-striped" id="grupo">
+                    <thead>
+                        <tr>
+                            <th class="hide">id</th>
+                            <th width="25%">Grupo de Pontos</th>
+                            <th width="25%">Unidade de Processo</th>
+                            <th width="20%">Linha de Processo</th>
+                            <th width="20%">Tag do Equipamento</th>
+                            <th colspan="4" class="text-center" width="10%">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody data-bind="foreach: {data: Fugitivas.ModelFugitivas.listaGrupoPontos, afterRender: callAfter}">
+                        <tr>
+                            <th scope="row" class="hide" data-bind="text: ID"></th>
+                            <td data-bind="text: NOME_GRUPO_PONTOS" class="nomeGrupo"></td>
+                            <td data-bind="text: UNIDADE_PROCESSO"></td>
+                            <td data-bind="text: LINHA_PROCESSO"></td>
+                            <td data-bind="text: TAG_EQUIPAMENTO"></td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-md openModal" data-bind="enable: EXISTE_IMAGEM(), attr:{'data-id-grupo': ID_GRUPO_PONTO()}">
+                                    Pontos de Medição
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-ico btn-primary" data-toggle="tooltip" data-placement="top" title="Visualizar Grupo" data-bind="click: $parent.viewGroup">
+                                    <span class="glyphicon glyphicon glyphicon-search"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-ico btn-warning" data-toggle="tooltip" data-placement="top" title="Editar Grupo" data-bind="click: $parent.editGroup">
+                                    <span class="glyphicon glyphicon-edit"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-ico btn-danger" data-bind="click: $parent.deleteGroupConfirm" data-toggle="tooltip" data-placement="top" title="Excluir Grupo">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    <!-- /Lista de Grupos de Pontos -->
+
+
+    <!-- Modal Confirmação de apagar -->
+        <div class="modal fade" id="confirmDelete">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                            Deseja Deletar o Registro: <strong data-bind="text: nomeExclude"></strong>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Ao deletar este registro, o mesmo não poderá mais ser retornado, tornando a ação definitiva.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-md-5 col-md-offset-1">
+                                <button type="button" class="btn btn-danger btn-block" data-bind="click: deleteGroup">Sim</button>
+                            </div>
+                            <div class="col-md-5">
+                                <button type="button" class="btn btn-primary btn-block" data-bind="click: closeModalExclude">Não</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- /Modal Confirmação de apagar -->
+
+
+    <!-- Modal Pontos -->
+        <div class="modal fade" id="modalPontos">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Grupo de Ponto:  <strong id="tituloModal"></strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <form class="form-horizontal">
+                                    <fieldset>
+                                        <!--<legend>Unidade Organizacional</legend>-->
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label label-control-one">Empresa</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" id="EMPRESA">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label label-control-one">Nível 1</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" id="NIVEL1">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label label-control-one">Nível 2</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" id="NIVEL2">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label label-control-one">Nível 3</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" id="NIVEL3">
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+
+                                    <fieldset>
+                                        <!--<legend>Processo</legend>-->
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label">Unidade de Processo</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" id="UNIDADE_PROCESSO">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label">Linha de Processo</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" id="LINHA_PROCESSO">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label">Tag do Equipamento</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" id="TAG_EQUIPAMENTO">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label">Posição do Grupo</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" id="POSICAO_GRUPO">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label label-control-one">Fluxograma</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" id="FLUXOGRAMA">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label label-control-one">Situação</label>
+                                            <div class="col-md-8">
+                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" id="SITUACAO">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="col-md-4 control-label">Nota</label>
+                                            <div class="col-md-8">
+                                                <textarea class="form-control" rows="3" id="NOTA" readonly="readonly" disabled="disabled"></textarea>
+                                            </div>
+                                        </div>
+
+                                    </fieldset>
+                                </form>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div id="content">
+                                    <div id="content-img">
+                                        <img id="MainContentIMG" src="" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-modal btn-primary" id="zoomOut">Zoom 100%</button>
+                        <button type="button" class="btn btn-modal btn-warning" id="editClick">Editar</button>
+                        <button type="button" class="btn btn-modal btn-default" id="FecharModal">Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- /Modal Pontos -->
+
+
+    <!-- Modal de inserção de grupo -->
+        <div class="modal fade" id="modalIncludGroup">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            <strong>Adicionar Grupo de Pontos</strong>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form enctype="multipart/form-data" class="form-horizontal" id="formCadastro">
+                            <div class="form-group row">
+                                <label for="" class="col-md-4 control-label label-control-one">Nome do Grupo de Pontos</label>
+                                <div class="col-md-7">
+                                    <input type="text" class="form-control input-sm" id="nomeGrupo_cad" name="nomeGrupo">
+                                </div>
+                            </div>
+                            <fieldset>
+                                <legend>Unidade Organizacional</legend>
+
+                                <div class="form-group row">
+                                    <label for="" class="col-md-4 control-label label-control-one">Empresa</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control input-sm" id="empresa_cad" name="empresa">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="" class="col-md-4 control-label label-control-one">Nível 1</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control input-sm" id="nivel1_cad" name="nivel1">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="" class="col-md-4 control-label label-control-one">Nível 2</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control input-sm" id="nivel2_cad" name="nivel2">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="" class="col-md-4 control-label label-control-one">Nível 3</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control input-sm" id="nivel3_cad" name="nivel3">
+                                    </div>
+                                </div>
+
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Processo</legend>
+                                <div class="form-group row">
+                                    <label for="" class="col-md-4 control-label">Unidade de Processo</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control input-sm" id="unidadeProcesso_cad" name="unidadeProcesso">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="" class="col-md-4 control-label">Linha de Processo</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control input-sm" id="linhaProcesso_cad" name="linhaProcesso">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="" class="col-md-4 control-label">Tag do Equipamento</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control input-sm" id="tagEquipamento_cad" name="tagEquipamento">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="" class="col-md-4 control-label">Posição do Grupo</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control input-sm" id="posicaoGrupo_cad" name="posicaoGrupo">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="" class="col-md-4 control-label label-control-one">Fluxograma</label>
+                                    <div class="col-md-7">
+                                        <input type="text" class="form-control input-sm" id="fluxograma_cad" name="fluxograma">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="" class="col-md-4 control-label label-control-one">Situação</label>
+                                    <div class="col-md-7">
+                                        <select class="form-control input-sm" id="situacao_cad" name="situacao">
+                                            <option value="Ativo">Ativo</option>
+                                            <option value="Inativo">Inativo</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="" class="col-md-4 control-label">Nota</label>
+                                    <div class="col-md-7">
+                                        <textarea class="form-control" rows="3" id="nota_cad" name="nota"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row" id="upload_row">
+                                    <label for="" class="col-md-4 control-label">Imagem Grupo de Pontos</label>
+                                    <div class="col-md-7">
+                                        <input type="file"
+                                               id="upload_cad"
+                                               class="filestyle"
+                                               data-buttontext="Adicionar Imagem"
+                                               data-buttonbefore="true"
+                                               data-buttonname="btn-primary"
+                                               name="imagem" />
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-md-4 col-md-offset-2">
+                                <button type="button" class="btn btn-block btn-success" id="cadGrupoBtn">Salvar Grupo</button>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-block btn-default" id="cancelCad">Cancelar</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- Modal de inserção de grupo -->
+
+    </div>
+
+    <!-- loading da página -->
+    <div id="containerLoading" style="display:none;">
+        <div id="loading">
+           <img src="assets/img/preloader.gif">
+           <p>Aguarde os dados estão sendo carregados...</p>
+        </div>
+    </div>
+    <!-- /loading da página -->
+
+    <!-- Controle de Scripts -->
+    <script src="assets/js/libs/jquery.js"></script>
+    <script src="assets/js/libs/knockout.js"></script>
+    <script src="assets/js/libs/jsPlumb.js"></script>
+    <script src="assets/js/libs/imgnote.js"></script>
+    <script src="assets/js/libs/recursos.js"></script>
+    <script src="assets/js/fugitivas.js"></script>
+    <!-- /Controle de Scripts -->
+
+</body>
+</html>

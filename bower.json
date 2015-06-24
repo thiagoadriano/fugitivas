@@ -1,0 +1,27 @@
+{
+  "name": "Fugitivas",
+  "version": "0.0.1",
+  "authors": [
+    "Thiago Adriano <thiago.s.adriano@gmail.com>"
+  ],
+  "description": "Projeto para controle de emissão da petrobras",
+  "moduleType": [
+    "node"
+  ],
+  "dependencies": {
+    "jquery": "https://github.com/jquery/jquery.git#~2.1.4",
+    "imgNotes": "https://github.com/waynegm/imgNotes.git#master",
+    "toe.js": "https://github.com/visiongeist/toe.js.git#~3.0.6",
+    "Zoetrope": "https://github.com/FormstoneClassic/Zoetrope.git#~3.0.4",
+    "jquery-mousewheel": "https://github.com/jquery/jquery-mousewheel.git#~3.1.12",
+    "imgViewer": "https://github.com/waynegm/imgViewer.git#master",
+    "jquery-ui": "https://github.com/jquery/jquery-ui.git#~1.11.4",
+    "jsPlumb": "https://github.com/sporritt/jsPlumb.git#~1.7.5",
+    "knockout": "https://github.com/knockout/knockout.git#~3.3.0",
+    "knockout.mapping": "https://github.com/SteveSanderson/knockout.mapping.git#~2.4.1",
+    "jquery-form": "https://github.com/malsup/form.git#~3.46.0",
+    "bootstrap": "https://github.com/twbs/bootstrap.git#~3.3.5",
+    "bootstrap-filestyle": "https://github.com/markusslima/bootstrap-filestyle.git#~1.1.2",
+    "zepto": "https://github.com/madrobby/zepto.git#~1.1.6"
+  }
+}
