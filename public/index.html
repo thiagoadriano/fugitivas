@@ -27,7 +27,7 @@
                             <th colspan="4" class="text-center" width="10%">Ações</th>
                         </tr>
                     </thead>
-                    <tbody data-bind="foreach: {data: Fugitivas.ModelFugitivas.listaGrupoPontos, afterRender: callAfter}">
+                    <tbody data-bind="foreach: Fugitivas.ModelFugitivas.listaGrupoPontos">
                         <tr>
                             <th scope="row" class="hide" data-bind="text: ID"></th>
                             <td data-bind="text: NOME_GRUPO_PONTOS" class="nomeGrupo"></td>
@@ -75,41 +75,9 @@
 
                             <div class="col-md-4">
                                 <form class="form-horizontal">
-                                    <fieldset>
-                                        <!--<legend>Unidade Organizacional</legend>-->
-
-                                        <div class="form-group">
-                                            <label for="" class="col-md-4 control-label label-control-one">Empresa</label>
-                                            <div class="col-md-8">
-                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" id="EMPRESA">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="" class="col-md-4 control-label label-control-one">Nível 1</label>
-                                            <div class="col-md-8">
-                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" id="NIVEL1">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="" class="col-md-4 control-label label-control-one">Nível 2</label>
-                                            <div class="col-md-8">
-                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" id="NIVEL2">
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="" class="col-md-4 control-label label-control-one">Nível 3</label>
-                                            <div class="col-md-8">
-                                                <input type="text" class="form-control input-sm" readonly="readonly" disabled="disabled" id="NIVEL3">
-                                            </div>
-                                        </div>
-
-                                    </fieldset>
 
                                     <fieldset>
-                                        <!--<legend>Processo</legend>-->
+                                        <legend>Dados do Grupo</legend>
 
                                         <div class="form-group">
                                             <label for="" class="col-md-4 control-label">Unidade de Processo</label>

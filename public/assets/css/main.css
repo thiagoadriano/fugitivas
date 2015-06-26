@@ -197,11 +197,13 @@ body{
     border: #A8A8A8 solid 1px;
     position:absolute;
     z-index: 50000;
-    cursor:move;
+    cursor:no-drop;
     min-width:80px;
     width:auto!important;
 }
-
+.namePoint.cursorMove{
+  cursor: move;
+}
 .namePoint span{
     color:#000;
     font-weight:700;
@@ -225,7 +227,7 @@ body{
 }
 .input-sm {
     height: auto;
-    padding: 6px 6px 4px;
+    padding: 8px 6px;
 }
 .visualizar{
     background: #0788B3;
@@ -381,8 +383,11 @@ textarea.form-control { resize: none; height:80px; }
     border-bottom:#550101 solid 4px;
 }
 form label{
-    font-size: 14px;
+    font-size: 15px;
     font-weight:600;
+}
+.form-group {
+  margin-bottom: 15px;
 }
 .btn-ico{
     padding: 6px 12px 0;

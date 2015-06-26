@@ -1,4 +1,7 @@
-﻿var Fugitivas = Fugitivas || {};
+﻿/// <reference path="../../../typings/jquery/jquery.d.ts"/>
+/// <reference path="../../../typings/knockout/knockout.d.ts"/>
+
+var Fugitivas = Fugitivas || {};
 
 'use strict';
 Fugitivas.ModelFugitivas =
@@ -7,14 +10,11 @@ Fugitivas.ModelFugitivas =
     dadosModal: ko.observable(),
     listaPontos: ko.observableArray(),
     listagemComponente: ko.observableArray(),
+    listagemPosicaoPonto: ko.observableArray(),
     listagemEspecialidade: ko.observableArray(),
     listagemFabricante: ko.observableArray(),
     flagSatatusPonto: ko.observable(),
     idPonto: ko.observable(),
-    nomeExclude: ko.observable(),
-    idExclude: ko.observable(),
-    idEditGroup: ko.observable(),
-    idViewGroup: ko.observable(),
 
     initcial: function ()
     {
@@ -54,7 +54,12 @@ Fugitivas.ModelFugitivas =
             }
             
         });
-        
+        Fugitivas.Methods.getData( Fugitivas.URLS.PosicaoPonto, function(resultPosicao)
+        {
+            for(var i in resultPosicao){
+                Fugitivas.ModelFugitivas.listagemPosicaoPonto.push( ko.mapping.fromJS( resultPosicao[i] ) );
+            }
+        });
     }
 };
 

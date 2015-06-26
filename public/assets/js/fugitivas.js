@@ -7,9 +7,6 @@ Fugitivas.CONTAINER_IMAGEM = "#MainContentIMG";
 //ISNTANCIA DE CONEXÂO
 Fugitivas.conectionInstance = undefined;
 
-//CAMINHO PARA O DIRETÒRIO DE IMAGENS
-Fugitivas.PATH_IMAGE = 'imagem/';
-
 //URLS PARA USO DO SISTEMA
 Fugitivas.URLS = {};
 Fugitivas.URLS.Base          = "/json_dados/";
@@ -17,12 +14,12 @@ Fugitivas.URLS.Especialidade = Fugitivas.URLS.Base + "_especialidade.json";
 Fugitivas.URLS.Componente    = Fugitivas.URLS.Base + "_componente.json";
 Fugitivas.URLS.ListaGrupo    = Fugitivas.URLS.Base + "_lista_de_grupo.json";
 Fugitivas.URLS.Fabricante    = Fugitivas.URLS.Base + "_fabricantes.json";
+Fugitivas.URLS.PosicaoPonto  = Fugitivas.URLS.Base + "_posicao_do_ponto.json";
 Fugitivas.URLS.Deletar       = undefined;
 Fugitivas.URLS.Salvar        = undefined;
 Fugitivas.URLS.Atualizar     = undefined;
 Fugitivas.URLS.AtualizarPosicaoTag = undefined;
-Fugitivas.URLS.RemoverGrupo = undefined;
-Fugitivas.URLS.SalvarGrupo = undefined;
+
 
 //CONFIGURAÇÂO PADRÂO DO COMPONENTE
 Fugitivas.defaultImgNotes = {
@@ -52,7 +49,8 @@ Fugitivas.defaultImgNotes = {
         Fugitivas.ModelFugitivas.idPonto( Fugitivas.Methods.getLastID() );
         return Fugitivas.Methods.dialogOpen( "Adicionar Ponto", elem);
     },
-    onUpdateMarker: function (elem) {
+    onUpdateMarker: function (elem)
+    {
         var $elem = $(elem);
         var $img = $(this.img);
         var pos = $img.imgViewer("imgToView", $elem.data("relx"), $elem.data("rely"));
@@ -118,23 +116,7 @@ Fugitivas.ElModal = {
     zoomOut: $( '#zoomOut' ),
     editClick: $( '#editClick' ),
     FecharModal: $( '#FecharModal' ),
-    openModal: $('#grupo'),
-    btnAddCadastro: $('#addGrupoBtn'),
-    btnCadastro: $('#cadGrupoBtn'),
-    btnCancelAdd: $('#cancelCad'),
-    upload: $('#upload_cad'),
-    nomeGrupo: $('#nomeGrupo_cad'),
-    empresa: $('#empresa_cad'),
-    nivel1: $('#nivel1_cad'),
-    nivel2: $('#nivel2_cad'),
-    nivel3: $('#nivel3_cad'),
-    unidadeProcesso: $('#unidadeProcesso_cad'),
-    linhaProcesso: $('#linhaProcesso_cad'),
-    tagEquipamento: $('#tagEquipamento_cad'),
-    posicaoGrupo: $('#posicaoGrupo_cad'),
-    fluxograma: $( '#fluxograma_cad' ),
-    situacao: $( '#situacao_cad' ),
-    nota: $('#nota_cad')
+    openModal: $('#grupo')
 };
 
 //ALERTA DE ERRO OU SUCESSO
@@ -161,6 +143,10 @@ Fugitivas.Notifica = function ( boolNotifica, msg )
             } );
 
 
+};
+
+document.onselectstart = function(){
+    return false;
 };
 
 var Fugitivas = Fugitivas || {};
@@ -276,7 +262,7 @@ Fugitivas.Methods = {
     getLastID: function ()
     {
         var dados = Fugitivas.ModelFugitivas.dadosModal(),
-                pontos = dados.MARCACAO_PONTO();
+                pontos = dados.PONTO_MEDICAO();
         var lastId = ( pontos.length ? parseInt( pontos[pontos.length - 1].ID() ) + 1 : 0 );
         return lastId;
     },
@@ -334,7 +320,7 @@ Fugitivas.Methods = {
         {      
             Fugitivas.conectionInstance = jsPlumb.getInstance(Fugitivas.defaultJSPlumb);
             Fugitivas.conectionInstance.batch(function () {
-                var dados = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
+                var dados = Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO();
                 if (dados.length) {
                     for (var i in dados) {
                         var id = dados[i].ID();
@@ -403,7 +389,7 @@ Fugitivas.Methods = {
             {
                 $( this ).css( "overflow", "hidden" );
                 $( '.ui-dialog-titlebar-close' ).remove();
-                $( this ).attr( "data-bind", "component: {name: 'form-content', params:{tipos: listagemComponente, fabricantes: listagemFabricante, especialidade: listagemEspecialidade} }" );
+                $( this ).attr( "data-bind", "component: {name: 'form-content', params:{tipos: listagemComponente, fabricantes: listagemFabricante, especialidade: listagemEspecialidade, posicaoPonto: listagemPosicaoPonto} }" );
                 ko.applyBindings( Fugitivas.ModelFugitivas, $( "#NoteDialog" )[0] );
             }
         } )
@@ -445,7 +431,7 @@ Fugitivas.Methods = {
     },
     carregaPontos: function ()
     {
-        var pontos = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
+        var pontos = Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO();
         var totalPontos = pontos.length;
 
         if (pontos.length) {
@@ -490,10 +476,6 @@ Fugitivas.Methods = {
     },
     preencheModal: function ( obj )
     {
-        Fugitivas.ElModal.EMPRESA.val( obj.EMPRESA() );
-        Fugitivas.ElModal.NIVEL1.val( obj.NIVEL1() );
-        Fugitivas.ElModal.NIVEL2.val( obj.NIVEL2() );
-        Fugitivas.ElModal.NIVEL3.val( obj.NIVEL3() );
         Fugitivas.ElModal.UNIDADE_PROCESSO.val( obj.UNIDADE_PROCESSO() );
         Fugitivas.ElModal.LINHA_PROCESSO.val( obj.LINHA_PROCESSO() );
         Fugitivas.ElModal.TAG_EQUIPAMENTO.val( obj.TAG_EQUIPAMENTO() );
@@ -501,7 +483,7 @@ Fugitivas.Methods = {
         Fugitivas.ElModal.FLUXOGRAMA.val( obj.FLUXOGRAMA() );
         Fugitivas.ElModal.NOTA.val(obj.NOTA());
         Fugitivas.ElModal.SITUACAO.val(obj.SITUACAO());
-        Fugitivas.ElModal.IMAGEM.attr( 'src', Fugitivas.PATH_IMAGE + obj.IMG_NAME() );
+        Fugitivas.ElModal.IMAGEM.attr( 'src', obj.IMG_NAME() );
     },
     connect: function ( id )
     {
@@ -582,7 +564,7 @@ Fugitivas.Methods = {
     },
     salvarPosicaoTag: function ( obj )
     {
-        var editPonto = ko.utils.arrayFirst(Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function (item) {
+        var editPonto = ko.utils.arrayFirst(Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO(), function (item) {
             return obj.id == item.ID();
         });
         if (Fugitivas.URLS.AtualizarPosicaoTag) {
@@ -717,6 +699,9 @@ Fugitivas.Methods = {
     }
 
 };
+/// <reference path="../../../typings/jquery/jquery.d.ts"/>
+/// <reference path="../../../typings/knockout/knockout.d.ts"/>
+
 var Fugitivas = Fugitivas || {};
 
 'use strict';
@@ -726,60 +711,11 @@ Fugitivas.ModelFugitivas =
     dadosModal: ko.observable(),
     listaPontos: ko.observableArray(),
     listagemComponente: ko.observableArray(),
+    listagemPosicaoPonto: ko.observableArray(),
     listagemEspecialidade: ko.observableArray(),
     listagemFabricante: ko.observableArray(),
     flagSatatusPonto: ko.observable(),
     idPonto: ko.observable(),
-    nomeExclude: ko.observable(),
-    idExclude: ko.observable(),
-    idEditGroup: ko.observable(),
-    idViewGroup: ko.observable(),
-
-    callAfter: function(){
-        $( '.btn[data-toggle="tooltip"]' ).tooltip();
-    },
-
-    editGroup: function( data ){
-        Fugitivas.ModelFugitivas.idEditGroup( data.ID() );
-        Fugitivas.Methods.preencheGrupoModal( data, "edit" );
-    },
-    
-    viewGroup: function( data ){
-        Fugitivas.ModelFugitivas.idViewGroup( data.ID() );
-        Fugitivas.Methods.preencheGrupoModal( data, "view" );
-    },
-
-    deleteGroup: function () {
-        var id = Fugitivas.ModelFugitivas.idExclude();
-        if (Fugitivas.URLS.RemoverGrupo) {
-            Fugitivas.Methods.postData(Fugitivas.URLS.RemoverGrupo, { id: id }, function (result) {
-                if (result.type) {
-                    var objetoAtual = Fugitivas.Methods.getItemId(Fugitivas.ModelFugitivas.listaGrupoPontos(), id);
-                    Fugitivas.ModelFugitivas.listaGrupoPontos.remove(objetoAtual);
-                    Fugitivas.ModelFugitivas.closeModalExclude();
-                }
-                Fugitivas.Notifica(result.type, result.mensagem);
-            });
-        } else {
-            var objetoAtual = Fugitivas.Methods.getItemId(Fugitivas.ModelFugitivas.listaGrupoPontos(), id);
-            Fugitivas.ModelFugitivas.listaGrupoPontos.remove(objetoAtual);
-            Fugitivas.ModelFugitivas.closeModalExclude();
-            Fugitivas.Notifica(true, "Grupo Removido com sucesso!");
-        }
-        
-    },
-
-    deleteGroupConfirm: function ( data ) {
-        Fugitivas.ModelFugitivas.nomeExclude(data.NOME_GRUPO_PONTOS());
-        Fugitivas.ModelFugitivas.idExclude(data.ID());
-        $('#confirmDelete').modal('show');
-    },
-
-    closeModalExclude: function(){
-        $('#confirmDelete').modal('hide');
-        Fugitivas.ModelFugitivas.nomeExclude("");
-        Fugitivas.ModelFugitivas.idExclude("");
-    },
 
     initcial: function ()
     {
@@ -819,7 +755,12 @@ Fugitivas.ModelFugitivas =
             }
             
         });
-        
+        Fugitivas.Methods.getData( Fugitivas.URLS.PosicaoPonto, function(resultPosicao)
+        {
+            for(var i in resultPosicao){
+                Fugitivas.ModelFugitivas.listagemPosicaoPonto.push( ko.mapping.fromJS( resultPosicao[i] ) );
+            }
+        });
     }
 };
 
@@ -846,13 +787,14 @@ ko.components.register( 'form-content', {
     viewModel: function (params) {
         var self = this;
         var objeto = Fugitivas.ModelFugitivas.flagSatatusPonto() !== "new" ? 
-            ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function ( item )
+            ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO(), function ( item )
                 {
                     return Fugitivas.ModelFugitivas.idPonto() == item.ID();
                 } ) : undefined;
         self.listType          = params.tipos;
         self.listManufacturers = params.fabricantes;
         self.listSpecialty     = params.especialidade;
+        self.listPositionPoint = params.posicaoPonto;
         self.listSubtype       = ko.observableArray([{ NOME: "Selecione um Tipo com Subtipo", ID: "" }]);
         self.typeSelect        = ko.observable();
         self.subTypeSelect     = ko.observable();
@@ -866,7 +808,7 @@ ko.components.register( 'form-content', {
         self.save = {
             novo: function (data)
             {
-                var pontos = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
+                var pontos = Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO();
                 var novaId = Fugitivas.Methods.getLastID();
                 var dadosPontoImagem = $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "export" );
                 var ultimoPonto = dadosPontoImagem[dadosPontoImagem.length - 1];
@@ -925,10 +867,10 @@ ko.components.register( 'form-content', {
             },
             atualiza: function (data)
             {
-                var pontos = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
+                var pontos = Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO();
                 var Componente = Fugitivas.Methods.getItemId( self.listType(), data.typeSelect() );
                 var subComponente = data.subTypeSelect() !== "" ? Fugitivas.Methods.getItemId( Componente.SUBTIPO(), data.subTypeSelect() ) : "";
-                var editPonto = ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function ( item )
+                var editPonto = ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO(), function ( item )
                 {
                     return Fugitivas.ModelFugitivas.idPonto() == item.ID();
                 } );
@@ -1095,7 +1037,7 @@ ko.components.register( 'form-content', {
                             if ( result.type )
                             {
                                 
-                                Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove( objeto );
+                                Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO.remove( objeto );
                                 var nodeFix = document.querySelector( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
                                 var nodePoint = document.querySelector( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
                                 if ( nodeFix.parentNode )
@@ -1110,7 +1052,7 @@ ko.components.register( 'form-content', {
 
                     } else
                     {
-                        Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove( objeto );
+                        Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO.remove( objeto );
                         var id  = Fugitivas.ModelFugitivas.idPonto();
                         var nodeFix = document.querySelector( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
                         var nodePoint = document.querySelector('.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]');
@@ -1186,7 +1128,7 @@ ko.components.register( 'form-content', {
                         '<div class="form-group">'+
                             '<label class="col-md-5 control-label" for="posicao">* Posição do ponto: </label>'+
                             '<div class="col-md-7">'+
-                                '<input type="text" id="posicao" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\' && flagDeletar() == false, value: positionSelect"class="form-control input-sm">' +
+                                '<select id="posicao" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\' && flagDeletar() == false, options: listPositionPoint, optionsText: \'NOME\', optionsValue: \'ID\', optionsCaption: \'Selecione\', value: positionSelect"></select>' +
                             '</div>'+
                         '</div>'+
                         '<div class="form-group">'+
@@ -1249,7 +1191,7 @@ $(function ()
         Fugitivas.ElModal.IMAGEM.attr('src', '');
         $(Fugitivas.CONTAINER_IMAGEM).imgNotes('destroy');
         Fugitivas.ElModal.editClick.text("Editar");
-        conectionInstance = null;
+        Fugitivas.conectionInstance = null;
         
         
     } );
@@ -1267,7 +1209,7 @@ $(function ()
                 Fugitivas.Methods.dispararEventos();
             } );
         }
-    } )
+    } );
 
     Fugitivas.ElModal.editClick.on( 'click', function ()
     {
@@ -1276,13 +1218,13 @@ $(function ()
             $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "canEdit", false);
             $(this).text("Editar");
             $('.editar').hide();
-            $( '.namePoint' ).draggable( "destroy" );
+            $( '.namePoint' ).removeClass('cursorMove').draggable( "destroy" );
         } else
         {
             $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "canEdit", true );
             $(this).text("Concluir");
             $('.editar').show();
-            Fugitivas.conectionInstance.draggable( $( '.namePoint' ) );
+            Fugitivas.conectionInstance.draggable( $( '.namePoint' ).addClass('cursorMove') );
         }
     } );
 
@@ -1291,84 +1233,5 @@ $(function ()
         $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "zoom", 1);
         Fugitivas.conectionInstance.repaintEverything();
     });
-
-    Fugitivas.ElModal.btnAddCadastro.on('click', function () {
-        Fugitivas.Methods.bloquearInputCadastro(false);
-        $('#modalIncludGroup').modal('show');
-    });
-
-    Fugitivas.ElModal.btnCancelAdd.on( 'click', function ()
-    {
-        Fugitivas.ModelFugitivas.idEditGroup( "" );
-        Fugitivas.ModelFugitivas.idViewGroup( "" );
-        $( '#modalIncludGroup' ).modal( 'hide' );
-        Fugitivas.Methods.limparModalCadastro();
-    });
-
-    Fugitivas.ElModal.btnCadastro.on('click', function () {
-        var ids = ['#nomeGrupo_cad', '#empresa_cad', '#nivel1_cad', '#nivel2_cad', '#nivel3_cad', '#unidadeProcesso_cad', '#linhaProcesso_cad', '#tagEquipamento_cad', '#posicaoGrupo_cad', '#fluxograma_cad', '#situacao_cad', '#nota_cad'];
-
-        if ( Fugitivas.Methods.isValideFormCadastro(ids) )
-        {
-            var Grupo = Fugitivas.ModelFugitivas.listaGrupoPontos();
-            var _idGrupoPonto = parseInt( Grupo[Grupo.length - 1].ID_GRUPO_PONTO() ) + 1;
-            var _idGrupo = parseInt( Grupo[Grupo.length - 1].ID() ) + 1;
-
-            var GrupoRetornado = {
-                NomeGrupo:       Fugitivas.ElModal.nomeGrupo.val(),
-                Empresa:         Fugitivas.ElModal.empresa.val(),
-                Nivel1:          Fugitivas.ElModal.nivel1.val(),
-                Nivel2:          Fugitivas.ElModal.nivel2.val(),
-                Nivel3:          Fugitivas.ElModal.nivel3.val(),
-                UnidadeProcesso: Fugitivas.ElModal.unidadeProcesso.val(),
-                LinhaProcesso:   Fugitivas.ElModal.linhaProcesso.val(),
-                TagEquipamento:  Fugitivas.ElModal.tagEquipamento.val(),
-                PosicaoGrupo:    Fugitivas.ElModal.posicaoGrupo.val(),
-                Fluxograma:      Fugitivas.ElModal.fluxograma.val(),
-                Situacao:        Fugitivas.ElModal.situacao.val(),
-                upload:          Fugitivas.ElModal.upload.val(),
-                Nota:            Fugitivas.ElModal.nota.val()
-            };
-       
-
-            var GrupoLista = {
-                ID: _idGrupo,
-                NOME_GRUPO_PONTOS: GrupoRetornado.NomeGrupo,
-                UNIDADE_PROCESSO: GrupoRetornado.UnidadeProcesso,
-                LINHA_PROCESSO: GrupoRetornado.LinhaProcesso,
-                TAG_EQUIPAMENTO: GrupoRetornado.TagEquipamento,
-                EXISTE_IMAGEM: GrupoRetornado.upload.length ? true : false,
-                ID_GRUPO_PONTO: _idGrupoPonto
-            };
-
-            if ( Fugitivas.URLS.SalvarGrupo )
-            {
-                var options = {
-                    url: Fugitivas.URLS.SalvarGrupo,
-                    success: function (result)
-                    {
-                        if ( result.type )
-                        {
-                            Fugitivas.ModelFugitivas.listaGrupoPontos.push( ko.mapping.fromJS( GrupoLista ) );
-                            Fugitivas.ElModal.btnCancelAdd.trigger( 'click' );
-                            Fugitivas.Methods.limparModalCadastro();
-                        }
-                        Fugitivas.Notifica( result.type, result.mensagem );
-                    
-                    }
-                };
-                $( '#formCadastro' ).ajaxForm( options );
-            } else
-            {
-                Fugitivas.ModelFugitivas.listaGrupoPontos.push( ko.mapping.fromJS( GrupoLista ) );
-                Fugitivas.Notifica( true, "Grupo Cadastrado com Sucesso!" );
-                Fugitivas.ElModal.btnCancelAdd.trigger( 'click' );
-                Fugitivas.Methods.limparModalCadastro();
-            }
-        }
-
-    } );
-
-    Fugitivas.ElModal.upload.filestyle();
 
 });

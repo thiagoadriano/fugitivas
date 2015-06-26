@@ -5,13 +5,14 @@ ko.components.register( 'form-content', {
     viewModel: function (params) {
         var self = this;
         var objeto = Fugitivas.ModelFugitivas.flagSatatusPonto() !== "new" ? 
-            ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function ( item )
+            ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO(), function ( item )
                 {
                     return Fugitivas.ModelFugitivas.idPonto() == item.ID();
                 } ) : undefined;
         self.listType          = params.tipos;
         self.listManufacturers = params.fabricantes;
         self.listSpecialty     = params.especialidade;
+        self.listPositionPoint = params.posicaoPonto;
         self.listSubtype       = ko.observableArray([{ NOME: "Selecione um Tipo com Subtipo", ID: "" }]);
         self.typeSelect        = ko.observable();
         self.subTypeSelect     = ko.observable();
@@ -25,7 +26,7 @@ ko.components.register( 'form-content', {
         self.save = {
             novo: function (data)
             {
-                var pontos = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
+                var pontos = Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO();
                 var novaId = Fugitivas.Methods.getLastID();
                 var dadosPontoImagem = $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "export" );
                 var ultimoPonto = dadosPontoImagem[dadosPontoImagem.length - 1];
@@ -65,7 +66,7 @@ ko.components.register( 'form-content', {
                             $('.editar').show();
                         }
                         Fugitivas.Notifica( result.type, result.mensagem );
-                        Fugitivas.conectionInstance.draggable($('.namePoint[data-id="'+novaId+'"]'));
+                        Fugitivas.conectionInstance.draggable($('.namePoint[data-id="'+novaId+'"]').addClass('cursorMove'));
                     } );
 
                 } else
@@ -78,16 +79,16 @@ ko.components.register( 'form-content', {
                     Fugitivas.Methods.connect(novaId);
                     $('.editar').show();
                     Fugitivas.Notifica( true, "Ponto Cadastrado com Sucesso!" );
-                    Fugitivas.conectionInstance.draggable($('.namePoint[data-id="'+novaId+'"]'));
+                    Fugitivas.conectionInstance.draggable($('.namePoint[data-id="'+novaId+'"]').addClass('cursorMove'));
                 };
                 
             },
             atualiza: function (data)
             {
-                var pontos = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
+                var pontos = Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO();
                 var Componente = Fugitivas.Methods.getItemId( self.listType(), data.typeSelect() );
                 var subComponente = data.subTypeSelect() !== "" ? Fugitivas.Methods.getItemId( Componente.SUBTIPO(), data.subTypeSelect() ) : "";
-                var editPonto = ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function ( item )
+                var editPonto = ko.utils.arrayFirst( Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO(), function ( item )
                 {
                     return Fugitivas.ModelFugitivas.idPonto() == item.ID();
                 } );
@@ -254,7 +255,7 @@ ko.components.register( 'form-content', {
                             if ( result.type )
                             {
                                 
-                                Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove( objeto );
+                                Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO.remove( objeto );
                                 var nodeFix = document.querySelector( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
                                 var nodePoint = document.querySelector( '.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
                                 if ( nodeFix.parentNode )
@@ -269,7 +270,7 @@ ko.components.register( 'form-content', {
 
                     } else
                     {
-                        Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove( objeto );
+                        Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO.remove( objeto );
                         var id  = Fugitivas.ModelFugitivas.idPonto();
                         var nodeFix = document.querySelector( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
                         var nodePoint = document.querySelector('.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]');
@@ -345,7 +346,7 @@ ko.components.register( 'form-content', {
                         '<div class="form-group">'+
                             '<label class="col-md-5 control-label" for="posicao">* Posição do ponto: </label>'+
                             '<div class="col-md-7">'+
-                                '<input type="text" id="posicao" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\' && flagDeletar() == false, value: positionSelect"class="form-control input-sm">' +
+                                '<select id="posicao" class="form-control input-sm" data-bind="enable: Fugitivas.ModelFugitivas.flagSatatusPonto() != \'view\' && flagDeletar() == false, options: listPositionPoint, optionsText: \'NOME\', optionsValue: \'ID\', optionsCaption: \'Selecione\', value: positionSelect"></select>' +
                             '</div>'+
                         '</div>'+
                         '<div class="form-group">'+

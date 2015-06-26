@@ -1,10 +1,6 @@
 ﻿{
     "ID": "5824",
-    "IMG_NAME": "navio-joao-candido.jpg",
-    "EMPRESA": "PETROBRAS",
-    "NIVEL1": "ADM",
-    "NIVEL2": "BASE",
-    "NIVEL3": "SEQUENCIAL",
+    "IMG_NAME": "imagem/navio-joao-candido.jpg",
     "UNIDADE_PROCESSO": "CENTRO RJ",
     "LINHA_PROCESSO": "GHB54RF",
     "TAG_EQUIPAMENTO": "XO45ER3",
@@ -12,7 +8,7 @@
     "FLUXOGRAMA": "FLUXO SEGUENCIAL DE BASE",
     "SITUACAO":  "Ativo",
     "NOTA": "Nova modificação de base com administração segundaria de seguimento",
-    "MARCACAO_PONTO": [
+    "PONTO_MEDICAO": [
         {
             "ID": 0,
             "HASH": "458",
@@ -24,7 +20,7 @@
                 "FABRICANTE": "0",
                 "DIMENSAO": "23",
                 "MEDIDA_DIMENSAO": "0",
-                "POSICAO_PONTO": "43",
+                "POSICAO_PONTO": "4",
                 "ESPECIALIDADE_PONTO": "0"
 
             }
@@ -40,7 +36,7 @@
                 "FABRICANTE": "0",
                 "DIMENSAO": "567",
                 "MEDIDA_DIMENSAO": "0",
-                "POSICAO_PONTO": "er4t5s5uy",
+                "POSICAO_PONTO": "2",
                 "ESPECIALIDADE_PONTO": "2"
 
             }
@@ -56,7 +52,7 @@
                 "FABRICANTE": "2",
                 "DIMENSAO": "45",
                 "MEDIDA_DIMENSAO": "0",
-                "POSICAO_PONTO": "h45y7sk",
+                "POSICAO_PONTO": "5",
                 "ESPECIALIDADE_PONTO": "0"
 
             }
@@ -72,7 +68,7 @@
                 "FABRICANTE": "1",
                 "DIMENSAO": "5214",
                 "MEDIDA_DIMENSAO": "0",
-                "POSICAO_PONTO": "734uyw7GSf36",
+                "POSICAO_PONTO": "7",
                 "ESPECIALIDADE_PONTO": "0"
 
             }
@@ -132,7 +128,7 @@
                 "FABRICANTE": "0",
                 "DIMENSAO": "6",
                 "MEDIDA_DIMENSAO": "0",
-                "POSICAO_PONTO": "6",
+                "POSICAO_PONTO": "12",
                 "ESPECIALIDADE_PONTO": "0"
             },
             "HASH": 81
@@ -147,7 +143,7 @@
                 "FABRICANTE": "1",
                 "DIMENSAO": "5",
                 "MEDIDA_DIMENSAO": "0",
-                "POSICAO_PONTO": "5",
+                "POSICAO_PONTO": "20",
                 "ESPECIALIDADE_PONTO": "2"
             },
             "HASH": 185
@@ -162,7 +158,7 @@
                 "FABRICANTE": "2",
                 "DIMENSAO": "6",
                 "MEDIDA_DIMENSAO": "0",
-                "POSICAO_PONTO": "6",
+                "POSICAO_PONTO": "21",
                 "ESPECIALIDADE_PONTO": "1"
             },
             "HASH": 332
@@ -177,7 +173,7 @@
                 "FABRICANTE": "2",
                 "DIMENSAO": "6",
                 "MEDIDA_DIMENSAO": "0",
-                "POSICAO_PONTO": "6",
+                "POSICAO_PONTO": "0",
                 "ESPECIALIDADE_PONTO": "1"
             },
             "HASH": 225
@@ -207,7 +203,7 @@
                 "FABRICANTE": "0",
                 "DIMENSAO": "6",
                 "MEDIDA_DIMENSAO": "0",
-                "POSICAO_PONTO": "6",
+                "POSICAO_PONTO": "0",
                 "ESPECIALIDADE_PONTO": "0"
             },
             "HASH": 501
@@ -222,7 +218,7 @@
                 "FABRICANTE": "0",
                 "DIMENSAO": "6",
                 "MEDIDA_DIMENSAO": "0",
-                "POSICAO_PONTO": "6",
+                "POSICAO_PONTO": "8",
                 "ESPECIALIDADE_PONTO": "0"
             },
             "HASH": 429
@@ -237,7 +233,7 @@
                 "FABRICANTE": "2",
                 "DIMENSAO": "6",
                 "MEDIDA_DIMENSAO": "0",
-                "POSICAO_PONTO": "6",
+                "POSICAO_PONTO": "5",
                 "ESPECIALIDADE_PONTO": "2"
             },
             "HASH": 779
@@ -252,7 +248,7 @@
                 "FABRICANTE": "0",
                 "DIMENSAO": "6",
                 "MEDIDA_DIMENSAO": "0",
-                "POSICAO_PONTO": "6",
+                "POSICAO_PONTO": "2",
                 "ESPECIALIDADE_PONTO": "1"
             },
             "HASH": 639
@@ -267,7 +263,7 @@
                 "FABRICANTE": "2",
                 "DIMENSAO": "5",
                 "MEDIDA_DIMENSAO": "0",
-                "POSICAO_PONTO": "5",
+                "POSICAO_PONTO": "18",
                 "ESPECIALIDADE_PONTO": "1"
             },
             "HASH": 578
@@ -282,7 +278,7 @@
                 "FABRICANTE": "0",
                 "DIMENSAO": "6",
                 "MEDIDA_DIMENSAO": "0",
-                "POSICAO_PONTO": "6",
+                "POSICAO_PONTO": "3",
                 "ESPECIALIDADE_PONTO": "0"
             },
             "HASH": 568

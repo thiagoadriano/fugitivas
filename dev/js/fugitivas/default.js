@@ -7,9 +7,6 @@ Fugitivas.CONTAINER_IMAGEM = "#MainContentIMG";
 //ISNTANCIA DE CONEXÂO
 Fugitivas.conectionInstance = undefined;
 
-//CAMINHO PARA O DIRETÒRIO DE IMAGENS
-Fugitivas.PATH_IMAGE = 'imagem/';
-
 //URLS PARA USO DO SISTEMA
 Fugitivas.URLS = {};
 Fugitivas.URLS.Base          = "/json_dados/";
@@ -17,12 +14,12 @@ Fugitivas.URLS.Especialidade = Fugitivas.URLS.Base + "_especialidade.json";
 Fugitivas.URLS.Componente    = Fugitivas.URLS.Base + "_componente.json";
 Fugitivas.URLS.ListaGrupo    = Fugitivas.URLS.Base + "_lista_de_grupo.json";
 Fugitivas.URLS.Fabricante    = Fugitivas.URLS.Base + "_fabricantes.json";
+Fugitivas.URLS.PosicaoPonto  = Fugitivas.URLS.Base + "_posicao_do_ponto.json";
 Fugitivas.URLS.Deletar       = undefined;
 Fugitivas.URLS.Salvar        = undefined;
 Fugitivas.URLS.Atualizar     = undefined;
 Fugitivas.URLS.AtualizarPosicaoTag = undefined;
-Fugitivas.URLS.RemoverGrupo = undefined;
-Fugitivas.URLS.SalvarGrupo = undefined;
+
 
 //CONFIGURAÇÂO PADRÂO DO COMPONENTE
 Fugitivas.defaultImgNotes = {
@@ -52,7 +49,8 @@ Fugitivas.defaultImgNotes = {
         Fugitivas.ModelFugitivas.idPonto( Fugitivas.Methods.getLastID() );
         return Fugitivas.Methods.dialogOpen( "Adicionar Ponto", elem);
     },
-    onUpdateMarker: function (elem) {
+    onUpdateMarker: function (elem)
+    {
         var $elem = $(elem);
         var $img = $(this.img);
         var pos = $img.imgViewer("imgToView", $elem.data("relx"), $elem.data("rely"));
@@ -118,23 +116,7 @@ Fugitivas.ElModal = {
     zoomOut: $( '#zoomOut' ),
     editClick: $( '#editClick' ),
     FecharModal: $( '#FecharModal' ),
-    openModal: $('#grupo'),
-    btnAddCadastro: $('#addGrupoBtn'),
-    btnCadastro: $('#cadGrupoBtn'),
-    btnCancelAdd: $('#cancelCad'),
-    upload: $('#upload_cad'),
-    nomeGrupo: $('#nomeGrupo_cad'),
-    empresa: $('#empresa_cad'),
-    nivel1: $('#nivel1_cad'),
-    nivel2: $('#nivel2_cad'),
-    nivel3: $('#nivel3_cad'),
-    unidadeProcesso: $('#unidadeProcesso_cad'),
-    linhaProcesso: $('#linhaProcesso_cad'),
-    tagEquipamento: $('#tagEquipamento_cad'),
-    posicaoGrupo: $('#posicaoGrupo_cad'),
-    fluxograma: $( '#fluxograma_cad' ),
-    situacao: $( '#situacao_cad' ),
-    nota: $('#nota_cad')
+    openModal: $('#grupo')
 };
 
 //ALERTA DE ERRO OU SUCESSO
@@ -161,4 +143,8 @@ Fugitivas.Notifica = function ( boolNotifica, msg )
             } );
 
 
+};
+
+document.onselectstart = function(){
+    return false;
 };

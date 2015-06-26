@@ -7,15 +7,15 @@ module.exports = function(grunt){
 				files:{
 					'public/assets/js/libs/jquery.js' : [
 							'dev/js/lib/jquery/jquery-2.1.4.js',
-							'dev/js/lib/jquery/jquery-ui.js', 
-							'dev/js/lib/jquery/jquery.tmpl.min.js',
-							'dev/js/lib/jquery/jquery.ui.touch-punch-0.2.2.min.js'
+							'dev/js/lib/jquery/jquery-ui.js'
+							// 'dev/js/lib/jquery/jquery.tmpl.min.js',
+							// 'dev/js/lib/jquery/jquery.ui.touch-punch-0.2.2.min.js'
 						],
 						
 					'public/assets/js/libs/recursos.js': [
-							'dev/js/lib/recurso/bootstrap.js',	
-							'dev/js/lib/recurso/bootstrap-filestyle.js',
-							'dev/js/lib/recurso/jquery.form.js'
+							'dev/js/lib/recurso/bootstrap.js'
+							// 'dev/js/lib/recurso/bootstrap-filestyle.js',
+							// 'dev/js/lib/recurso/jquery.form.js'
 						],
 						
 					'public/assets/js/libs/imgnote.js' :[

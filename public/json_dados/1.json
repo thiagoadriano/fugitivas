@@ -1,10 +1,6 @@
 ﻿{
 	"ID": "123", 
-	"IMG_NAME": "petroleiros003.jpg", 
-	"EMPRESA": "TIVIT2",
-	"NIVEL1": "ADM2", 
-	"NIVEL2": "SEGUIMENTAÇÂO2", 
-	"NIVEL3": "LISTENER2", 
+	"IMG_NAME": "imagem/petroleiros003.jpg", 
 	"UNIDADE_PROCESSO": "PRESIDENTE VARGAS2", 
 	"LINHA_PROCESSO": "NOVO PROCESSO2", 
 	"TAG_EQUIPAMENTO": "XYZ542",
@@ -12,5 +8,5 @@
     "FLUXOGRAMA": "FLUXO NOVO2",
     "SITUACAO":  "Inativo", 
 	"NOTA": "Teste de inserção de dados2", 
-	"MARCACAO_PONTO": []
+	"PONTO_MEDICAO": []
 }

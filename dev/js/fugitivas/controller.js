@@ -111,7 +111,7 @@ Fugitivas.Methods = {
     getLastID: function ()
     {
         var dados = Fugitivas.ModelFugitivas.dadosModal(),
-                pontos = dados.MARCACAO_PONTO();
+                pontos = dados.PONTO_MEDICAO();
         var lastId = ( pontos.length ? parseInt( pontos[pontos.length - 1].ID() ) + 1 : 0 );
         return lastId;
     },
@@ -169,7 +169,7 @@ Fugitivas.Methods = {
         {      
             Fugitivas.conectionInstance = jsPlumb.getInstance(Fugitivas.defaultJSPlumb);
             Fugitivas.conectionInstance.batch(function () {
-                var dados = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
+                var dados = Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO();
                 if (dados.length) {
                     for (var i in dados) {
                         var id = dados[i].ID();
@@ -238,7 +238,7 @@ Fugitivas.Methods = {
             {
                 $( this ).css( "overflow", "hidden" );
                 $( '.ui-dialog-titlebar-close' ).remove();
-                $( this ).attr( "data-bind", "component: {name: 'form-content', params:{tipos: listagemComponente, fabricantes: listagemFabricante, especialidade: listagemEspecialidade} }" );
+                $( this ).attr( "data-bind", "component: {name: 'form-content', params:{tipos: listagemComponente, fabricantes: listagemFabricante, especialidade: listagemEspecialidade, posicaoPonto: listagemPosicaoPonto} }" );
                 ko.applyBindings( Fugitivas.ModelFugitivas, $( "#NoteDialog" )[0] );
             }
         } )
@@ -280,7 +280,7 @@ Fugitivas.Methods = {
     },
     carregaPontos: function ()
     {
-        var pontos = Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO();
+        var pontos = Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO();
         var totalPontos = pontos.length;
 
         if (pontos.length) {
@@ -325,10 +325,6 @@ Fugitivas.Methods = {
     },
     preencheModal: function ( obj )
     {
-        Fugitivas.ElModal.EMPRESA.val( obj.EMPRESA() );
-        Fugitivas.ElModal.NIVEL1.val( obj.NIVEL1() );
-        Fugitivas.ElModal.NIVEL2.val( obj.NIVEL2() );
-        Fugitivas.ElModal.NIVEL3.val( obj.NIVEL3() );
         Fugitivas.ElModal.UNIDADE_PROCESSO.val( obj.UNIDADE_PROCESSO() );
         Fugitivas.ElModal.LINHA_PROCESSO.val( obj.LINHA_PROCESSO() );
         Fugitivas.ElModal.TAG_EQUIPAMENTO.val( obj.TAG_EQUIPAMENTO() );
@@ -336,7 +332,7 @@ Fugitivas.Methods = {
         Fugitivas.ElModal.FLUXOGRAMA.val( obj.FLUXOGRAMA() );
         Fugitivas.ElModal.NOTA.val(obj.NOTA());
         Fugitivas.ElModal.SITUACAO.val(obj.SITUACAO());
-        Fugitivas.ElModal.IMAGEM.attr( 'src', Fugitivas.PATH_IMAGE + obj.IMG_NAME() );
+        Fugitivas.ElModal.IMAGEM.attr( 'src', obj.IMG_NAME() );
     },
     connect: function ( id )
     {
@@ -417,7 +413,7 @@ Fugitivas.Methods = {
     },
     salvarPosicaoTag: function ( obj )
     {
-        var editPonto = ko.utils.arrayFirst(Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO(), function (item) {
+        var editPonto = ko.utils.arrayFirst(Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO(), function (item) {
             return obj.id == item.ID();
         });
         if (Fugitivas.URLS.AtualizarPosicaoTag) {
