@@ -516,8 +516,6 @@ Fugitivas.Methods = {
             paintStyle: Fugitivas.paintStyle
         });
 
-        Fugitivas.conectionInstance.draggable(nomeId);
-
         nomeId.on('dragstop', function () {
             var that = $(this);
             var $viewport = $('#viewport');
@@ -879,6 +877,7 @@ ko.components.register( 'form-content', {
                 ultimoPontoTag.off( "click" );
 
                 var PontoNovo = {
+                    ID_GRUPO: Fugitivas.ModelFugitivas.dadosModal().ID(),
                     ID: novaId,
                     COORDS: { X: ultimoPonto.x, Y: ultimoPonto.y },
                     POSICAO_TAG: {TOP: posicaoTag.y ,LEFT: posicaoTag.x},
@@ -892,9 +891,6 @@ ko.components.register( 'form-content', {
                         ESPECIALIDADE_PONTO: data.specialtySelect()
                     }
                 };
-
-
-
 
                 if ( Fugitivas.URLS.Salvar )
                 {
@@ -910,6 +906,7 @@ ko.components.register( 'form-content', {
                             $('.editar').show();
                         }
                         Fugitivas.Notifica( result.type, result.mensagem );
+                        Fugitivas.conectionInstance.draggable($('.namePoint[data-id="'+novaId+'"]'));
                     } );
 
                 } else
@@ -922,6 +919,7 @@ ko.components.register( 'form-content', {
                     Fugitivas.Methods.connect(novaId);
                     $('.editar').show();
                     Fugitivas.Notifica( true, "Ponto Cadastrado com Sucesso!" );
+                    Fugitivas.conectionInstance.draggable($('.namePoint[data-id="'+novaId+'"]'));
                 };
                 
             },
@@ -1085,7 +1083,6 @@ ko.components.register( 'form-content', {
 
         self.yesDeletar = function ()
         {
-           
             if ( Fugitivas.ModelFugitivas.idPonto() !== "" && Fugitivas.ModelFugitivas.idPonto() !== undefined )
             {
                 if ( Fugitivas.ModelFugitivas.flagSatatusPonto() !== "new" )
@@ -1114,12 +1111,13 @@ ko.components.register( 'form-content', {
                     } else
                     {
                         Fugitivas.ModelFugitivas.dadosModal().MARCACAO_PONTO.remove( objeto );
+                        var id  = Fugitivas.ModelFugitivas.idPonto();
                         var nodeFix = document.querySelector( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
                         var nodePoint = document.querySelector('.namePoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]');
 
                         if ( nodeFix.parentNode )
                         {
-                            Fugitivas.conectionInstance.remove( nodeFix );
+                            Fugitivas.conectionInstance.remove( $('.fixPoint[data-id="' + id + '"]') );
                             nodePoint.parentNode.removeChild( nodePoint );
                         }
                         
@@ -1278,11 +1276,13 @@ $(function ()
             $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "canEdit", false);
             $(this).text("Editar");
             $('.editar').hide();
+            $( '.namePoint' ).draggable( "destroy" );
         } else
         {
             $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "canEdit", true );
             $(this).text("Concluir");
             $('.editar').show();
+            Fugitivas.conectionInstance.draggable( $( '.namePoint' ) );
         }
     } );
 

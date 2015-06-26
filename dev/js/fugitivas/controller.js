@@ -351,8 +351,6 @@ Fugitivas.Methods = {
             paintStyle: Fugitivas.paintStyle
         });
 
-        Fugitivas.conectionInstance.draggable(nomeId);
-
         nomeId.on('dragstop', function () {
             var that = $(this);
             var $viewport = $('#viewport');

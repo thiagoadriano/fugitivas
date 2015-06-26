@@ -1974,7 +1974,7 @@
     };
 }).call(this);
 
-/*
+/*/*
  * jsPlumb
  *
  * Title:jsPlumb 1.7.5

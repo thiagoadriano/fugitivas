@@ -51,11 +51,13 @@ $(function ()
             $(Fugitivas.CONTAINER_IMAGEM).imgNotes("option", "canEdit", false);
             $(this).text("Editar");
             $('.editar').hide();
+            $( '.namePoint' ).draggable( "destroy" );
         } else
         {
             $( Fugitivas.CONTAINER_IMAGEM ).imgNotes( "option", "canEdit", true );
             $(this).text("Concluir");
             $('.editar').show();
+            Fugitivas.conectionInstance.draggable( $( '.namePoint' ) );
         }
     } );
 

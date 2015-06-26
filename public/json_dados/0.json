@@ -1,10 +1,6 @@
 ﻿{
     "ID": "4523",
-    "IMG_NAME": "petroleo.jpg",
-    "EMPRESA": "TIVIT",
-    "NIVEL1": "ADM",
-    "NIVEL2": "SEGUIMENTAÇÂO",
-    "NIVEL3": "LISTENER",
+    "IMG_NAME": "imagem/petroleo.jpg",
     "UNIDADE_PROCESSO": "PRESIDENTE VARGAS",
     "LINHA_PROCESSO": "NOVO PROCESSO",
     "TAG_EQUIPAMENTO": "XYZ54",
@@ -12,7 +8,7 @@
     "SITUACAO":  "Ativo", 
     "FLUXOGRAMA": "FLUXO NOVO",
     "NOTA": "Teste de inserção de dados",
-    "MARCACAO_PONTO": [
+    "PONTO_MEDICAO": [
         {
             "ID": 0,
             "HASH": "458",
