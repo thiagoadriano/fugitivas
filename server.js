@@ -1,6 +1,4 @@
 /// <reference path="typings/node/node.d.ts"/>
-
- 
 var express = require('express');
 var server = express();
 

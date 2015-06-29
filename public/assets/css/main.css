@@ -1,89 +1,58 @@
-/* latin-ext */
 @font-face {
-  font-family: 'Dosis';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Dosis Light'), local('Dosis-Light'), url("fonts/dosis/doisis-light-ext.woff2") format('woff2');
-  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+    font-family: 'Dosis';
+    src: url('fonts/dosis/bold/dosis-bold-webfont.eot');
+    src: url('fonts/dosis/bold/dosis-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/dosis/bold/dosis-bold-webfont.woff2') format('woff2'),
+         url('fonts/dosis/bold/dosis-bold-webfont.woff') format('woff'),
+         url('fonts/dosis/bold/dosis-bold-webfont.ttf') format('truetype'),
+         url('fonts/dosis/bold/dosis-bold-webfont.svg#dosisbold') format('svg');
+    font-weight: 700;
+    font-style: normal;
+
 }
-/* latin */
 @font-face {
-  font-family: 'Dosis';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Dosis Light'), local('Dosis-Light'), url("fonts/dosis/doisis-light.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    font-family: 'Dosis';
+    src: url('fonts/dosis/semibold/dosis-semibold-webfont.eot');
+    src: url('fonts/dosis/semibold/dosis-semibold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/dosis/semibold/dosis-semibold-webfont.woff2') format('woff2'),
+         url('fonts/dosis/semibold/dosis-semibold-webfont.woff') format('woff'),
+         url('fonts/dosis/semibold/dosis-semibold-webfont.ttf') format('truetype'),
+         url('fonts/dosis/semibold/dosis-semibold-webfont.svg#dosissemibold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+
 }
-/* latin-ext */
 @font-face {
-  font-family: 'Dosis';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Dosis Regular'), local('Dosis-Regular'), url("fonts/dosis/dosis-regular-ext.woff2") format('woff2');
-  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+    font-family: 'Dosis';
+    src: url('fonts/dosis/medium/dosis-medium-webfont.eot');
+    src: url('fonts/dosis/medium/dosis-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/dosis/medium/dosis-medium-webfont.woff2') format('woff2'),
+         url('fonts/dosis/medium/dosis-medium-webfont.woff') format('woff'),
+         url('fonts/dosis/medium/dosis-medium-webfont.ttf') format('truetype'),
+         url('fonts/dosis/medium/dosis-medium-webfont.svg#dosismedium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+
 }
-/* latin */
 @font-face {
-  font-family: 'Dosis';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Dosis Regular'), local('Dosis-Regular'), url("fonts/dosis/dosis-regular.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Dosis';
-  font-style: normal;
-  font-weight: 500;
-  src: local('Dosis Medium'), local('Dosis-Medium'), url("fonts/dosis/dosis-medium-ext.woff2") format('woff2');
-  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Dosis';
-  font-style: normal;
-  font-weight: 500;
-  src: local('Dosis Medium'), local('Dosis-Medium'), url("fonts/dosis/dosis-medium.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Dosis';
-  font-style: normal;
-  font-weight: 600;
-  src: local('Dosis SemiBold'), local('Dosis-SemiBold'), url("fonts/dosis/dosis-semi-bold-ext.woff2") format('woff2');
-  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Dosis';
-  font-style: normal;
-  font-weight: 600;
-  src: local('Dosis SemiBold'), local('Dosis-SemiBold'), url("fonts/dosis/dosis-semi-bold.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-/* latin-ext */
-@font-face {
-  font-family: 'Dosis';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Dosis Bold'), local('Dosis-Bold'), url("fonts/dosis/dosis-bold-ext.woff2") format('woff2');
-  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-}
-/* latin */
-@font-face {
-  font-family: 'Dosis';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Dosis Bold'), local('Dosis-Bold'), url("fonts/dosis/dosis-bold.woff2") format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+    font-family: 'Dosis';
+    src: url('fonts/dosis/regular/dosis-regular-webfont.eot');
+    src: url('fonts/dosis/regular/dosis-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/dosis/regular/dosis-regular-webfont.woff2') format('woff2'),
+         url('fonts/dosis/regular/dosis-regular-webfont.woff') format('woff'),
+         url('fonts/dosis/regular/dosis-regular-webfont.ttf') format('truetype'),
+         url('fonts/dosis/regular/dosis-regular-webfont.svg#dosisregular') format('svg');
+    font-weight: 400;
+    font-style: normal;
+
 }
 
 
 body{
-    font-family: 'Dosis','Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Dosis','Helvetica Neue', Helvetica, Arial, sans-serif!important;
     font-weight:500;
     font-size:16px;
+    font-style: normal;
 }
 #content{
   width: 100%;
@@ -334,7 +303,7 @@ textarea.form-control { resize: none; height:80px; }
     left: 50%;
     margin-left: -175px;
     height: auto;
-    display: block;            
+    display: block;
 }
 #containerLoading #loading p{
     margin: 14px 0 0;

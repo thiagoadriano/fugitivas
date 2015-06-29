@@ -750,13 +750,13 @@
  */
 
 ;(function ($, touch, window, undefined) {
-	
-	var namespace = 'drag', 
+
+	var namespace = 'drag',
 		cfg = {
 			distance: 40 // minimum
 		},
 		started;
- 
+
 	touch.track(namespace, {
 		touchstart: function (event, state, start) {
 			started = false;
@@ -769,10 +769,10 @@
 		},
 		touchmove: function (event, state, move) {
 			var opt = $.extend(cfg, event.data);
-		 
+
 			// if another finger was used then increment the amount of fingers used
 			state[namespace].finger = move.point.length > state[namespace].finger ? move.point.length : state[namespace].finger;
-		 
+
 			var distance = touch.calc.getDistance(state.start.point[0], move.point[0]);
 			if (Math.abs(1 - distance) > opt.distance) {
 				if (!started) {
@@ -787,7 +787,7 @@
 		touchend: function (event, state, end) {
 			if (started) {
 				started = false;
-			 
+
 				var distance = touch.calc.getDistance(state.start.point[0], end.point[0]);
 				if (distance > cfg.distance) {
 					state[namespace].deltaX = (end.point[0].x - state.start.point[0].x);
@@ -801,7 +801,7 @@
 
 /*
  *	imgViewer plugin starts here
- */ 
+ */
 ;(function($) {
     $.widget("wgm.imgViewer", {
         options: {
@@ -811,7 +811,7 @@
             onClick: null,
             onUpdate: null
         },
-		
+
         _create: function() {
             var self = this;
             if (!this.element.is("img")) {
@@ -850,7 +850,7 @@
                 };
                 /*
                  *			cache the image margin/border size information
-                 *			because of IE8 limitations left and right borders are assumed to be the same width 
+                 *			because of IE8 limitations left and right borders are assumed to be the same width
                  *			and likewise top and bottom borders
                  */
                 self.offsetBorder = {
@@ -901,17 +901,17 @@
                     doRender();
                 }
             }
-			
+
             function stopRenderLoop() {
                 self.render = false;
             }
-			
+
             function doRender() {
                 if (self.render) {
                     window.requestAnimationFrame(doRender);
                     self.update();
                 }
-            }	
+            }
             /*
              *		Event handlers
              */
@@ -919,13 +919,13 @@
                 if (self.options.zoomable) {
                     ev.preventDefault();
                     var delta = ev.deltaY ;
-                    self.options.zoom -= delta * self.options.zoomStep;
+                    self.options.zoom += delta * self.options.zoomStep;
                     self.update();
                 }
             }
             $zimg.on("mousewheel", MouseWheelHandler);
-			
-			
+
+
             if (window.navigator.msPointerEnabled) {
                 $zimg.on("click", function(e) {
                     e.preventDefault();
@@ -961,7 +961,7 @@
                 $zimg.on('touchstart touchmove touchend', function(ev) {
                     ev.preventDefault();
                 });
-			
+
                 $zimg.on( "transformstart" , function(ev) {
                     if (self.options.zoomable) {
                         ev.preventDefault();
@@ -999,7 +999,7 @@
                         self.vCenter.y = self.dragYorg - ev.deltaY/self.options.zoom;
                     }
                 });
-				
+
                 $zimg.on( "dragend", function(ev) {
                     if (self.options.zoomable) {
                         ev.preventDefault();
@@ -1050,25 +1050,25 @@
                     }
                 });
             }
-			
+
             /*
              *		Window resize handler
              */
-	
+
             $(window).resize(function() {
                 /*
                  *			the aim is to keep the view centered on the same location in the original image
                  */
                 if (self.ready) {
                     self.vCenter.x *=$img.width()/$view.width();
-                    self.vCenter.y *= $img.height()/$view.height(); 
+                    self.vCenter.y *= $img.height()/$view.height();
                     self.update();
                 }
             });
         },
         /*
          *	Remove the plugin
-         */  
+         */
         destroy: function() {
             var $zimg = $(this.zimg);
             $zimg.unbind("click");
@@ -1077,7 +1077,7 @@
             $(this.view).remove();
             $.Widget.prototype.destroy.call(this);
         },
-  
+
         _setOption: function(key, value) {
             switch(key) {
                 case 'zoom':
@@ -1105,7 +1105,7 @@
                     break;
             }
         },
-		
+
         addElem: function(elem) {
             $(this.view).append(elem);
         },
@@ -1157,26 +1157,26 @@
         },
         /*
          *	Convert a relative image location to a viewport pixel location
-         */  
+         */
         imgToView: function(relx, rely) {
             if ( this.ready && relx >= 0 && relx <= 1 && rely >= 0 && rely <=1 ) {
                 var $img = $(this.img),
 					width = $img.width(),
-					height = $img.height();						
-			 
+					height = $img.height();
+
                 var zLeft = width/2 - this.vCenter.x * this.options.zoom;
                 var zTop =  height/2 - this.vCenter.y * this.options.zoom;
                 var vx = relx * width * this.options.zoom + zLeft;
                 var vy = rely * height * this.options.zoom + zTop;
                 return { x: Math.round(vx), y: Math.round(vy) };
-            } else {						
-				
+            } else {
+
                 return null;
             }
         },
         /*
          *	Convert a relative image location to a page pixel location
-         */  
+         */
         imgToCursor: function(relx, rely) {
             var pos = this.imgToView(relx, rely);
             if (pos) {
@@ -1190,7 +1190,7 @@
         },
         /*
          *	Convert a viewport pixel location to a relative image coordinate
-         */		
+         */
         viewToImg: function(vx, vy) {
             if (this.ready) {
                 var $img = $(this.img),
@@ -1209,10 +1209,10 @@
                 return null;
             }
         },
-		
+
         /*
          *	Convert a page pixel location to a relative image coordinate
-         */		
+         */
         cursorToImg: function(cx, cy) {
             if (this.ready) {
                 var $img = $(this.img),
@@ -1233,7 +1233,7 @@
             }
         },
         /*
-         *	Adjust the display of the image  
+         *	Adjust the display of the image
          */
         update: function() {
             if (this.ready) {
@@ -1245,13 +1245,13 @@
 					zoom = this.options.zoom,
 					half_width = width/2,
 					half_height = height/2;
-  
+
                 if (zoom <= 1) {
                     zTop = 0;
                     zLeft = 0;
                     zWidth = width;
                     zHeight = height;
-                    this.vCenter = { 
+                    this.vCenter = {
                         x: half_width,
                         y: half_height
                     };
@@ -1301,7 +1301,7 @@
                  *		probably shouldn't pass out the this object - need to think of something better
                  */
                 this._trigger("onUpdate", null, this);
-                
+
             }
         }
 

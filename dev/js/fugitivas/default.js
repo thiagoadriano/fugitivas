@@ -1,11 +1,11 @@
 ﻿var Fugitivas = Fugitivas || {};
 
-'use strict'; 
+'use strict';
 //ID DO CONTAINER DE IMAGEM PARA USO DO COMPONENTE
 Fugitivas.CONTAINER_IMAGEM = "#MainContentIMG";
 
 //ISNTANCIA DE CONEXÂO
-Fugitivas.conectionInstance = undefined;
+Fugitivas.conectionInstance = null;
 
 //URLS PARA USO DO SISTEMA
 Fugitivas.URLS = {};
@@ -39,7 +39,7 @@ Fugitivas.defaultImgNotes = {
         {
             elem.attr( "data-id", Fugitivas.ModelFugitivas.idPonto() );
         }
-            
+
         return elem;
     },
     onEdit: function ( ev, elem )
@@ -61,10 +61,10 @@ Fugitivas.defaultImgNotes = {
                 top: (pos.y - $elem.data("yOffset")),
                 position: "absolute"
             });
-            if (Fugitivas.conectionInstance !== undefined) {
+            if (Fugitivas.conectionInstance !== null) {
                 Fugitivas.conectionInstance.repaintEverything();
             }
-            
+
         }
     }
 };
