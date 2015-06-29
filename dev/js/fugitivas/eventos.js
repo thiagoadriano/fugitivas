@@ -4,7 +4,7 @@ $(function ()
     $( '#containerLoading' ).css( 'height', $( window ).height() );
     $.ajaxSetup( {
         beforeSend: function ()
-        { 
+        {
             $( '#containerLoading' ).fadeIn( 'slow' );
 
         },
@@ -25,17 +25,18 @@ $(function ()
         $(Fugitivas.CONTAINER_IMAGEM).imgNotes('destroy');
         Fugitivas.ElModal.editClick.text("Editar");
         Fugitivas.conectionInstance = null;
-        
-        
+
+
     } );
 
-    Fugitivas.ElModal.openModal.on('click', '.openModal', function(){
+    Fugitivas.ElModal.openModal.on('click', '.openModal', function()
+    {
         var idGrupo = $( this ).attr( 'data-id-grupo' );
         var titulo = $( this ).parents( 'tr' ).find( ".nomeGrupo" ).text();
         if ( idGrupo != "" )
-        {       
+        {
             Fugitivas.Methods.getData( Fugitivas.URLS.Base + idGrupo + ".json", function ( result )
-            {   
+            {
                 Fugitivas.ModelFugitivas.dadosModal( ko.mapping.fromJS( result ) );
                 Fugitivas.ElModal.tituloModal.text( titulo );
                 Fugitivas.Methods.preencheModal( Fugitivas.ModelFugitivas.dadosModal() );

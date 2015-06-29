@@ -24,7 +24,7 @@ Fugitivas.ModelFugitivas =
             for (var i in result) {
                 Fugitivas.ModelFugitivas.listaGrupoPontos.push( ko.mapping.fromJS( result[i] ) );
             }
-        
+
         });
         Fugitivas.Methods.getData( Fugitivas.URLS.Componente, function ( resultComponente )
         {
@@ -32,7 +32,7 @@ Fugitivas.ModelFugitivas =
                 if (resultComponente[i].STATUS === "ativo") {
                     Fugitivas.ModelFugitivas.listagemComponente.push(ko.mapping.fromJS(resultComponente[i]));
                 }
-                
+
             }
         });
         Fugitivas.Methods.getData( Fugitivas.URLS.Fabricante, function ( resultFabricante )
@@ -41,7 +41,7 @@ Fugitivas.ModelFugitivas =
                 if (resultFabricante[i].STATUS === "ativo") {
                     Fugitivas.ModelFugitivas.listagemFabricante.push(ko.mapping.fromJS(resultFabricante[i]));
                 }
-                
+
             }
         });
         Fugitivas.Methods.getData( Fugitivas.URLS.Especialidade, function ( resultEspecialidade )
@@ -52,7 +52,7 @@ Fugitivas.ModelFugitivas =
                 }
 
             }
-            
+
         });
         Fugitivas.Methods.getData( Fugitivas.URLS.PosicaoPonto, function(resultPosicao)
         {

@@ -1,5 +1,5 @@
 module.exports = function(grunt){
-	
+
 	grunt.initConfig({
 		options:{ separator: ';' },
 		concat:{
@@ -11,21 +11,21 @@ module.exports = function(grunt){
 							// 'dev/js/lib/jquery/jquery.tmpl.min.js',
 							// 'dev/js/lib/jquery/jquery.ui.touch-punch-0.2.2.min.js'
 						],
-						
+
 					'public/assets/js/libs/recursos.js': [
 							'dev/js/lib/recurso/bootstrap.js'
 							// 'dev/js/lib/recurso/bootstrap-filestyle.js',
 							// 'dev/js/lib/recurso/jquery.form.js'
 						],
-						
+
 					'public/assets/js/libs/imgnote.js' :[
-							'dev/js/lib/imgnote/jquery.fs.zoetrope.js', 
-							'dev/js/lib/imgnote/jquery.mousewheel.js', 
-							'dev/js/lib/imgnote/toe.js', 
-							'dev/js/lib/imgnote/imgViewer.js', 
+							'dev/js/lib/imgnote/jquery.fs.zoetrope.js',
+							'dev/js/lib/imgnote/jquery.mousewheel.js',
+							'dev/js/lib/imgnote/toe.js',
+							'dev/js/lib/imgnote/imgViewer.js',
 							'dev/js/lib/imgnote/imgNotes.js'
 						],
-						
+
 					'public/assets/js/libs/jsplumb.js': [
 							'dev/js/lib/jsplumb/jsBezier-0.7.js',
 							'dev/js/lib/jsplumb/mottle-0.6.js',
@@ -50,12 +50,12 @@ module.exports = function(grunt){
 							'dev/js/lib/jsplumb/dom.jsPlumb.js',
 							'dev/js/lib/jsplumb/jquery.jsPlumb.js'
 						],
-					
+
 					'public/assets/js/libs/knockout.js': [
-							'dev/js/lib/knockout/knockout-3.3.0.js', 
+							'dev/js/lib/knockout/knockout-3.3.0.js',
 							'dev/js/lib/knockout/knockout.mapping.js'
 						],
-					
+
 					'public/assets/js/fugitivas.js': [
 							'dev/js/fugitivas/default.js',
 							'dev/js/fugitivas/controller.js',
@@ -63,11 +63,11 @@ module.exports = function(grunt){
 							'dev/js/fugitivas/component.js',
 							'dev/js/fugitivas/eventos.js'
 						]
-					
-				} 
+
+				}
 			}
 		},//close concat
-		
+
 		cssmin: {
 		  options: {
 		    shorthandCompacting: false,
@@ -77,7 +77,7 @@ module.exports = function(grunt){
 		  target: {
 		    files: {
 		      'public/assets/css/libs.css': [
-				  'dev/css/jquery-ui.css', 
+				  'dev/css/jquery-ui.css',
 				  'dev/css/jquery-ui.structure.css',
 				  'dev/css/jquery-ui.theme.css',
 				  'dev/css/marker.css',
@@ -87,12 +87,12 @@ module.exports = function(grunt){
 		    }
 		  }
 		}// close cssmin
-		
+
 	});
-	
-	
+
+
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	
+
 	grunt.registerTask('build', ['concat', 'cssmin']);
 };
