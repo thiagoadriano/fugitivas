@@ -149,8 +149,6 @@ document.onselectstart = function(){
     return false;
 };
 
-var Fugitivas = Fugitivas || {};
-
 'use strict';
 Fugitivas.Methods = {
     validarCampos: function ()
@@ -581,13 +579,8 @@ Fugitivas.Methods = {
             editPonto.POSICAO_TAG.LEFT( obj.leftPosition );
             Fugitivas.Notifica(true, "Posição atualizada com sucesso!");
         }
-    }    
+    }
 };
-
-/// <reference path="../../../typings/jquery/jquery.d.ts"/>
-/// <reference path="../../../typings/knockout/knockout.d.ts"/>
-
-var Fugitivas = Fugitivas || {};
 
 'use strict';
 Fugitivas.ModelFugitivas =
@@ -664,8 +657,6 @@ ko.bindingHandlers.fadeVisible = {
         ko.unwrap( value ) ? $( element ).fadeIn() : $( element ).fadeOut();
     }
 };
-
-var Fugitivas = Fugitivas || {};
 
 'use strict';
 ko.components.register( 'form-content', {
@@ -925,51 +916,38 @@ ko.components.register( 'form-content', {
                             if ( result.type )
                             {
 
-                                Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO.remove( objeto );
-                                var id  = Fugitivas.ModelFugitivas.idPonto();
-                                var nodeFix = document.querySelector( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
+                              Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO.remove( objeto );
+                              var id  = Fugitivas.ModelFugitivas.idPonto();
+                              jsPlumb.ready( function ()
+                              {
+                                Fugitivas.conectionInstance.batch(function(){
+                                  Fugitivas.conectionInstance.remove( $('.namePoint[data-id="' + id + '"]') );
+                                });
+                              });
+                              $( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).off().remove();
 
-                                if ( nodeFix.parentNode )
-                                {
-                                    jsPlumb.ready( function ()
-                                    {
-                                      Fugitivas.conectionInstance.batch(function(){
-                                        Fugitivas.conectionInstance.remove( $('.namePoint[data-id="' + id + '"]') );
-                                      });
-                                    });
-                                    nodeFix.parentNode.removeChild( nodeFix );
-                                }
-                            }
-                                Fugitivas.Notifica( result.type, result.mensagem );
+                            };
 
-                        } );
+                            Fugitivas.Notifica( result.type, result.mensagem );
+
+                        });
 
                     } else
                     {
                         Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO.remove( objeto );
                         var id  = Fugitivas.ModelFugitivas.idPonto();
-                        var nodeFix = document.querySelector( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
-                        if ( nodeFix.parentNode )
+                        jsPlumb.ready( function ()
                         {
-                          jsPlumb.ready( function ()
-                          {
-                            Fugitivas.conectionInstance.batch(function(){
-                              Fugitivas.conectionInstance.remove( $('.namePoint[data-id="' + id + '"]') );
-                            });
+                          Fugitivas.conectionInstance.batch(function(){
+                            Fugitivas.conectionInstance.remove( $('.namePoint[data-id="' + id + '"]') );
                           });
-                            nodeFix.parentNode.removeChild( nodeFix );
-                        }
-
+                        });
+                        $( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).off().remove();
                         Fugitivas.Notifica( true, "Ponto Deletado com Sucesso!" );
                     }
                 } else
                 {
-                    var node = document.querySelector( '.pointInitial[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
-                    if ( node.parentNode )
-                    {
-                        node.parentNode.removeChild( node );
-                    }
-
+                  $( '.pointInitial[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).off().remove();
                 }
                 $( "#NoteDialog" ).dialog( "close" );
             }

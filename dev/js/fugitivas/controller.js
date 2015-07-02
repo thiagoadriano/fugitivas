@@ -1,5 +1,3 @@
-﻿var Fugitivas = Fugitivas || {};
-
 'use strict';
 Fugitivas.Methods = {
     validarCampos: function ()
@@ -430,5 +428,5 @@ Fugitivas.Methods = {
             editPonto.POSICAO_TAG.LEFT( obj.leftPosition );
             Fugitivas.Notifica(true, "Posição atualizada com sucesso!");
         }
-    };    
+    }
 };

@@ -1,5 +1,3 @@
-﻿var Fugitivas = Fugitivas || {};
-
 'use strict';
 ko.components.register( 'form-content', {
     viewModel: function (params) {
@@ -258,22 +256,19 @@ ko.components.register( 'form-content', {
                             if ( result.type )
                             {
 
-                                Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO.remove( objeto );
-                                var id  = Fugitivas.ModelFugitivas.idPonto();
-                                var nodeFix = document.querySelector( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
+                              Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO.remove( objeto );
+                              var id  = Fugitivas.ModelFugitivas.idPonto();
+                              jsPlumb.ready( function ()
+                              {
+                                Fugitivas.conectionInstance.batch(function(){
+                                  Fugitivas.conectionInstance.remove( $('.namePoint[data-id="' + id + '"]') );
+                                });
+                              });
+                              $( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).off().remove();
 
-                                if ( nodeFix.parentNode )
-                                {
-                                    jsPlumb.ready( function ()
-                                    {
-                                      Fugitivas.conectionInstance.batch(function(){
-                                        Fugitivas.conectionInstance.remove( $('.namePoint[data-id="' + id + '"]') );
-                                      });
-                                    });
-                                    nodeFix.parentNode.removeChild( nodeFix );
-                                }
                             };
-                                Fugitivas.Notifica( result.type, result.mensagem );
+
+                            Fugitivas.Notifica( result.type, result.mensagem );
 
                         });
 
@@ -281,27 +276,18 @@ ko.components.register( 'form-content', {
                     {
                         Fugitivas.ModelFugitivas.dadosModal().PONTO_MEDICAO.remove( objeto );
                         var id  = Fugitivas.ModelFugitivas.idPonto();
-                        var nodeFix = document.querySelector( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
-                        if ( nodeFix.parentNode ){
-                          jsPlumb.ready( function ()
-                          {
-                            Fugitivas.conectionInstance.batch(function(){
-                              Fugitivas.conectionInstance.remove( $('.namePoint[data-id="' + id + '"]') );
-                            });
+                        jsPlumb.ready( function ()
+                        {
+                          Fugitivas.conectionInstance.batch(function(){
+                            Fugitivas.conectionInstance.remove( $('.namePoint[data-id="' + id + '"]') );
                           });
-                            nodeFix.parentNode.removeChild( nodeFix );
-                        };
-
+                        });
+                        $( '.fixPoint[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).off().remove();
                         Fugitivas.Notifica( true, "Ponto Deletado com Sucesso!" );
                     }
                 } else
                 {
-                    var node = document.querySelector( '.pointInitial[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' );
-                    if ( node.parentNode )
-                    {
-                        node.parentNode.removeChild( node );
-                    }
-
+                  $( '.pointInitial[data-id="' + Fugitivas.ModelFugitivas.idPonto() + '"]' ).off().remove();
                 }
                 $( "#NoteDialog" ).dialog( "close" );
             }
